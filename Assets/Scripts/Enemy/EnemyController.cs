@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class EnemyController : MonoBehaviour, IDamageable
-{
+{   
     [SerializeField]
     protected Character _controllableCharacter;
     [SerializeField]
@@ -16,13 +16,13 @@ public class EnemyController : MonoBehaviour, IDamageable
     protected float _maxAttackDistance;
     [SerializeField]
     protected float _minAttackDistance;
-    [SerializeField]
-    protected float _enemyDifficulty;
+    [SerializeField] [Range(1 , 10)]
+    protected int _enemyDifficulty;
     [SerializeField]
     protected LayerMask _raycastLayers;
     protected NavMeshAgent _navMeshAgent;
 
-    public float EnemyDifficulty => _enemyDifficulty;
+    public int Difficulty => _enemyDifficulty;
     public Action<EnemyController> OnDie;
 
     public virtual void RecieveDamage(float damage, GameObject sender)

@@ -36,7 +36,7 @@ public class LevelCreator : MonoBehaviour
         _roomsMap = new Room[_maxXPos, _maxYPos];
     }
 
-    public void CreateLevel()
+    public void CreateLevel(EnemyWaveCreator enemyWaveCreator)
     {
         Stack<Room> roomCreationStack = new Stack<Room>();
 
@@ -133,7 +133,7 @@ public class LevelCreator : MonoBehaviour
 
     private bool TryFindAllAdjacentRooms(Vector2Int currentRoomMapPos, List<Room> adjacentRooms)
     {
-        foreach (var point in _roomsMap.GetCoordinatsOfAllAdjacentElements(currentRoomMapPos))
+        foreach (var point in _roomsMap.GetIndexesOfAllAdjacentElements(currentRoomMapPos))
         {
             if (_roomsMap[point.x, point.y] != null)
             {
@@ -146,7 +146,7 @@ public class LevelCreator : MonoBehaviour
 
     private bool TryFindAllAdjacentEmptyPoint(Vector2Int currentRoomMapPos, List<Vector2Int> adjacentEmptyPoints)
     {
-        foreach (var point in _roomsMap.GetCoordinatsOfAllAdjacentElements(currentRoomMapPos))
+        foreach (var point in _roomsMap.GetIndexesOfAllAdjacentElements(currentRoomMapPos))
         {
             if (_roomsMap[point.x, point.y] == null)
             {

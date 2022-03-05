@@ -5,6 +5,8 @@ using UnityEngine;
 public class LevelController : MonoBehaviour
 {
     [SerializeField]
+    private EnemyWaveCreator _evemyWaveCreator;
+    [SerializeField]
     private LevelCreator _currentLevelCreator;
     [SerializeField]
     private Player _player;
@@ -16,7 +18,7 @@ public class LevelController : MonoBehaviour
 
     private void BeginLevel()
     {
-        _currentLevelCreator.CreateLevel();
+        _currentLevelCreator.CreateLevel(_evemyWaveCreator);
         _player.SetCharacterPosition(_currentLevelCreator.StartRoom.transform.position);
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 
 public static class ArrayExtensions
 {
-    public static IEnumerable<Vector2Int> GetCoordinatsOfAllAdjacentElements<T>(this T[,] array, Vector2Int point)
+    public static IEnumerable<Vector2Int> GetIndexesOfAllAdjacentElements<T>(this T[,] array, Vector2Int point)
     {
         Vector2Int deltaPoint = Vector2Int.right;
 

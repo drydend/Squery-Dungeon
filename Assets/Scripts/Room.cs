@@ -9,8 +9,10 @@ public class Room : MonoBehaviour
     private int _maxConnections;
     private int _connectionsAmount;
     private RoomState _roomState = RoomState.NotFinished;
+    private List<EnemyWave> _enemyWaves;
+    [SerializeField]
+    private int _maxEnemiesPerWave;
 
-    
     [SerializeField]
     private GameObject _gatewayPrefab;
     [SerializeField]
@@ -27,19 +29,15 @@ public class Room : MonoBehaviour
     public bool CanBeConnected => _maxConnections > _connectionsAmount;
     public Vector2Int MapPoistion => _mapPosition;
 
-    public void Initialize(Vector2Int mapPosition, int connectionsAmount)
+    public void Initialize(Vector2Int mapPosition, int connectionsAmount, List<EnemyWave> enemyWaves)
     {
+        _enemyWaves = _enemyWaves;
         _mapPosition = mapPosition;
         _maxConnections = connectionsAmount;
         _upperEntrance.Block();
         _rightEntrance.Block();
         _leftEntrance.Block();
         _lowerEntrance.Block();
-    }
-
-    public void SetMapPosition(Vector2Int position)
-    {
-        _mapPosition = position;
     }
 
     public bool TryConnectToRoom(Room room)
