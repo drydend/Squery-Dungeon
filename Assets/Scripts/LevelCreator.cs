@@ -5,13 +5,18 @@ public class LevelCreator : MonoBehaviour
 {
     private const int _minRoomConnections = 2;
     private const int _maxRoomConnections = 4;
-    
     [SerializeField]
-    private List<Room> _roomsPrefabs;
+    private AnimationCurve _difficultyCurve;
+    [SerializeField]
+    private List<TrialRoom> _trialRoomsPrefabs;
     [SerializeField]
     private List<Room> _specialRoomPrefabs;
     [SerializeField]
-    private Room _startRoomPrefab;
+    private StartRoom _startRoomPrefab;
+    [SerializeField]
+    private int _startRoomMapPosX = 0;
+    [SerializeField]
+    private int _startRoomMapPosY = 0;
     [SerializeField]
     private Room _finaleRommPrefab;
     [SerializeField]
@@ -19,7 +24,7 @@ public class LevelCreator : MonoBehaviour
     [SerializeField]
     private float _distanceBetweenRomms;
     [SerializeField]
-    private int _roomsAmount;
+    private int _numberOfRooms;
     [SerializeField]
     private int _maxXPos;
     [SerializeField]
@@ -28,7 +33,7 @@ public class LevelCreator : MonoBehaviour
     private float _minRoomConnectionsDelta;
     private float _maxRoomConnectionsDelta;
 
-    public Room StartRoom { get; private set; }
+    public StartRoom StartRoom { get; private set; }
     public Room FinaleRoom { get; private set; }
 
     private void Awake()
@@ -36,35 +41,38 @@ public class LevelCreator : MonoBehaviour
         _roomsMap = new Room[_maxXPos, _maxYPos];
     }
 
-    public void CreateLevel(EnemyWaveCreator enemyWaveCreator)
+    public void CreateLevel(EnemyWaveCreator enemyWaveCreator, Character targetForEnemiesByDefault)
     {
         Stack<Room> roomCreationStack = new Stack<Room>();
-
-        var startRoomPosX = Random.Range(0, _maxXPos);
-        var startRoomPosY = Random.Range(0, _maxYPos);
-        var startRoomWorldPos = new Vector2(startRoomPosX * _distanceBetweenRomms, startRoomPosY * _distanceBetweenRomms);
+        var startRoomWorldPos = new Vector2(_startRoomMapPosX * _distanceBetweenRomms, _startRoomMapPosY * _distanceBetweenRomms);
 
         var startRoom = Instantiate(_startRoomPrefab, startRoomWorldPos, _startRoomPrefab.transform.rotation);
         StartRoom = startRoom;
         roomCreationStack.Push(startRoom);
-        startRoom.Initialize(new Vector2Int(startRoomPosX, startRoomPosY), 1);
-        _roomsMap[startRoomPosX, startRoomPosY] = startRoom;
+        startRoom.Initialize(new Vector2Int(_startRoomMapPosX, _startRoomMapPosY), 1);
+        _roomsMap[_startRoomMapPosX, _startRoomMapPosY] = startRoom;
 
-        var currentRoom = startRoom;
+        Room currentRoom = startRoom;
 
-        int amountOfGeneratedRooms = 0;
-        while (amountOfGeneratedRooms < _roomsAmount)
+        int numberOfGeneratedRooms = 0;
+        while (numberOfGeneratedRooms < _numberOfRooms)
         {
             var adjacentEmptyPoints = new List<Vector2Int>();
             var adjacentRooms = new List<Room>();
             if (currentRoom.CanBeConnected && TryFindAllAdjacentEmptyPoint(currentRoom.MapPoistion, adjacentEmptyPoints))
             {
+                int roomDifficulty = (int)_difficultyCurve.Evaluate(numberOfGeneratedRooms / _numberOfRooms) * 10;
                 var roomMapPos = adjacentEmptyPoints[Random.Range(0, adjacentEmptyPoints.Count)];
                 var roomWorldsPos = RoomMapToWorldsPosititon(roomMapPos);
-                var roomPrefab = _roomsPrefabs[Random.Range(0, _roomsPrefabs.Count)];
+                var roomPrefab = _trialRoomsPrefabs[Random.Range(0, _trialRoomsPrefabs.Count)];
 
                 var newRoom = Instantiate(roomPrefab, roomWorldsPos, roomPrefab.transform.rotation);
+
                 newRoom.Initialize(roomMapPos, GetConnectionsAmountForRoom(roomMapPos));
+                var enemyWaves = enemyWaveCreator.GenerateEnemyWaves(roomDifficulty, newRoom.MaxEnemiesInWave, newRoom.MinEnemiesInWave);
+                newRoom.SetEnemyWaves(enemyWaves);
+                newRoom.SetTargetForEnemirsByDefault(targetForEnemiesByDefault);
+
                 _roomsMap[roomMapPos.x, roomMapPos.y] = newRoom;
                 newRoom.TryConnectToRoom(currentRoom);
                 TryFindAllAdjacentRooms(newRoom.MapPoistion, adjacentRooms);
@@ -75,7 +83,7 @@ public class LevelCreator : MonoBehaviour
                 {
                     roomCreationStack.Push(newRoom);
                 }
-                amountOfGeneratedRooms++;
+                numberOfGeneratedRooms++;
                 currentRoom = newRoom;
             }
             else

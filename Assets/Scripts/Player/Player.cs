@@ -54,16 +54,16 @@ public class Player : MonoBehaviour , IDamageable
     private void FixedUpdate()
     {
         _currentCharacter.Move(PlayerInput.Instance.PlayerMoveDirection);
-        _currentCharacter.LookAt(PlayerInput.Instance.CurrentMousePoisition);
+        _currentCharacter.transform.LookAt2D(PlayerInput.Instance.CurrentMousePoisition);
         if (PlayerInput.Instance.IsAttackButtonBeingHolded)
         {
-            _currentCharacter.Attack();
+            _currentCharacter.Attack(PlayerInput.Instance.CurrentMousePoisition);
         }
     }
 
     private void OnEnable()
     {
-        PlayerInput.Instance.AttackButton.performed += (context) => _currentCharacter.Attack();
+        PlayerInput.Instance.AttackButton.performed += (context) => _currentCharacter.Attack(PlayerInput.Instance.CurrentMousePoisition);
         PlayerInput.Instance.ChangeCharacterToTriangle.performed += (context) =>
             _characterTypeController.TrySetCharacter(CharacterType.Triangle, out _currentCharacter);
         PlayerInput.Instance.ChangeCharacterToSquare.performed += (context) =>

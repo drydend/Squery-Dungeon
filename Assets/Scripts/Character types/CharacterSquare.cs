@@ -17,23 +17,18 @@ public class CharacterSquare : Character
 
     private Vector3 _scaleByDefault;
 
-    public override void Attack()
+    public override void UseAbility()
+    {
+
+    }
+
+    public override void Attack(Vector3 targetPosition)
     {
         if (_attackTimer.IsFinished)
         {
             _attackTimer.ResetTimer();
             StartCoroutine(AttackAnimation());
         }
-    }
-
-    public override void UseAbility()
-    {
-
-    }
-
-    public override void Attack(Transform target)
-    {
-
     }
 
     public override void Initialize()

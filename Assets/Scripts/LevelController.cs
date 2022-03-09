@@ -18,7 +18,7 @@ public class LevelController : MonoBehaviour
 
     private void BeginLevel()
     {
-        _currentLevelCreator.CreateLevel(_evemyWaveCreator);
+        _currentLevelCreator.CreateLevel(_evemyWaveCreator, _player.CurrentCharacter);
         _player.SetCharacterPosition(_currentLevelCreator.StartRoom.transform.position);
     }
 }

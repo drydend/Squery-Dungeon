@@ -21,18 +21,13 @@ public class CharacterTriangle : Character
         _attackTimer.UpdateTick(Time.deltaTime);
     }
 
-    public override void Attack()
+    public override void Attack(Vector3 targetPosition)
     {
         if (_attackTimer.IsFinished)
         {
-            _weapon.Attack();
+            transform.LookAt2D(targetPosition);
+            _weapon.Attack(targetPosition);
         }
-    }
-
-    public override void Attack(Transform target)
-    {
-        LookAt(target.position);
-        Attack();
     }
 
     public override void UseAbility()

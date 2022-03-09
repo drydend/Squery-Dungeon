@@ -28,9 +28,6 @@ public class RoomEntrance : MonoBehaviour
         if (!_isBlocked)
         {
             StartCoroutine(OpeningAnimation());
-            _closingParticles.gameObject.SetActive(false);
-            _closingLight.gameObject.SetActive(false);
-            _closingCollider.gameObject.SetActive(false);
         }
     }
 
@@ -55,6 +52,9 @@ public class RoomEntrance : MonoBehaviour
     {
         _isBlocked = false;
         _blockingBound.SetActive(false);
+        _closingParticles.gameObject.SetActive(false);
+        _closingLight.gameObject.SetActive(false);
+        _closingCollider.gameObject.SetActive(false);
     }
 
     private IEnumerator OpeningAnimation()
@@ -68,6 +68,10 @@ public class RoomEntrance : MonoBehaviour
             timeFromStart += Time.deltaTime;
             yield return null;
         }
+
+        _closingParticles.gameObject.SetActive(false);
+        _closingLight.gameObject.SetActive(false);
+        _closingCollider.gameObject.SetActive(false);
     }
         
     private IEnumerator ClosingAnimation()

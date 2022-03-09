@@ -11,16 +11,6 @@ public abstract class Character : MonoBehaviour
     public float Speed => _movementSpeed;
     public CharacterType CharacterType { get; protected set; }
 
-    public virtual void LookAt(Vector3 position) 
-    {
-        Vector3 diff = transform.position - position;
-        diff.Normalize();
-
-        float angle = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.x , transform.rotation.y, angle));
-
-    }
-
     public virtual void Move(Vector2 direction)
     {   
         _rigidbody2D.MovePosition(transform.position + (Vector3)direction * _movementSpeed * Time.fixedDeltaTime);
@@ -41,8 +31,7 @@ public abstract class Character : MonoBehaviour
 
     public abstract void IncreaseStat(StatType statType, float value);
     public abstract void DecreaseStat(StatType statType, float value);
-    public abstract void Attack();
-    public abstract void Attack(Transform target);
+    public abstract void Attack(Vector3 targetPosition);
     public abstract void UseAbility();
 }
 

@@ -4,22 +4,18 @@ using UnityEngine;
 
 public class CharacterPentagon : Character
 {
-    public override void Attack()
-    {
-        
-    }
-
     public override void UseAbility()
     {
         
     }
+
     public override void Initialize()
     {
         CharacterType = CharacterType.Pentagon;
         base.Initialize();
     }
 
-    public override void Attack(Transform target)
+    public override void Attack(Vector3 targetPosition)
     {
         throw new System.NotImplementedException();
     }

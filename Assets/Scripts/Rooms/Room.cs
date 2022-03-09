@@ -4,34 +4,26 @@ using UnityEngine;
 
 public class Room : MonoBehaviour
 {
-    private Vector2Int _mapPosition;
-    private float _levelDifficulty;
-    private int _maxConnections;
-    private int _connectionsAmount;
-    private RoomState _roomState = RoomState.NotFinished;
-    private List<EnemyWave> _enemyWaves;
+    protected Vector2Int _mapPosition;
+    protected int _maxConnections;
+    protected int _connectionsAmount;
     [SerializeField]
-    private int _maxEnemiesPerWave;
-
+    protected GameObject _gatewayPrefab;
     [SerializeField]
-    private GameObject _gatewayPrefab;
+    protected RoomEntrance _upperEntrance;
     [SerializeField]
-    private RoomEntrance _upperEntrance;
+    protected RoomEntrance _lowerEntrance;
     [SerializeField]
-    private RoomEntrance _lowerEntrance;
+    protected RoomEntrance _rightEntrance;
     [SerializeField]
-    private RoomEntrance _rightEntrance;
-    [SerializeField]
-    private RoomEntrance _leftEntrance;
+    protected RoomEntrance _leftEntrance;
 
     public int MaxConnections => _maxConnections;
-    public float LevelDifficulty => _levelDifficulty;
     public bool CanBeConnected => _maxConnections > _connectionsAmount;
     public Vector2Int MapPoistion => _mapPosition;
 
-    public void Initialize(Vector2Int mapPosition, int connectionsAmount, List<EnemyWave> enemyWaves)
+    public void Initialize(Vector2Int mapPosition, int connectionsAmount)
     {
-        _enemyWaves = _enemyWaves;
         _mapPosition = mapPosition;
         _maxConnections = connectionsAmount;
         _upperEntrance.Block();
@@ -79,23 +71,6 @@ public class Room : MonoBehaviour
         else
         {
             return false;
-        }
-    }
-
-    private void StartRoomTrial()
-    {
-        _upperEntrance.Close();
-        _lowerEntrance.Close();
-        _rightEntrance.Close();
-        _leftEntrance.Close();
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.TryGetComponent(out Character character) && _roomState == RoomState.NotFinished)
-        {
-            _roomState = RoomState.InProcess;
-            StartRoomTrial();
         }
     }
 }

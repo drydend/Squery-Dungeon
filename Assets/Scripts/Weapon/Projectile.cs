@@ -8,15 +8,15 @@ public class Projectile : MonoBehaviour
     private Vector2 _direction;
     private float _speed;
     private float _damage = 1f;
-    private Character _sender;
+    private GameObject _owner;
 
     [SerializeField]
     private ParticleSystem _deathParticle; 
     private Rigidbody2D _rigidbody2D;
 
-    public void Initialize(Vector2 direction, float speed, float damage, Character sender)
+    public void Initialize(Vector2 direction, float speed, float damage, GameObject owner)
     {
-        _sender = sender;
+        _owner = owner;
         _direction = direction;
         _speed = speed;
         _damage = damage;
@@ -37,20 +37,23 @@ public class Projectile : MonoBehaviour
             return;
         }
 
-        if (collision.gameObject.TryGetComponent(out IDamageable damageable))
+        if (_owner != collision.gameObject)
         {
-            damageable.RecieveDamage(_damage, gameObject);
-            Destroy(gameObject);
-        }
-        else 
-        {
-            Destroy(gameObject);
+            if (collision.gameObject.TryGetComponent(out IDamageable damageable))
+            {
+                damageable.RecieveDamage(_damage, gameObject);
+                Destroy(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
     private void LookInDirection()
     {
-        float angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg - 90;
+        float angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg - 180 ;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 

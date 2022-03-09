@@ -86,6 +86,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6393331585658017686}
     m_Modifications:
+    - target: {fileID: 1208935501, guid: 6da42aa6a2d006e4589ef9a9f5a5b88f, type: 3}
+      propertyPath: m_LightVolumeOpacity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6989749871075246374, guid: 6da42aa6a2d006e4589ef9a9f5a5b88f,
         type: 3}
       propertyPath: m_RootOrder
@@ -145,11 +149,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Triangle
-      objectReference: {fileID: 0}
-    - target: {fileID: 6989749871075246395, guid: 6da42aa6a2d006e4589ef9a9f5a5b88f,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6da42aa6a2d006e4589ef9a9f5a5b88f, type: 3}
