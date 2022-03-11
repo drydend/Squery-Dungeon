@@ -73,10 +73,8 @@ public class TrialRoom : Room
     {
         _currentNumberOfEnemies++;
         var spawnedEnemy = Instantiate(enemyController, GetRandomEnemyPosition(), enemyController.transform.rotation);
-        spawnedEnemy.Initialize();
+        spawnedEnemy.Initialize(_targetForEnemiesByDefault);
         spawnedEnemy.OnDie += () => _currentNumberOfEnemies--;
-        spawnedEnemy.SetTarget(_targetForEnemiesByDefault);
-        spawnedEnemy.OnSpawned();
     }
 
     private Vector3 GetRandomEnemyPosition()

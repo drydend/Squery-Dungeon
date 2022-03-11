@@ -47,8 +47,9 @@ public class EnemyWaveCreator : MonoBehaviour
         {
             var enemySequence = new List<Enemy>();
 
-            var minEnemiesInWaveByDifficulty = (int)Mathf.Lerp(minEnemiesInWave, maxEnemiesInWave,lerpFactor );
-
+            int averageEnemiesInWave = (minEnemiesInWave + maxEnemiesInWave) / 2;
+            var minEnemiesInWaveByDifficulty = (int)Mathf.Lerp(minEnemiesInWave, averageEnemiesInWave, lerpFactor);
+            var maxEnemiesInWaveByDifficulty = (int)Mathf.Lerp(averageEnemiesInWave, maxEnemiesInWave, lerpFactor);
             int numberOfEnemiesInCurrentWave = Random.Range(minEnemiesInWaveByDifficulty, maxEnemiesInWave);
 
             for (int i = 0; i < numberOfEnemiesInCurrentWave; i++)

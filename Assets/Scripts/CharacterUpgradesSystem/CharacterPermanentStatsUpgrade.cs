@@ -20,17 +20,3 @@ public class CharacterPermanentStatsUpgrade : ScriptableObject
     public StatType StatType => _statType;
 }
 
-public enum UpgradeType
-{
-    IncreaseStat,
-    DecreaseStat
-}
-
-public enum StatType
-{
-    Speed,
-    Heals,
-    AttackDamage,
-    AttackSpeed
-}
-

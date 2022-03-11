@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-class Timer
+public class Timer
 {
     public event Action OnFinished;
 

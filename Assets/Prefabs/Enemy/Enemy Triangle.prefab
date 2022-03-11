@@ -83,7 +83,7 @@ GameObject:
   - component: {fileID: 2551171430907470465}
   - component: {fileID: 2551171430907470470}
   - component: {fileID: 2551171430907470471}
-  - component: {fileID: 5997347144809340328}
+  - component: {fileID: 8780644569926493271}
   - component: {fileID: 538057588}
   - component: {fileID: 538057589}
   m_Layer: 10
@@ -183,8 +183,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!58 &5997347144809340328
-CircleCollider2D:
+--- !u!60 &8780644569926493271
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -197,8 +197,37 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.6
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.6660819, y: 0.5}
+    oldSize: {x: 0.855, y: 0.99}
+    newSize: {x: 1.71, y: 1.98}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.25049987, y: 0.49499997}
+      - {x: 0.21549988, y: 0.475}
+      - {x: 0.09549987, y: 0.405}
+      - {x: 0.025499877, y: 0.36499998}
+      - {x: 0.0004998779, y: 0.35}
+      - {x: -0.06950012, y: 0.31}
+      - {x: -0.41450012, y: 0.11}
+      - {x: -0.5445001, y: 0.035}
+      - {x: -0.5695001, y: 0.015}
+      - {x: -0.5695001, y: -0.02}
+      - {x: -0.5095001, y: -0.055}
+      - {x: -0.43950012, y: -0.095}
+      - {x: -0.12950012, y: -0.275}
+      - {x: -0.05950012, y: -0.315}
+      - {x: 0.025499877, y: -0.35999998}
+      - {x: 0.060499877, y: -0.385}
+      - {x: 0.13049987, y: -0.42499998}
+      - {x: 0.25549987, y: -0.49499997}
+      - {x: 0.28549987, y: -0.49499997}
+      - {x: 0.28549987, y: 0.49499997}
 --- !u!195 &538057588
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -208,17 +237,17 @@ NavMeshAgent:
   m_GameObject: {fileID: 2551171430907470492}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1.09
+  m_Radius: 0.5
   m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 360
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 1.9
-  m_BaseOffset: 0.95
+  m_Height: 1
+  m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &538057589
@@ -237,15 +266,52 @@ MonoBehaviour:
     type: 3}
   _spawnExplosionParticle: {fileID: 2624291922052365963, guid: c88d47a6571af3c46951fedc863893e1,
     type: 3}
-  _target: {fileID: 0}
+  _spawnAnimationDuration: 0.3
+  _recievingDamageAnimationDuration: 0.3
+  _recievingDamageColor: {r: 1, g: 1, b: 1, a: 0}
+  _recievingDamageAnimation:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.45
+      value: 0.99999875
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 0.9999977
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 0
+    m_RotationOrder: 4
   _maxHealsPoints: 2
+  _deathParticle: {fileID: 1309363937813832905, guid: f779a4fde0c4d624d91f5a014ee12f24,
+    type: 3}
   _maxAttackDistance: 17
   _minAttackDistance: 10
   _enemyDifficulty: 1
+  _target: {fileID: 0}
   _raycastLayers:
     serializedVersion: 2
     m_Bits: 1792
-  _spawnAnimationDuration: 0.3
   _weapon: {fileID: 6066173975325511981}
   _attackSpeed: 1
 --- !u!1 &4586656368892806384
