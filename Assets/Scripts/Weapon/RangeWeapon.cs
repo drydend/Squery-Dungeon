@@ -5,29 +5,36 @@ using UnityEngine;
 public class RangeWeapon : MonoBehaviour
 {   
     [SerializeField]
-    private Transform _projectileSpawnPosition;
+    protected Transform _projectileSpawnPosition;
     [SerializeField]
-    private ParticleSystem _shootingParticle;
+    protected ParticleSystem _shootingParticle;
     [SerializeField]
-    private GameObject _projectilePrefab;
+    protected Projectile _projectilePrefab;
     [SerializeField]
-    private float _projectileDamage = 1f;
+    protected float _projectileDamage = 1f;
     [SerializeField]
-    private float _projedtileSpeed = 20f;
+    protected float _projedtileSpeed = 20f;
     [SerializeField]
-    private GameObject _owner;
+    protected GameObject _owner;
 
-    public event Action OnBeginAttack;
-    public event Action OnEndAttack;
+    public event Action OnShooted;
 
-    public void Attack(Vector3 targetPosition)
+    public virtual void Attack(Vector3 targetPosition)
     {
-        OnBeginAttack?.Invoke();
+        OnShooted?.Invoke();
         var projectileDirection = Vector2.ClampMagnitude(targetPosition - transform.position , 1);
-        var projectile = Instantiate(_projectilePrefab, _projectileSpawnPosition.position, Quaternion.identity)
-            .GetComponent<Projectile>();
+        ShootProjectile(projectileDirection);
+    }
+
+    private void ShootProjectile(Vector2 projectileDirection)
+    {
+        var projectile = Instantiate(_projectilePrefab, _projectileSpawnPosition.position, Quaternion.identity);
         Instantiate(_shootingParticle, _projectileSpawnPosition.position, Quaternion.identity);
         projectile.Initialize(projectileDirection, _projedtileSpeed, _projectileDamage, _owner);
     }
 
+    protected void InvokeOnShooted()
+    {
+        OnShooted?.Invoke();
+    }
 }

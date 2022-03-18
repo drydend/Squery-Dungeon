@@ -74,10 +74,3 @@ public class Room : MonoBehaviour
         }
     }
 }
-
-enum RoomState
-{   
-    NotFinished,
-    Finished,
-    InProcess,
-}

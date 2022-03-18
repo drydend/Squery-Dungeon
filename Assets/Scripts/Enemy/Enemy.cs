@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Linq;
 
-[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(NavMeshAgent), typeof(Animator))]
 public class Enemy : MonoBehaviour, IDamageable
 {
     [Header("Spawn animation")]
@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour, IDamageable
     protected ParticleSystem _spawnExplosionParticle;
     [SerializeField]
     protected float _spawnAnimationDuration = 1;
+
     [Header("Recieving damage animation")]
     [SerializeField]
     protected float _recievingDamageAnimationDuration;
@@ -23,12 +24,23 @@ public class Enemy : MonoBehaviour, IDamageable
     [SerializeField]
     protected AnimationCurve _recievingDamageAnimation;
 
+
+    [Header("Heals")]
     [SerializeField]
     protected float _maxHealsPoints;
     protected float _currentHealsPoints;
+
+    [Header("Camera shake configuration")]
+    [SerializeField]
+    protected float _cameraShakeStrenghtOnDeath = 0.1f;
+    [SerializeField]
+    protected float _cameraShakeDurationOnDeath = 0.2f;
     [SerializeField]
     protected ParticleSystem _deathParticle;
+    [SerializeField]
+    protected ParticleSystem _hitParticle;
 
+    [Header("Attack configuration")]
     [SerializeField]
     protected float _maxAttackDistance;
     [SerializeField]
@@ -39,9 +51,8 @@ public class Enemy : MonoBehaviour, IDamageable
     protected int _enemyDifficulty;
 
     [SerializeField]
-    protected Character _target;
-    [SerializeField]
     protected LayerMask _raycastLayers;
+    protected Character _target;
     protected NavMeshAgent _navMeshAgent;
 
     protected BaseEnemyState _currentState;
@@ -50,9 +61,13 @@ public class Enemy : MonoBehaviour, IDamageable
     protected bool _isInvulnerable;
     protected bool _isDead;
     protected bool _isSpawned;
+
+    protected Animator _animator;
     protected SpriteRenderer _spriteRenderer;
     protected Collider2D _collider;
 
+    public float CameraShakeStrenghtOnDeath => _cameraShakeStrenghtOnDeath;
+    public float CameraShakeDurationOnDeath => _cameraShakeDurationOnDeath;
     public float MaxAttackDistance => _maxAttackDistance;
     public float MinAttakcDistance => _minAttackDistance;
     public float DistanceToTarget => Vector2.Distance(_target.transform.position, transform.position);
@@ -65,6 +80,11 @@ public class Enemy : MonoBehaviour, IDamageable
     public void OnSpawn()
     {
         StartCoroutine(SpawnAnimation());
+    }
+
+    public virtual void Attack()
+    {
+
     }
 
     public void SwitchState<State>() where State : BaseEnemyState
@@ -81,6 +101,7 @@ public class Enemy : MonoBehaviour, IDamageable
             _currentState.OnEnter();
         }
     }
+
 
     public bool CanSeeTarget()
     {
@@ -104,6 +125,7 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         _currentHealsPoints = _maxHealsPoints;
         _target = target;
+        _animator = GetComponent<Animator>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<PolygonCollider2D>();
@@ -122,6 +144,9 @@ public class Enemy : MonoBehaviour, IDamageable
                 }
                 else
                 {
+                    var hitParticle = Instantiate(_hitParticle, transform.position, Quaternion.identity);
+                    var particleStartColor = hitParticle.main.startColor;
+                    particleStartColor = new ParticleSystem.MinMaxGradient(Color.white);
                     StartCoroutine(RecievingDamageAnimation());
                 }
 

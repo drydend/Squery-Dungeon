@@ -41,7 +41,7 @@ public class LevelCreator : MonoBehaviour
         _roomsMap = new Room[_maxXPos, _maxYPos];
     }
 
-    public void CreateLevel(EnemyWaveCreator enemyWaveCreator, Character targetForEnemiesByDefault)
+    public void CreateLevel(EnemyWaveCreator enemyWaveCreator, EnemySpawner enemySpawner)
     {
         Stack<Room> roomCreationStack = new Stack<Room>();
         var startRoomWorldPos = new Vector2(_startRoomMapPosX * _distanceBetweenRomms, _startRoomMapPosY * _distanceBetweenRomms);
@@ -71,7 +71,7 @@ public class LevelCreator : MonoBehaviour
                 newRoom.Initialize(roomMapPos, GetConnectionsAmountForRoom(roomMapPos));
                 var enemyWaves = enemyWaveCreator.GenerateEnemyWaves(roomDifficulty, newRoom.MaxEnemiesInWave, newRoom.MinEnemiesInWave);
                 newRoom.SetEnemyWaves(enemyWaves);
-                newRoom.SetTargetForEnemirsByDefault(targetForEnemiesByDefault);
+                newRoom.SetEnemySpawner(enemySpawner);
 
                 _roomsMap[roomMapPos.x, roomMapPos.y] = newRoom;
                 newRoom.TryConnectToRoom(currentRoom);

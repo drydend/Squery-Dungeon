@@ -10,7 +10,7 @@ public class CameraFollower : MonoBehaviour
     [SerializeField]
     private Player _player;
     [SerializeField]
-    private float _lerpFactor = 0.001f;
+    private float _lerpFactor = 0.1f;
 
     private void FixedUpdate()
     {

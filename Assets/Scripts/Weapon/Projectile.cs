@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Projectile : MonoBehaviour
@@ -9,9 +10,10 @@ public class Projectile : MonoBehaviour
     private float _speed;
     private float _damage = 1f;
     private GameObject _owner;
+    private bool _hitSomething = false;
 
     [SerializeField]
-    private ParticleSystem _deathParticle; 
+    private ParticleSystem _hitWallParticle; 
     private Rigidbody2D _rigidbody2D;
 
     public void Initialize(Vector2 direction, float speed, float damage, GameObject owner)
@@ -32,13 +34,14 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.isTrigger)
+        if (collision.isTrigger || _hitSomething)
         {
             return;
         }
 
         if (_owner != collision.gameObject)
-        {
+        {   
+            _hitSomething = true;
             if (collision.gameObject.TryGetComponent(out IDamageable damageable))
             {
                 damageable.RecieveDamage(_damage, gameObject);

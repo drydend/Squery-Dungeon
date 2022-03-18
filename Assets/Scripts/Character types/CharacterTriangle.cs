@@ -13,7 +13,7 @@ public class CharacterTriangle : Character
     private void Awake()
     {
         _attackTimer = new Timer(_attackSpeedPerSecond);
-        _weapon.OnBeginAttack += () => _attackTimer.ResetTimer();
+        _weapon.OnShooted += () => _attackTimer.ResetTimer();
     }
 
     private void Update()

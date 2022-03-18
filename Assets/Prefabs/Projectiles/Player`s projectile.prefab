@@ -192,7 +192,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8df20ea382eccf641b4a41527d4c0c65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _deathParticle: {fileID: 0}
+  _hitEnemyParticle: {fileID: 112468737741113653, guid: 3c44cdba929c70247868a1179cd9057f,
+    type: 3}
+  _hitWallParticle: {fileID: 0}
 --- !u!58 &8401229390313049669
 CircleCollider2D:
   m_ObjectHideFlags: 0

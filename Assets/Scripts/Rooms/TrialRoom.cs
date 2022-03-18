@@ -6,7 +6,6 @@ using UnityEngine.AI;
 
 public class TrialRoom : Room
 {
-    protected Character _targetForEnemiesByDefault;
     [SerializeField]
     private Transform _enemySpawnPoint;
     [SerializeField]
@@ -20,6 +19,8 @@ public class TrialRoom : Room
     [SerializeField]
     private int _minNumberOfEnemiesInWave = 2;
     private int _currentNumberOfEnemies;
+    [SerializeField]
+    private EnemySpawner _enemySpawner;
 
     private List<EnemyWave> _enemyWaves;
     private RoomState _roomState = RoomState.NotFinished;
@@ -32,9 +33,10 @@ public class TrialRoom : Room
     {
         _enemyWaves = enemyWaves;
     }
-    public void SetTargetForEnemirsByDefault(Character target)
+    
+    public void SetEnemySpawner(EnemySpawner enemySpawner)
     {
-        _targetForEnemiesByDefault = target;
+        _enemySpawner = enemySpawner;
     }
 
     private void StartRoomTrial()
@@ -69,15 +71,14 @@ public class TrialRoom : Room
         EndRoomTrial();
     }
 
-    private void SpawnEnemy(Enemy enemyController)
+    private void SpawnEnemy(Enemy enemyPrefab)
     {
         _currentNumberOfEnemies++;
-        var spawnedEnemy = Instantiate(enemyController, GetRandomEnemyPosition(), enemyController.transform.rotation);
-        spawnedEnemy.Initialize(_targetForEnemiesByDefault);
+        var spawnedEnemy = _enemySpawner.SpawnEnemy(this, enemyPrefab);
         spawnedEnemy.OnDie += () => _currentNumberOfEnemies--;
     }
 
-    private Vector3 GetRandomEnemyPosition()
+    public Vector3 GetRandomPositionInRoom()
     {
         var randomPoint = _enemySpawnPoint.position + (Vector3)UnityEngine.Random.insideUnitCircle * _enemySpawnRange;
         NavMeshHit navMeshHit;
