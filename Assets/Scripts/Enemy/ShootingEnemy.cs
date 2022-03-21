@@ -90,4 +90,9 @@ public class ShootingEnemy : Enemy
         }
 
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        OnCollisionEnter2DBase(collision);
+    }
 }

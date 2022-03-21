@@ -6,8 +6,6 @@ using UnityEngine;
 public class CharacterPermanentStatsUpgrade : ScriptableObject
 {
     [SerializeField]
-    private CharacterType _characterType;
-    [SerializeField]
     private UpgradeType _upgradeType;
     [SerializeField]
     private StatType _statType;
@@ -15,7 +13,6 @@ public class CharacterPermanentStatsUpgrade : ScriptableObject
     private float _value = 0f;
 
     public float Value => _value;
-    public CharacterType CharacterType => _characterType;
     public UpgradeType UpgradeType => _upgradeType;
     public StatType StatType => _statType;
 }

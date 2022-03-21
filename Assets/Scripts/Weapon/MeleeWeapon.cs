@@ -29,7 +29,7 @@ public class MeleeWeapon : MonoBehaviour
         var colliders = Physics2D.OverlapCircleAll(transform.position, _attackRadius, _whatCanBeDamaged);
         foreach (var collider in colliders)
         {
-            collider.GetComponent<IDamageable>()?.RecieveDamage(_damage, gameObject);
+            collider.GetComponent<IHitable>()?.RecieveHit(_damage, gameObject);
         }
     }
 

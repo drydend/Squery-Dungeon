@@ -1,30 +1,44 @@
 ﻿using System;
 using UnityEngine;
 
-public class Player : MonoBehaviour , IDamageable
+public class Player : MonoBehaviour 
 { 
     [SerializeField]
-    private float _maxHealsPoints;
-    private float _currentHealsPoints;
-
-    private CharacterTypeController _characterTypeController;
+    private PlayerInput _input;
+    [SerializeField]
     private Character _currentCharacter;
 
     public Character CurrentCharacter => _currentCharacter;
     public Transform CharacterTransform => _currentCharacter.transform;
     
-    public void Initialize(CharacterTypeController characterTypeController)
+    private void FixedUpdate()
     {
-        _characterTypeController = characterTypeController;
-        _currentCharacter = _characterTypeController.CurrentCharacter;
+        _currentCharacter.Move(_input.PlayerMoveDirection);
+        _currentCharacter.transform.LookAt2D(_input.CurrentMousePoisition);
+        if (_input.IsAttackButtonBeingHolded)
+        {
+            _currentCharacter.Attack(_input.CurrentMousePoisition);
+        }
     }
 
-    public void IncreaseCharactersStat(CharacterType characterType, StatType statType, float value)
+    private void OnEnable()
+    {
+        _input.DashButton.performed += (context) => _currentCharacter.Dash(_input.PlayerMoveDirection);
+        _input.AttackButton.performed += (context) => _currentCharacter.Attack(_input.CurrentMousePoisition);
+    }
+
+    private void OnDisable()
+    {
+        _input.AttackButton.performed -= (context) => _currentCharacter.Attack(_input.CurrentMousePoisition);
+        _input.DashButton.performed -= (context) => _currentCharacter.Dash(_input.PlayerMoveDirection);
+    }
+    
+    public void IncreaseCharacterStat(StatType statType, float value)
     {
 
     }
 
-    public void DecreaseCharactersStat(CharacterType characterType, StatType statType, float value)
+    public void DecreaseCharacterStat(StatType statType, float value)
     {
 
     }
@@ -34,51 +48,4 @@ public class Player : MonoBehaviour , IDamageable
         _currentCharacter.transform.position = position;
     }
 
-    public virtual void RecieveDamage(float damage, GameObject sender)
-    {
-        if (damage >= 0)
-        {
-            _currentHealsPoints -= damage;
-        }
-        else
-        {
-            throw new Exception("Incorrect damage");
-        }
-    }
-
-    private void Awake()
-    {
-        _currentHealsPoints = _maxHealsPoints;
-    }
-
-    private void FixedUpdate()
-    {
-        _currentCharacter.Move(PlayerInput.Instance.PlayerMoveDirection);
-        _currentCharacter.transform.LookAt2D(PlayerInput.Instance.CurrentMousePoisition);
-        if (PlayerInput.Instance.IsAttackButtonBeingHolded)
-        {
-            _currentCharacter.Attack(PlayerInput.Instance.CurrentMousePoisition);
-        }
-    }
-
-    private void OnEnable()
-    {
-        PlayerInput.Instance.AttackButton.performed += (context) => _currentCharacter.Attack(PlayerInput.Instance.CurrentMousePoisition);
-        PlayerInput.Instance.ChangeCharacterToTriangle.performed += (context) =>
-            _characterTypeController.TrySetCharacter(CharacterType.Triangle, out _currentCharacter);
-        PlayerInput.Instance.ChangeCharacterToSquare.performed += (context) =>
-            _characterTypeController.TrySetCharacter(CharacterType.Square, out _currentCharacter);
-        PlayerInput.Instance.ChangeCharacterToPentagon.performed += (context) =>
-            _characterTypeController.TrySetCharacter(CharacterType.Pentagon, out _currentCharacter);
-    }
-
-    private void OnDisable()
-    {
-        PlayerInput.Instance.ChangeCharacterToTriangle.performed -= (context) =>
-            _characterTypeController.TrySetCharacter(CharacterType.Triangle, out _currentCharacter);
-        PlayerInput.Instance.ChangeCharacterToSquare.performed -= (context) =>
-            _characterTypeController.TrySetCharacter(CharacterType.Square, out _currentCharacter);
-        PlayerInput.Instance.ChangeCharacterToPentagon.performed -= (context) =>
-            _characterTypeController.TrySetCharacter(CharacterType.Pentagon, out _currentCharacter);
-    }
 }

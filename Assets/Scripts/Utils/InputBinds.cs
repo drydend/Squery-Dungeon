@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/InputBinds.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/Utils/InputBinds.inputactions'
 
 using System;
 using System.Collections;
@@ -27,6 +27,14 @@ public class @InputBinds : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
+                    ""name"": ""Mouse"",
+                    ""type"": ""Value"",
+                    ""id"": ""1f2abe45-49b5-4b4c-a161-9f9ae581b1f4"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
                     ""name"": ""Attack"",
                     ""type"": ""Button"",
                     ""id"": ""1027ad0b-3188-44b1-80a6-71c7fe3b5878"",
@@ -35,42 +43,10 @@ public class @InputBinds : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""ChangeCharacterToTriangle"",
+                    ""name"": ""Dash"",
                     ""type"": ""Button"",
-                    ""id"": ""7b4fc2ba-fff2-4093-88fd-6a2419252c8e"",
+                    ""id"": ""e450b07f-08e1-4aa8-9714-15bcc00645c4"",
                     ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""ChangeCharacterToSquare"",
-                    ""type"": ""Button"",
-                    ""id"": ""b37e9e7b-6c89-4ff7-807e-1603eda0d60f"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""ChangeCharacterToPentagon"",
-                    ""type"": ""Button"",
-                    ""id"": ""b4bdd395-8970-484f-ba31-73e2d4df0a42"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""ChangeCharacterToOctagon"",
-                    ""type"": ""Button"",
-                    ""id"": ""020e95ef-0bcf-46f0-ab42-a680834d6caf"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Mouse"",
-                    ""type"": ""Value"",
-                    ""id"": ""1f2abe45-49b5-4b4c-a161-9f9ae581b1f4"",
-                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
                 }
@@ -84,50 +60,6 @@ public class @InputBinds : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Mouse and keyboard "",
                     ""action"": ""Attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""8e20b802-3ad3-4449-9fd3-9db1254bf404"",
-                    ""path"": ""<Keyboard>/1"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Mouse and keyboard "",
-                    ""action"": ""ChangeCharacterToTriangle"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""f187424b-ecf1-4039-adf7-aa472cb409e1"",
-                    ""path"": ""<Keyboard>/2"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Mouse and keyboard "",
-                    ""action"": ""ChangeCharacterToSquare"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""8f2aad35-73da-4722-94aa-6a96536162e0"",
-                    ""path"": ""<Keyboard>/3"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Mouse and keyboard "",
-                    ""action"": ""ChangeCharacterToPentagon"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""1baf009e-9d6d-4a27-9179-1b3563c749bf"",
-                    ""path"": ""<Keyboard>/4"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Mouse and keyboard "",
-                    ""action"": ""ChangeCharacterToOctagon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -188,6 +120,17 @@ public class @InputBinds : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""6faa1a12-b206-46c9-9cc0-37f34e0fc43a"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Mouse and keyboard "",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""b6520a14-781f-4ae5-acde-a86351f6246a"",
                     ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
@@ -222,12 +165,9 @@ public class @InputBinds : IInputActionCollection, IDisposable
         // Character
         m_Character = asset.FindActionMap("Character", throwIfNotFound: true);
         m_Character_Move = m_Character.FindAction("Move", throwIfNotFound: true);
-        m_Character_Attack = m_Character.FindAction("Attack", throwIfNotFound: true);
-        m_Character_ChangeCharacterToTriangle = m_Character.FindAction("ChangeCharacterToTriangle", throwIfNotFound: true);
-        m_Character_ChangeCharacterToSquare = m_Character.FindAction("ChangeCharacterToSquare", throwIfNotFound: true);
-        m_Character_ChangeCharacterToPentagon = m_Character.FindAction("ChangeCharacterToPentagon", throwIfNotFound: true);
-        m_Character_ChangeCharacterToOctagon = m_Character.FindAction("ChangeCharacterToOctagon", throwIfNotFound: true);
         m_Character_Mouse = m_Character.FindAction("Mouse", throwIfNotFound: true);
+        m_Character_Attack = m_Character.FindAction("Attack", throwIfNotFound: true);
+        m_Character_Dash = m_Character.FindAction("Dash", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -278,23 +218,17 @@ public class @InputBinds : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Character;
     private ICharacterActions m_CharacterActionsCallbackInterface;
     private readonly InputAction m_Character_Move;
-    private readonly InputAction m_Character_Attack;
-    private readonly InputAction m_Character_ChangeCharacterToTriangle;
-    private readonly InputAction m_Character_ChangeCharacterToSquare;
-    private readonly InputAction m_Character_ChangeCharacterToPentagon;
-    private readonly InputAction m_Character_ChangeCharacterToOctagon;
     private readonly InputAction m_Character_Mouse;
+    private readonly InputAction m_Character_Attack;
+    private readonly InputAction m_Character_Dash;
     public struct CharacterActions
     {
         private @InputBinds m_Wrapper;
         public CharacterActions(@InputBinds wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Character_Move;
-        public InputAction @Attack => m_Wrapper.m_Character_Attack;
-        public InputAction @ChangeCharacterToTriangle => m_Wrapper.m_Character_ChangeCharacterToTriangle;
-        public InputAction @ChangeCharacterToSquare => m_Wrapper.m_Character_ChangeCharacterToSquare;
-        public InputAction @ChangeCharacterToPentagon => m_Wrapper.m_Character_ChangeCharacterToPentagon;
-        public InputAction @ChangeCharacterToOctagon => m_Wrapper.m_Character_ChangeCharacterToOctagon;
         public InputAction @Mouse => m_Wrapper.m_Character_Mouse;
+        public InputAction @Attack => m_Wrapper.m_Character_Attack;
+        public InputAction @Dash => m_Wrapper.m_Character_Dash;
         public InputActionMap Get() { return m_Wrapper.m_Character; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -307,24 +241,15 @@ public class @InputBinds : IInputActionCollection, IDisposable
                 @Move.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnMove;
-                @Attack.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAttack;
-                @Attack.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAttack;
-                @Attack.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAttack;
-                @ChangeCharacterToTriangle.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnChangeCharacterToTriangle;
-                @ChangeCharacterToTriangle.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnChangeCharacterToTriangle;
-                @ChangeCharacterToTriangle.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnChangeCharacterToTriangle;
-                @ChangeCharacterToSquare.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnChangeCharacterToSquare;
-                @ChangeCharacterToSquare.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnChangeCharacterToSquare;
-                @ChangeCharacterToSquare.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnChangeCharacterToSquare;
-                @ChangeCharacterToPentagon.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnChangeCharacterToPentagon;
-                @ChangeCharacterToPentagon.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnChangeCharacterToPentagon;
-                @ChangeCharacterToPentagon.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnChangeCharacterToPentagon;
-                @ChangeCharacterToOctagon.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnChangeCharacterToOctagon;
-                @ChangeCharacterToOctagon.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnChangeCharacterToOctagon;
-                @ChangeCharacterToOctagon.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnChangeCharacterToOctagon;
                 @Mouse.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnMouse;
                 @Mouse.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnMouse;
                 @Mouse.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnMouse;
+                @Attack.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAttack;
+                @Attack.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAttack;
+                @Attack.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAttack;
+                @Dash.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnDash;
+                @Dash.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnDash;
+                @Dash.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnDash;
             }
             m_Wrapper.m_CharacterActionsCallbackInterface = instance;
             if (instance != null)
@@ -332,24 +257,15 @@ public class @InputBinds : IInputActionCollection, IDisposable
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
-                @Attack.started += instance.OnAttack;
-                @Attack.performed += instance.OnAttack;
-                @Attack.canceled += instance.OnAttack;
-                @ChangeCharacterToTriangle.started += instance.OnChangeCharacterToTriangle;
-                @ChangeCharacterToTriangle.performed += instance.OnChangeCharacterToTriangle;
-                @ChangeCharacterToTriangle.canceled += instance.OnChangeCharacterToTriangle;
-                @ChangeCharacterToSquare.started += instance.OnChangeCharacterToSquare;
-                @ChangeCharacterToSquare.performed += instance.OnChangeCharacterToSquare;
-                @ChangeCharacterToSquare.canceled += instance.OnChangeCharacterToSquare;
-                @ChangeCharacterToPentagon.started += instance.OnChangeCharacterToPentagon;
-                @ChangeCharacterToPentagon.performed += instance.OnChangeCharacterToPentagon;
-                @ChangeCharacterToPentagon.canceled += instance.OnChangeCharacterToPentagon;
-                @ChangeCharacterToOctagon.started += instance.OnChangeCharacterToOctagon;
-                @ChangeCharacterToOctagon.performed += instance.OnChangeCharacterToOctagon;
-                @ChangeCharacterToOctagon.canceled += instance.OnChangeCharacterToOctagon;
                 @Mouse.started += instance.OnMouse;
                 @Mouse.performed += instance.OnMouse;
                 @Mouse.canceled += instance.OnMouse;
+                @Attack.started += instance.OnAttack;
+                @Attack.performed += instance.OnAttack;
+                @Attack.canceled += instance.OnAttack;
+                @Dash.started += instance.OnDash;
+                @Dash.performed += instance.OnDash;
+                @Dash.canceled += instance.OnDash;
             }
         }
     }
@@ -366,11 +282,8 @@ public class @InputBinds : IInputActionCollection, IDisposable
     public interface ICharacterActions
     {
         void OnMove(InputAction.CallbackContext context);
-        void OnAttack(InputAction.CallbackContext context);
-        void OnChangeCharacterToTriangle(InputAction.CallbackContext context);
-        void OnChangeCharacterToSquare(InputAction.CallbackContext context);
-        void OnChangeCharacterToPentagon(InputAction.CallbackContext context);
-        void OnChangeCharacterToOctagon(InputAction.CallbackContext context);
         void OnMouse(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
+        void OnDash(InputAction.CallbackContext context);
     }
 }

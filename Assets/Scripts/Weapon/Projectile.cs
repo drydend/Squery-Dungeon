@@ -42,9 +42,9 @@ public class Projectile : MonoBehaviour
         if (_owner != collision.gameObject)
         {   
             _hitSomething = true;
-            if (collision.gameObject.TryGetComponent(out IDamageable damageable))
+            if (collision.gameObject.TryGetComponent(out IHitable hitable))
             {
-                damageable.RecieveDamage(_damage, gameObject);
+                hitable.RecieveHit(_damage, gameObject);
                 Destroy(gameObject);
             }
             else

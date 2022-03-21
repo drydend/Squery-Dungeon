@@ -6,7 +6,7 @@ using UnityEngine.AI;
 using System.Linq;
 
 [RequireComponent(typeof(NavMeshAgent), typeof(Animator))]
-public class Enemy : MonoBehaviour, IDamageable
+public class Enemy : MonoBehaviour, IHitable, IPushable
 {
     [Header("Spawn animation")]
     [SerializeField]
@@ -62,9 +62,15 @@ public class Enemy : MonoBehaviour, IDamageable
     protected bool _isDead;
     protected bool _isSpawned;
 
+    protected Rigidbody2D _rigidbody2D;
     protected Animator _animator;
     protected SpriteRenderer _spriteRenderer;
     protected Collider2D _collider;
+
+    [SerializeField]
+    private float _pushingDuration = 0.4f;
+    private bool _isPushed;
+    private Coroutine _pushingCoroutine;
 
     public float CameraShakeStrenghtOnDeath => _cameraShakeStrenghtOnDeath;
     public float CameraShakeDurationOnDeath => _cameraShakeDurationOnDeath;
@@ -102,7 +108,6 @@ public class Enemy : MonoBehaviour, IDamageable
         }
     }
 
-
     public bool CanSeeTarget()
     {
         var raycastDirection = -(transform.position - _target.transform.position).normalized;
@@ -125,13 +130,14 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         _currentHealsPoints = _maxHealsPoints;
         _target = target;
+        _rigidbody2D = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<PolygonCollider2D>();
     }
 
-    public virtual void RecieveDamage(float damage, GameObject sender)
+    public virtual void RecieveHit(float damage, GameObject sender)
     {
         if (damage >= 0 && !_isDead)
         {
@@ -158,13 +164,27 @@ public class Enemy : MonoBehaviour, IDamageable
         }
     }
 
+    public void ApplyForce(Vector2 direction, float force)
+    {
+        if (_pushingCoroutine != null)
+        {
+            StopCoroutine(_pushingCoroutine);
+        }
+
+        _pushingCoroutine = StartCoroutine(PushingCoroutine(direction, force));
+
+    }
+
+
     protected virtual IEnumerator SpawnAnimation()
     {
         _spriteRenderer.enabled = false;
         _collider.enabled = false;
+
         var spawningParticle = Instantiate(_spawnChargingParticle, transform);
         yield return new WaitUntil(() => spawningParticle.isStopped);
         var spawnExplosionParticle = Instantiate(_spawnExplosionParticle, transform);
+        
         _spriteRenderer.enabled = true;
         _collider.enabled = true;
         _isSpawned = true;
@@ -192,6 +212,29 @@ public class Enemy : MonoBehaviour, IDamageable
         Instantiate(_deathParticle, transform.position, Quaternion.identity);
         OnDie?.Invoke();
         Destroy(gameObject);
+    }
+    
+    private IEnumerator PushingCoroutine(Vector2 direction, float force)
+    {
+        var initialForce = force;
+        while (force > 0)
+        {
+            _rigidbody2D.velocity = direction * force;
+            force -= Time.deltaTime / _pushingDuration * initialForce;
+            yield return null;
+        }
+
+        _rigidbody2D.velocity = Vector2.zero;
+    }
+
+    protected void OnCollisionEnter2DBase(Collision2D collision)
+    {
+        if(collision.gameObject.TryGetComponent(out Character character))
+        {
+            var forceDirection = Vector2.ClampMagnitude(collision.transform.position - transform.position, 1);
+            character.ApplyForce(forceDirection, 25);
+            character.RecieveHit(1, gameObject);
+        }
     }
 
 }
