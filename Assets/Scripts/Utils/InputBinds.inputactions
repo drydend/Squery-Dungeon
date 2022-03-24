@@ -128,6 +128,33 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "UI",
+            "id": "37780691-eda0-4e50-921e-b39c5c543f3f",
+            "actions": [
+                {
+                    "name": "PauseOrUnpause",
+                    "type": "Button",
+                    "id": "e152c725-21a1-4ec9-9d0a-e80b822e1fce",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4a0838b3-cf75-47e7-a5dc-a1ae6e8cc1e4",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Mouse and keyboard ",
+                    "action": "PauseOrUnpause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

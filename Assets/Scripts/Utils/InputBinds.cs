@@ -141,6 +141,33 @@ public class @InputBinds : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""37780691-eda0-4e50-921e-b39c5c543f3f"",
+            ""actions"": [
+                {
+                    ""name"": ""PauseOrUnpause"",
+                    ""type"": ""Button"",
+                    ""id"": ""e152c725-21a1-4ec9-9d0a-e80b822e1fce"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""4a0838b3-cf75-47e7-a5dc-a1ae6e8cc1e4"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Mouse and keyboard "",
+                    ""action"": ""PauseOrUnpause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -168,6 +195,9 @@ public class @InputBinds : IInputActionCollection, IDisposable
         m_Character_Mouse = m_Character.FindAction("Mouse", throwIfNotFound: true);
         m_Character_Attack = m_Character.FindAction("Attack", throwIfNotFound: true);
         m_Character_Dash = m_Character.FindAction("Dash", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_PauseOrUnpause = m_UI.FindAction("PauseOrUnpause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -270,6 +300,39 @@ public class @InputBinds : IInputActionCollection, IDisposable
         }
     }
     public CharacterActions @Character => new CharacterActions(this);
+
+    // UI
+    private readonly InputActionMap m_UI;
+    private IUIActions m_UIActionsCallbackInterface;
+    private readonly InputAction m_UI_PauseOrUnpause;
+    public struct UIActions
+    {
+        private @InputBinds m_Wrapper;
+        public UIActions(@InputBinds wrapper) { m_Wrapper = wrapper; }
+        public InputAction @PauseOrUnpause => m_Wrapper.m_UI_PauseOrUnpause;
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public void SetCallbacks(IUIActions instance)
+        {
+            if (m_Wrapper.m_UIActionsCallbackInterface != null)
+            {
+                @PauseOrUnpause.started -= m_Wrapper.m_UIActionsCallbackInterface.OnPauseOrUnpause;
+                @PauseOrUnpause.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnPauseOrUnpause;
+                @PauseOrUnpause.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnPauseOrUnpause;
+            }
+            m_Wrapper.m_UIActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @PauseOrUnpause.started += instance.OnPauseOrUnpause;
+                @PauseOrUnpause.performed += instance.OnPauseOrUnpause;
+                @PauseOrUnpause.canceled += instance.OnPauseOrUnpause;
+            }
+        }
+    }
+    public UIActions @UI => new UIActions(this);
     private int m_MouseandkeyboardSchemeIndex = -1;
     public InputControlScheme MouseandkeyboardScheme
     {
@@ -285,5 +348,9 @@ public class @InputBinds : IInputActionCollection, IDisposable
         void OnMouse(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
+    }
+    public interface IUIActions
+    {
+        void OnPauseOrUnpause(InputAction.CallbackContext context);
     }
 }

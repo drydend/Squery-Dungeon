@@ -1,8 +1,8 @@
 ﻿using System;
 using UnityEngine;
 
-public class Player : MonoBehaviour 
-{ 
+public class Player : MonoBehaviour
+{
     [SerializeField]
     private PlayerInput _input;
     [SerializeField]
@@ -10,9 +10,12 @@ public class Player : MonoBehaviour
 
     public Character CurrentCharacter => _currentCharacter;
     public Transform CharacterTransform => _currentCharacter.transform;
-    
+
     private void FixedUpdate()
     {
+        if (PauseMenager.Instance.IsPaused)
+            return;
+
         _currentCharacter.Move(_input.PlayerMoveDirection);
         _currentCharacter.transform.LookAt2D(_input.CurrentMousePoisition);
         if (_input.IsAttackButtonBeingHolded)
@@ -32,7 +35,7 @@ public class Player : MonoBehaviour
         _input.AttackButton.performed -= (context) => _currentCharacter.Attack(_input.CurrentMousePoisition);
         _input.DashButton.performed -= (context) => _currentCharacter.Dash(_input.PlayerMoveDirection);
     }
-    
+
     public void IncreaseCharacterStat(StatType statType, float value)
     {
 
@@ -47,5 +50,4 @@ public class Player : MonoBehaviour
     {
         _currentCharacter.transform.position = position;
     }
-
 }

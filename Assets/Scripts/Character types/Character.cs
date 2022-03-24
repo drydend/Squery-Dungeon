@@ -10,10 +10,11 @@ public class Character : MonoBehaviour, IHitable, IPushable
     private float _dashDistance = 5f;
     [SerializeField]
     private float _dashDuration = 0.2f;
-    private bool _isDashing;
     private Coroutine _currentDashingCoroutine;
+    private bool _isDashing;
     [SerializeField]
     private float _dashingPushForce = 8;
+    [SerializeField]
     private float _defaultPushForce = 5;
     [SerializeField]
     private float _collisionDamage = 1;
@@ -60,21 +61,24 @@ public class Character : MonoBehaviour, IHitable, IPushable
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+
+        if (collision.gameObject.TryGetComponent(out IPushable pushable))
+        {
+            var forceDirection = Vector2.ClampMagnitude(collision.transform.position - transform.position, 1);
+            pushable.ApplyForce(forceDirection, _defaultPushForce);
+        }
+
         if (_isDashing)
         {
-            if (collision.gameObject.TryGetComponent(out IPushable pushable))
+            StopCoroutine(_currentDashingCoroutine);
+            _isDashing = false;
+            if (collision.gameObject.TryGetComponent(out Enemy enemy))
             {
-                var forceDirection = Vector2.ClampMagnitude(collision.transform.position - transform.position, 1);
-                pushable.ApplyForce(forceDirection, _dashingPushForce);
+                enemy.RecieveHit(_collisionDamage, gameObject);
             }
         }
 
-        if (collision.gameObject.TryGetComponent(out Enemy enemy))
-        {
-            var forceDirection = Vector2.ClampMagnitude(collision.transform.position - transform.position, 1);
-            enemy.ApplyForce(forceDirection, _defaultPushForce);
-            enemy.RecieveHit(_collisionDamage, gameObject);
-        }
+
     }
 
     public void Dash(Vector2 direction)
@@ -84,7 +88,7 @@ public class Character : MonoBehaviour, IHitable, IPushable
 
     public void Move(Vector2 direction)
     {
-        if (!_isDashing && !_isPushed)
+        if (!_isDashing)
         {
             _rigidbody2D.MovePosition(transform.position + (Vector3)direction * _movementSpeed * Time.fixedDeltaTime);
         }
@@ -119,6 +123,7 @@ public class Character : MonoBehaviour, IHitable, IPushable
         }
     }
 
+
     public void ApplyDamage(float damage)
     {
         if (damage >= 0)
@@ -131,12 +136,10 @@ public class Character : MonoBehaviour, IHitable, IPushable
         }
     }
 
-
     public void ApplyForce(Vector2 direction, float force)
     {
         StartCoroutine(PushingCoroutine(direction, force));
     }
-
 
     private IEnumerator BecomeInvulnerable(float time)
     {
@@ -171,7 +174,6 @@ public class Character : MonoBehaviour, IHitable, IPushable
             _rigidbody2D.velocity = direction * _dashDistance / _dashDuration;
             yield return new WaitForSeconds(_dashDuration);
             _rigidbody2D.velocity = Vector2.zero;
-
             _isDashing = false;
         }
     }
@@ -191,9 +193,9 @@ public class Character : MonoBehaviour, IHitable, IPushable
         _rigidbody2D.velocity = Vector2.zero;
     }
 
-
     private void Die()
     {
 
     }
+
 }

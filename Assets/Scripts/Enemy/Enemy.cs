@@ -61,6 +61,7 @@ public class Enemy : MonoBehaviour, IHitable, IPushable
     protected bool _isInvulnerable;
     protected bool _isDead;
     protected bool _isSpawned;
+    protected bool _isPaused;
 
     protected Rigidbody2D _rigidbody2D;
     protected Animator _animator;
@@ -69,7 +70,6 @@ public class Enemy : MonoBehaviour, IHitable, IPushable
 
     [SerializeField]
     private float _pushingDuration = 0.4f;
-    private bool _isPushed;
     private Coroutine _pushingCoroutine;
 
     public float CameraShakeStrenghtOnDeath => _cameraShakeStrenghtOnDeath;
@@ -88,6 +88,17 @@ public class Enemy : MonoBehaviour, IHitable, IPushable
         StartCoroutine(SpawnAnimation());
     }
 
+    public virtual void Initialize(Character target)
+    {
+        _currentHealsPoints = _maxHealsPoints;
+        _target = target;
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
+        _navMeshAgent = GetComponent<NavMeshAgent>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _collider = GetComponent<PolygonCollider2D>();
+    }
+    
     public virtual void Attack()
     {
 
@@ -126,41 +137,29 @@ public class Enemy : MonoBehaviour, IHitable, IPushable
         }
     }
 
-    public virtual void Initialize(Character target)
-    {
-        _currentHealsPoints = _maxHealsPoints;
-        _target = target;
-        _rigidbody2D = GetComponent<Rigidbody2D>();
-        _animator = GetComponent<Animator>();
-        _navMeshAgent = GetComponent<NavMeshAgent>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        _collider = GetComponent<PolygonCollider2D>();
-    }
-
     public virtual void RecieveHit(float damage, GameObject sender)
     {
-        if (damage >= 0 && !_isDead)
+        if (_isInvulnerable)
         {
-            if (!_isInvulnerable)
-            {
-                _currentHealsPoints -= damage;
-                if (_currentHealsPoints <= 0)
-                {
-                    Die();
-                }
-                else
-                {
-                    var hitParticle = Instantiate(_hitParticle, transform.position, Quaternion.identity);
-                    var particleStartColor = hitParticle.main.startColor;
-                    particleStartColor = new ParticleSystem.MinMaxGradient(Color.white);
-                    StartCoroutine(RecievingDamageAnimation());
-                }
+            return;
+        }
 
-            }
+        if (damage <= 0 && _isDead)
+        {
+            Debug.LogError("Already dead or damage less than zero");
+        }
+
+        _currentHealsPoints -= damage;
+        if (_currentHealsPoints <= 0)
+        {
+            Die();
         }
         else
         {
-            Debug.LogError("Already dead or damage less than zero");
+            var hitParticle = Instantiate(_hitParticle, transform.position, Quaternion.identity);
+            var particleStartColor = hitParticle.main.startColor;
+            particleStartColor = new ParticleSystem.MinMaxGradient(Color.white);
+            StartCoroutine(RecievingDamageAnimation());
         }
     }
 
@@ -172,9 +171,7 @@ public class Enemy : MonoBehaviour, IHitable, IPushable
         }
 
         _pushingCoroutine = StartCoroutine(PushingCoroutine(direction, force));
-
     }
-
 
     protected virtual IEnumerator SpawnAnimation()
     {
@@ -184,7 +181,7 @@ public class Enemy : MonoBehaviour, IHitable, IPushable
         var spawningParticle = Instantiate(_spawnChargingParticle, transform);
         yield return new WaitUntil(() => spawningParticle.isStopped);
         var spawnExplosionParticle = Instantiate(_spawnExplosionParticle, transform);
-        
+
         _spriteRenderer.enabled = true;
         _collider.enabled = true;
         _isSpawned = true;
@@ -213,7 +210,7 @@ public class Enemy : MonoBehaviour, IHitable, IPushable
         OnDie?.Invoke();
         Destroy(gameObject);
     }
-    
+
     private IEnumerator PushingCoroutine(Vector2 direction, float force)
     {
         var initialForce = force;
@@ -226,15 +223,4 @@ public class Enemy : MonoBehaviour, IHitable, IPushable
 
         _rigidbody2D.velocity = Vector2.zero;
     }
-
-    protected void OnCollisionEnter2DBase(Collision2D collision)
-    {
-        if(collision.gameObject.TryGetComponent(out Character character))
-        {
-            var forceDirection = Vector2.ClampMagnitude(collision.transform.position - transform.position, 1);
-            character.ApplyForce(forceDirection, 25);
-            character.RecieveHit(1, gameObject);
-        }
-    }
-
 }
