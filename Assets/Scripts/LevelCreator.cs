@@ -33,6 +33,10 @@ public class LevelCreator : MonoBehaviour
     private float _minRoomConnectionsDelta;
     private float _maxRoomConnectionsDelta;
 
+    private EnemySpawner _enemySpawner;
+    private EnemyWaveCreator _enemyWaveCreator;
+    private PowerUpHandler _powerUpHandler;
+
     public StartRoom StartRoom { get; private set; }
     public Room FinaleRoom { get; private set; }
 
@@ -41,7 +45,14 @@ public class LevelCreator : MonoBehaviour
         _roomsMap = new Room[_maxXPos, _maxYPos];
     }
 
-    public void CreateLevel(EnemyWaveCreator enemyWaveCreator, EnemySpawner enemySpawner)
+    public void Initialize(EnemyWaveCreator enemyWaveCreator, EnemySpawner enemySpawner, PowerUpHandler powerUpHandler)
+    {
+        _enemySpawner = enemySpawner;
+        _enemyWaveCreator = enemyWaveCreator;
+        _powerUpHandler = powerUpHandler;
+    }
+
+    public void CreateLevel()
     {
         Stack<Room> roomCreationStack = new Stack<Room>();
         var startRoomWorldPos = new Vector2(_startRoomMapPosX * _distanceBetweenRomms, _startRoomMapPosY * _distanceBetweenRomms);
@@ -69,9 +80,10 @@ public class LevelCreator : MonoBehaviour
                 var newRoom = Instantiate(roomPrefab, roomWorldsPos, roomPrefab.transform.rotation);
 
                 newRoom.Initialize(roomMapPos, GetConnectionsAmountForRoom(roomMapPos));
-                var enemyWaves = enemyWaveCreator.GenerateEnemyWaves(roomDifficulty, newRoom.MaxEnemiesInWave, newRoom.MinEnemiesInWave);
+                var enemyWaves = _enemyWaveCreator.GenerateEnemyWaves(roomDifficulty, newRoom.MaxEnemiesInWave, newRoom.MinEnemiesInWave);
                 newRoom.SetEnemyWaves(enemyWaves);
-                newRoom.SetEnemySpawner(enemySpawner);
+                newRoom.SetEnemySpawner(_enemySpawner);
+                newRoom.SetRevardHandler(_powerUpHandler);
 
                 _roomsMap[roomMapPos.x, roomMapPos.y] = newRoom;
                 newRoom.TryConnectToRoom(currentRoom);

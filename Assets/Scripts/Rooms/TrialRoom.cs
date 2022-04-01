@@ -22,6 +22,7 @@ public class TrialRoom : Room
     [SerializeField]
     private EnemySpawner _enemySpawner;
 
+    private IRewardHandler _rewardHandler;                                    
     private List<EnemyWave> _enemyWaves;
     private RoomState _roomState = RoomState.NotFinished;
 
@@ -39,6 +40,24 @@ public class TrialRoom : Room
         _enemySpawner = enemySpawner;
     }
 
+    public void SetRevardHandler(IRewardHandler rewardHandler)
+    {
+        _rewardHandler = rewardHandler;
+    }
+
+    public Vector3 GetRandomPositionInRoom()
+    {
+        var randomPoint = _enemySpawnPoint.position + (Vector3)UnityEngine.Random.insideUnitCircle * _enemySpawnRange;
+        NavMeshHit navMeshHit;
+        if (NavMesh.SamplePosition(randomPoint, out navMeshHit, 5f, NavMesh.AllAreas))
+        {
+            var enemyPosition = navMeshHit.position;
+            return enemyPosition;
+        }
+        Debug.LogException(new Exception("Can`t find random place on navMesh"));
+        return Vector3.zero;
+    }
+    
     private void StartRoomTrial()
     {
         _upperEntrance.Close();
@@ -54,6 +73,7 @@ public class TrialRoom : Room
         _lowerEntrance.Open();
         _rightEntrance.Open();
         _leftEntrance.Open();
+        _rewardHandler.GiveReward();
     }
 
     private IEnumerator SpawnWaves()
@@ -78,18 +98,6 @@ public class TrialRoom : Room
         spawnedEnemy.OnDie += () => _currentNumberOfEnemies--;
     }
 
-    public Vector3 GetRandomPositionInRoom()
-    {
-        var randomPoint = _enemySpawnPoint.position + (Vector3)UnityEngine.Random.insideUnitCircle * _enemySpawnRange;
-        NavMeshHit navMeshHit;
-        if (NavMesh.SamplePosition(randomPoint, out navMeshHit, 5f, NavMesh.AllAreas))
-        {
-            var enemyPosition = navMeshHit.position;
-            return enemyPosition;
-        }
-        Debug.LogException(new Exception("Can`t find random place on navMesh"));
-        return Vector3.zero;
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

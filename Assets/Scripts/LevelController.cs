@@ -5,22 +5,30 @@ using UnityEngine;
 public class LevelController : MonoBehaviour
 {
     [SerializeField]
-    private EnemyWaveCreator _evemyWaveCreator;
+    private PowerUpHandler _powerUpHandler;
+    [SerializeField]
+    private EnemyWaveCreator _enemyWaveCreator;
+    [SerializeField]
+    private EnemySpawner _enemySpawner;
+
     [SerializeField]
     private LevelCreator _currentLevelCreator;
     [SerializeField]
-    private EnemySpawner _enemySpawner;
-    [SerializeField]
     private Player _player;
 
-    private void Start()
+    private void Awake()
     {
+        _currentLevelCreator.Initialize(_enemyWaveCreator, _enemySpawner, _powerUpHandler);
+    }
+
+    private void Start()
+    {   
         BeginLevel();
     }
 
     private void BeginLevel()
     {
-        _currentLevelCreator.CreateLevel(_evemyWaveCreator,_enemySpawner);
+        _currentLevelCreator.CreateLevel();
         _player.SetCharacterPosition(_currentLevelCreator.StartRoom.transform.position);
     }
 }

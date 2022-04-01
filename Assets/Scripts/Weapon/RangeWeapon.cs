@@ -19,6 +19,14 @@ public class RangeWeapon : MonoBehaviour
 
     public event Action OnShooted;
 
+    public void IncreaseProjectileDamage(float value)
+    {
+        if (value < 0)
+            throw new Exception("Damage value can`t be less than zero");
+
+        _projectileDamage += value;
+    }
+
     public virtual void Attack(Vector3 targetPosition)
     {
         OnShooted?.Invoke();
