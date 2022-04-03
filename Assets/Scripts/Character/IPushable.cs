@@ -2,5 +2,5 @@
 
 interface IPushable
 {
-    void ApplyForce(Vector2 diraction,float force);
+    void ApplyForce(Vector2 direction, float force, float duration);
 }

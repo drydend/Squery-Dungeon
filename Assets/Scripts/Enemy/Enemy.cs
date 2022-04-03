@@ -163,14 +163,14 @@ public class Enemy : MonoBehaviour, IHitable, IPushable
         }
     }
 
-    public void ApplyForce(Vector2 direction, float force)
+    public void ApplyForce(Vector2 direction, float force, float duration)
     {
         if (_pushingCoroutine != null)
         {
             StopCoroutine(_pushingCoroutine);
         }
 
-        _pushingCoroutine = StartCoroutine(PushingCoroutine(direction, force));
+        _pushingCoroutine = StartCoroutine(PushingCoroutine(direction, force, duration));
     }
 
     protected virtual IEnumerator SpawnAnimation()
@@ -211,13 +211,13 @@ public class Enemy : MonoBehaviour, IHitable, IPushable
         Destroy(gameObject);
     }
 
-    private IEnumerator PushingCoroutine(Vector2 direction, float force)
+    private IEnumerator PushingCoroutine(Vector2 direction, float force, float duration)
     {
         var initialForce = force;
         while (force > 0)
         {
             _rigidbody2D.velocity = direction * force;
-            force -= Time.deltaTime / _pushingDuration * initialForce;
+            force -= Time.deltaTime / duration * initialForce;
             yield return null;
         }
 

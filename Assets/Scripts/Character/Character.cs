@@ -19,7 +19,7 @@ public class Character : MonoBehaviour, IHitable, IPushable
     private AnimationCurve _colorAlfaOnInvulnerable;
     private Timer _attackTimer;
     private bool _isDashing;
-    private bool _isInvulnerable = false;
+    private bool _isInvulnerable;
     private bool _isPushed;
 
     private SpriteRenderer _spriteRenderer;
@@ -39,17 +39,18 @@ public class Character : MonoBehaviour, IHitable, IPushable
     {
         if (collision.gameObject.TryGetComponent(out IPushable pushable))
         {
+            var pushForce = _isDashing ? _config.DashingPushForce : _config.DefaultPushForce;
             var forceDirection = Vector2.ClampMagnitude(collision.transform.position - transform.position, 1);
-            pushable.ApplyForce(forceDirection, _config.DefaultPushForce);
+            pushable.ApplyForce(forceDirection, pushForce, 0.2f);
         }
 
         if (_isDashing)
         {
             StopCoroutine(_currentDashingCoroutine);
             _isDashing = false;
-            if (collision.gameObject.TryGetComponent(out Enemy enemy))
+            if (collision.gameObject.TryGetComponent(out IHitable hitable))
             {
-                enemy.RecieveHit(_config.CollisionDamage, gameObject);
+                hitable.RecieveHit(_config.CollisionDamage, gameObject);
             }
         }
     }
@@ -115,9 +116,9 @@ public class Character : MonoBehaviour, IHitable, IPushable
         }
     }
 
-    public void ApplyForce(Vector2 direction, float force)
+    public void ApplyForce(Vector2 direction, float force, float duration)
     {
-        StartCoroutine(PushingCoroutine(direction, force));
+        StartCoroutine(PushingCoroutine(direction, force, duration));
     }
 
     private IEnumerator BecomeInvulnerable(float time)
@@ -160,7 +161,7 @@ public class Character : MonoBehaviour, IHitable, IPushable
 
     }
 
-    private IEnumerator PushingCoroutine(Vector2 direction, float force)
+    private IEnumerator PushingCoroutine(Vector2 direction, float force, float duration)
     {
         if (_isPushed)
         {
@@ -172,7 +173,7 @@ public class Character : MonoBehaviour, IHitable, IPushable
         while (force > 0)
         {
             _rigidbody2D.velocity = direction * force;
-            force -= Time.deltaTime / _config.PushingDuration * initialForce;
+            force -= Time.deltaTime / duration * initialForce;
             yield return null;
         }
 

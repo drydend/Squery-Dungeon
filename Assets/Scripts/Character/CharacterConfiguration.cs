@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName ="Charcter config")]
-public class CharacterConfiguration : ScriptableObject
+public class CharacterConfiguration : ScriptableObject, ICloneable
 {
     [SerializeField]
     private float _dashDistance = 5f;
@@ -50,6 +50,24 @@ public class CharacterConfiguration : ScriptableObject
 
     public event Action OnMaxHealsChanged;
     public event Action OnAttackSpeedChanged;
+
+    public object Clone()
+    {
+        var configClone = new CharacterConfiguration();
+        configClone._dashDistance = _dashDistance;
+        configClone._dashDuration = _dashDuration;
+        configClone._dashingPushForce = _dashingPushForce;
+        configClone._defaultPushForce = _defaultPushForce;
+        configClone._pushingDuration = _pushingDuration;
+        configClone._collisionDamage = _collisionDamage;
+        configClone._attackDamage = _attackDamage;
+        configClone._maxHealsPoints = _maxHealsPoints;
+        configClone._invulnerabilityAfterHitDuration = _invulnerabilityAfterHitDuration;
+        configClone._movementSpeed = _movementSpeed;
+        configClone._attackSpeed = _attackSpeed;
+
+        return configClone;
+    }
 
     public void IncreaseStatValue(StatType statType, float value)
     {

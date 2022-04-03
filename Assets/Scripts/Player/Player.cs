@@ -6,11 +6,12 @@ public class Player : MonoBehaviour
     [SerializeField]
     private PlayerInput _input;
     [SerializeField]
-    private CharacterConfiguration _characterConfig;
+    private CharacterConfiguration _startConfig;
     [SerializeField]
     private Character _currentCharacter;
     [SerializeField]
     private CameraShaker _cameraShaker;
+    private CharacterConfiguration _characterConfig;
 
     public event Action OnCurrentCharacterHealsChanged;
     public event Action OnCurrentCharacterMaxHealsChanged;
@@ -23,6 +24,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        _characterConfig = (CharacterConfiguration)_startConfig.Clone();
         _currentCharacter.Initialize(_characterConfig);
     }
 
