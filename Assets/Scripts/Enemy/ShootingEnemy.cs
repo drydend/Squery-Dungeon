@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using UnityEngine.AI;
 
 public class ShootingEnemy : Enemy
 {
     public const string ShootingAnimationTrigger = "Shoot trigger";
 
+    [SerializeField]
+    private Projectile _projectile;
     [SerializeField]
     private RangeWeapon _weapon;
     [SerializeField]
@@ -32,7 +33,7 @@ public class ShootingEnemy : Enemy
 
     public void Shoot()
     {
-        _weapon.Attack(_target.transform.position);
+        _weapon.Attack(_target.transform.position, _projectile);
     }
 
     public void OnEndShooting()

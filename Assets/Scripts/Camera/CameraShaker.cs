@@ -1,11 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class CameraShaker : MonoBehaviour
 {
+    public static CameraShaker Instance;
+
     private Coroutine _currentCameraShake;
-    
+
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            throw new Exception("CamraShaker can be only one");
+        }
+    }
+
     public void ShakeCamera(float duration, float shakeRadious)
     {   
         if(_currentCameraShake != null)

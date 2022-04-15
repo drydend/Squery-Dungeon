@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
-
-public class ShootingState : BaseEnemyState
+﻿public class ShootingState : BaseEnemyState
 {
     protected Timer _timer;
     protected Character _target => _controlableEnemy.Target;

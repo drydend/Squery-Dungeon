@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using UnityEngine;
 
 public class RangeWeapon : MonoBehaviour
@@ -9,36 +8,43 @@ public class RangeWeapon : MonoBehaviour
     [SerializeField]
     protected ParticleSystem _shootingParticle;
     [SerializeField]
-    protected Projectile _projectilePrefab;
+    protected float _projectileDamageMulptiplier = 1f;
     [SerializeField]
-    protected float _projectileDamage = 1f;
-    [SerializeField]
-    protected float _projedtileSpeed = 20f;
+    protected float _projectileSpeedMulptiplier = 1f;
     [SerializeField]
     protected GameObject _owner;
 
     public event Action OnShooted;
 
-    public void IncreaseProjectileDamage(float value)
+    public void SetSpeedMulptiplier(float multiplier)
     {
-        if (value < 0)
-            throw new Exception("Damage value can`t be less than zero");
+        if (multiplier < 0)
+            throw new Exception("Multiplier can`t be less than zero");
 
-        _projectileDamage += value;
+        _projectileSpeedMulptiplier = multiplier;
     }
 
-    public virtual void Attack(Vector3 targetPosition)
+    public void SetDamageMultiplier(float multiplier)
+    {
+        if (multiplier < 0)
+            throw new Exception("Multiplier can`t be less than zero");
+        
+        _projectileDamageMulptiplier = multiplier;
+    }
+
+    public virtual void Attack(Vector3 targetPosition, Projectile projectilePrefab)
     {
         OnShooted?.Invoke();
-        var projectileDirection = Vector2.ClampMagnitude(targetPosition - transform.position , 1);
-        ShootProjectile(projectileDirection);
+        Vector2 projectileDirection = targetPosition - _owner.transform.position;
+        projectileDirection = VectorExtensions.ClampMagnitude(projectileDirection, 1, 1);
+        ShootProjectile(projectileDirection , projectilePrefab);
     }
 
-    private void ShootProjectile(Vector2 projectileDirection)
+    private void ShootProjectile(Vector2 projectileDirection, Projectile projectilePrefab)
     {
-        var projectile = Instantiate(_projectilePrefab, _projectileSpawnPosition.position, Quaternion.identity);
+        var projectile = Instantiate(projectilePrefab, _projectileSpawnPosition.position, Quaternion.identity);
         Instantiate(_shootingParticle, _projectileSpawnPosition.position, Quaternion.identity);
-        projectile.Initialize(projectileDirection, _projedtileSpeed, _projectileDamage, _owner);
+        projectile.Initialize(projectileDirection,  _owner, _projectileSpeedMulptiplier, _projectileDamageMulptiplier);
     }
 
     protected void InvokeOnShooted()

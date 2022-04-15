@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LevelController : MonoBehaviour
 {
     [SerializeField]
-    private PowerUpHandler _powerUpHandler;
+    private UpgradeHandler _powerUpHandler;
     [SerializeField]
     private EnemyWaveCreator _enemyWaveCreator;
     [SerializeField]

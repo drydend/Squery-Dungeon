@@ -1,25 +1,23 @@
 ﻿using System;
 using UnityEngine;
 
-[CreateAssetMenu(menuName ="Charcter config")]
-public class CharacterConfiguration : ScriptableObject, ICloneable
+[CreateAssetMenu(menuName = "Charcter config")]
+public class CharacterConfiguration : ScriptableObject
 {
     [SerializeField]
     private float _dashDistance = 5f;
     [SerializeField]
     private float _dashDuration = 0.2f;
-   
+
     [SerializeField]
     private float _dashingPushForce = 8;
     [SerializeField]
     private float _defaultPushForce = 5;
     [SerializeField]
     private float _pushingDuration = 0.2f;
-    
+
     [SerializeField]
     private float _collisionDamage = 1;
-    [SerializeField]
-    private float _attackDamage = 1;
 
     [SerializeField]
     private float _maxHealsPoints;
@@ -28,9 +26,16 @@ public class CharacterConfiguration : ScriptableObject, ICloneable
 
     [SerializeField]
     private float _movementSpeed;
-    
+
     [SerializeField]
     private float _attackSpeed = 1f;
+    [SerializeField]
+    private float _projectileDamageMultiplier;
+
+    [SerializeField]
+    private RangeWeapon _weapon;
+    [SerializeField]
+    private Projectile _projectile;
 
     public float DashDistance => _dashDistance;
     public float DashDuration => _dashDuration;
@@ -47,26 +52,39 @@ public class CharacterConfiguration : ScriptableObject, ICloneable
     public float InvulnerabilityAfterHitDuration => _invulnerabilityAfterHitDuration;
 
     public float AttackSpeed => _attackSpeed;
+    public float ProjectileDamageMultiplier => _projectileDamageMultiplier;
+    public RangeWeapon Weapon => _weapon;
+    public Projectile Projectile => _projectile;
 
     public event Action OnMaxHealsChanged;
     public event Action OnAttackSpeedChanged;
 
-    public object Clone()
-    {
-        var configClone = new CharacterConfiguration();
-        configClone._dashDistance = _dashDistance;
-        configClone._dashDuration = _dashDuration;
-        configClone._dashingPushForce = _dashingPushForce;
-        configClone._defaultPushForce = _defaultPushForce;
-        configClone._pushingDuration = _pushingDuration;
-        configClone._collisionDamage = _collisionDamage;
-        configClone._attackDamage = _attackDamage;
-        configClone._maxHealsPoints = _maxHealsPoints;
-        configClone._invulnerabilityAfterHitDuration = _invulnerabilityAfterHitDuration;
-        configClone._movementSpeed = _movementSpeed;
-        configClone._attackSpeed = _attackSpeed;
+    public CharacterConfiguration Clone()
+    {   
+        var clonedConfig = (CharacterConfiguration)MemberwiseClone();
+        clonedConfig._projectile = _projectile.Clone();
+        Debug.Log(clonedConfig.Equals(this));
+        return clonedConfig;
+    }
 
-        return configClone;
+    public void UpgradeBullet(BulletUpgrade bulletUpgrade)
+    {
+        var bulletUpgradeType = bulletUpgrade.GetType();
+
+        if (bulletUpgradeType == typeof(BulletHitBehaviourUpgrade))
+        {
+            
+        }
+        else if (bulletUpgradeType == typeof(BulletCollisionBehaviourUpgrade))
+        {
+            var bulletCollisionBehaviourUpgrade = (BulletCollisionBehaviourUpgrade)bulletUpgrade;
+
+            UpgradeBulletCollisionBehaviour(bulletCollisionBehaviourUpgrade);
+        }
+        else
+        {
+            throw new Exception($"Can`t process this bullet upgrade type: {bulletUpgrade.GetType()}");
+        }
     }
 
     public void IncreaseStatValue(StatType statType, float value)
@@ -74,7 +92,7 @@ public class CharacterConfiguration : ScriptableObject, ICloneable
         switch (statType)
         {
             case StatType.AttackDamage:
-                _attackDamage += value;
+                _projectile.SetBaseDamage(_projectile.Damage + value);
                 break;
             case StatType.AttackSpeed:
                 _attackSpeed -= value;
@@ -90,5 +108,34 @@ public class CharacterConfiguration : ScriptableObject, ICloneable
             default:
                 throw new Exception("Can`t process this stat type: " + statType);
         }
+    }
+
+    private void UpgradeBulletCollisionBehaviour(BulletCollisionBehaviourUpgrade upgrade)
+    {
+        if (upgrade.NewCollisionBehaviour.GetType() == typeof(RicochetCollisionBehaviour))
+        {
+            if (_projectile.HitBehaviour.GetType() == typeof(BulletExplosiveHitBehaviour))
+            {
+                _projectile.SetCollisionBehaviour(new RicochetExplosiveCollisionBehaviour(
+                    (BulletExplosiveHitBehaviour)_projectile.HitBehaviour,
+                    (RicochetCollisionBehaviour)upgrade.NewCollisionBehaviour));
+                _projectile.SetCollisionParticle(_projectile.CollisionParticle);
+            }
+            else
+            {
+                _projectile.SetCollisionBehaviour(upgrade.NewCollisionBehaviour);
+                _projectile.SetCollisionParticle(upgrade.CollisionParticle);
+            }
+        }
+        else
+        {
+            _projectile.SetCollisionBehaviour(upgrade.NewCollisionBehaviour);
+            _projectile.SetCollisionParticle(upgrade.CollisionParticle);
+        }
+    }
+
+    private void UpgradeBulletHitBehaviour(BulletHitBehaviourUpgrade upgrade)
+    {
+
     }
 }

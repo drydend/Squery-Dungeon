@@ -18,8 +18,11 @@ MonoBehaviour:
   _defaultPushForce: 5
   _pushingDuration: 0.2
   _collisionDamage: 1
-  _attackDamage: 1
   _maxHealsPoints: 15
   _invulnerabilityAfterHitDuration: 1
   _movementSpeed: 11
   _attackSpeed: 0.3
+  _projectileDamageMultiplier: 0
+  _weapon: {fileID: 0}
+  _projectile: {fileID: 1747654433843252693, guid: a411b070af6322f44a4df61db14c8866,
+    type: 3}

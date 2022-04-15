@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-interface IHitable
+public interface IHitable
 {
     void RecieveHit(float damage, GameObject sender);
 }

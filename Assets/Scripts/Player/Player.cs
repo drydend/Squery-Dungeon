@@ -9,8 +9,6 @@ public class Player : MonoBehaviour
     private CharacterConfiguration _startConfig;
     [SerializeField]
     private Character _currentCharacter;
-    [SerializeField]
-    private CameraShaker _cameraShaker;
     private CharacterConfiguration _characterConfig;
 
     public event Action OnCurrentCharacterHealsChanged;
@@ -24,7 +22,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        _characterConfig = (CharacterConfiguration)_startConfig.Clone();
+        _characterConfig = _startConfig.Clone();
         _currentCharacter.Initialize(_characterConfig);
     }
 
@@ -43,7 +41,7 @@ public class Player : MonoBehaviour
 
     private void OnEnable()
     {
-        OnCurrentCharacterHealsChanged += () => _cameraShaker.ShakeCamera(0.2f, 0.3f);
+        OnCurrentCharacterHealsChanged += () => CameraShaker.Instance.ShakeCamera(0.2f, 0.3f);
         _currentCharacter.OnHealsChanged +=() => OnCurrentCharacterHealsChanged?.Invoke();
         _characterConfig.OnMaxHealsChanged += () => OnCurrentCharacterMaxHealsChanged?.Invoke();
         _input.DashButton.performed += (context) => _currentCharacter.Dash(_input.PlayerMoveDirection);
@@ -57,13 +55,22 @@ public class Player : MonoBehaviour
         _input.DashButton.performed -= (context) => _currentCharacter.Dash(_input.PlayerMoveDirection);
     }
 
-    public void ApplyPowerUp(PowerUp powerUp)
+    public void ApplyUpgrade(Upgrade upgrade)
     {
-        if(powerUp.GetType() == typeof(StatUpgrade))
+        if (upgrade.GetType() == typeof(StatUpgrade))
         {
-            var statUpgrade = powerUp as StatUpgrade;
+            var statUpgrade = upgrade as StatUpgrade;
             _characterConfig.IncreaseStatValue(statUpgrade.StatType, statUpgrade.Value);
         }
+        else if (upgrade.GetType().IsSubclassOf(typeof(BulletUpgrade)))
+        {
+            _characterConfig.UpgradeBullet((BulletUpgrade)upgrade);
+        }
+        else
+        {
+            throw new Exception($"Can`t apply upgrade to character of type: {upgrade.GetType()}");
+        }
+      
     }
 
     public void SetCharacterPosition(Vector2 position)

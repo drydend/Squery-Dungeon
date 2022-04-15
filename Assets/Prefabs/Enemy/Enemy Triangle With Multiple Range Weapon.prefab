@@ -366,6 +366,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1792
   _pushingDuration: 0.4
+  _projectile: {fileID: 8349999306990363028, guid: 1e1a84db31c4c474c952a7af83d28d77,
+    type: 3}
   _weapon: {fileID: 8357601323657558690}
   _attackSpeed: 3
 --- !u!1 &8357601323398697794

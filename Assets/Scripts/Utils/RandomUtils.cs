@@ -4,6 +4,9 @@ public static class RandomUtils
 {   
     public static bool RandomBoolean(float percentForTrue = 50f)
     {
+        if (percentForTrue >= 100)
+            return true;
+
         return Random.Range(0, 100) <= percentForTrue ? true : false;
     }
 

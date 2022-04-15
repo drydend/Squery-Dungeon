@@ -72,8 +72,6 @@ public class Enemy : MonoBehaviour, IHitable, IPushable
     private float _pushingDuration = 0.4f;
     private Coroutine _pushingCoroutine;
 
-    public float CameraShakeStrenghtOnDeath => _cameraShakeStrenghtOnDeath;
-    public float CameraShakeDurationOnDeath => _cameraShakeDurationOnDeath;
     public float MaxAttackDistance => _maxAttackDistance;
     public float MinAttakcDistance => _minAttackDistance;
     public float DistanceToTarget => Vector2.Distance(_target.transform.position, transform.position);
@@ -204,9 +202,10 @@ public class Enemy : MonoBehaviour, IHitable, IPushable
     }
 
     protected virtual void Die()
-    {
+    {   
         _isDead = true;
         Instantiate(_deathParticle, transform.position, Quaternion.identity);
+        CameraShaker.Instance.ShakeCamera(_cameraShakeDurationOnDeath, _cameraShakeStrenghtOnDeath);
         OnDie?.Invoke();
         Destroy(gameObject);
     }

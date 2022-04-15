@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine.AI;
-
-public abstract class BaseEnemyState
+﻿public abstract class BaseEnemyState
 {
     protected Enemy _controlableEnemy;
 

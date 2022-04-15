@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Character : MonoBehaviour, IHitable, IPushable
@@ -87,7 +85,7 @@ public class Character : MonoBehaviour, IHitable, IPushable
         if (_attackTimer.IsFinished)
         {
             transform.LookAt2D(targetPosition);
-            _weapon.Attack(targetPosition);
+            _weapon.Attack(targetPosition, _config.Projectile);
         }
     }
 

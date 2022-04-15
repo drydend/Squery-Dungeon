@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine.AI;
-using UnityEngine;
+﻿using UnityEngine.AI;
 
 public class ShootingAndWalkingState : ShootingState
 {
