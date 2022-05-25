@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7946428985827824675}
   - component: {fileID: 1564909366367381807}
   - component: {fileID: 4322113108298297076}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Explosion Crate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,6 +143,7 @@ MonoBehaviour:
   _destructParticlePrefab: {fileID: 7135577926925368173, guid: 501c7646b09df1a4aa8f1c18e8bd4276,
     type: 3}
   _particleScaleFactor: 1
+  _destructionDelay: 0.2
   _explosionDamage: 1
   _explosionRadious: 2
   _explosionPushForce: 40

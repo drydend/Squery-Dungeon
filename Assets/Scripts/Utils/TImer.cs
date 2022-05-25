@@ -9,11 +9,12 @@ public class Timer
     private bool _isPaused = false;
 
     public bool IsFinished { get; private set; }
+    public float SecondsPassed { get; private set; }
 
     public Timer(float seconds)
     {
         _secondsToFinish = seconds;
-        OnFinished += () => Pause();
+        OnFinished += Pause;
         OnFinished += () => IsFinished = true;
     }
 
@@ -21,6 +22,7 @@ public class Timer
     {
         _secondsToFinish = seconds;
         _remainingSeconds = _secondsToFinish;
+        ResetTimer();
     }
 
     public void Unpause()
@@ -35,19 +37,23 @@ public class Timer
 
     public void UpdateTick(float deltaTime)
     {
-        if (!_isPaused)
+        if (_isPaused)
         {
-            _remainingSeconds -= deltaTime;
+            return;
+        }
 
-            if (_remainingSeconds <= 0)
-            {
-                OnFinished?.Invoke();
-            }
+        _remainingSeconds -= deltaTime;
+        SecondsPassed += deltaTime;
+
+        if (_remainingSeconds <= 0)
+        {
+            OnFinished?.Invoke();
         }
     }
 
     public void ResetTimer()
     {
+        SecondsPassed = 0;
         IsFinished = false;
         _remainingSeconds = _secondsToFinish;
         Unpause();

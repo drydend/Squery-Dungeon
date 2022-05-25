@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         _characterConfig = _startConfig.Clone();
+        _characterConfig.Initialize();
         _currentCharacter.Initialize(_characterConfig);
     }
 

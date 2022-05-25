@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5468496811939369751}
   - component: {fileID: 4347431983824756920}
   - component: {fileID: 5162780571544001972}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Crate 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _heals: 1
   _destructParticlePrefab: {fileID: 0}
+  _particleScaleFactor: 0
 --- !u!61 &4347431983824756920
 BoxCollider2D:
   m_ObjectHideFlags: 0

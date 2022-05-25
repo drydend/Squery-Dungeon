@@ -22,8 +22,13 @@ public class Character : MonoBehaviour, IHitable, IPushable
 
     private SpriteRenderer _spriteRenderer;
     private Rigidbody2D _rigidbody2D;
+    private PolygonCollider2D _colliderForEnemy;
 
     public float CurrentHealsPoints => _currentHealsPoints;
+
+    public Transform Transform => transform;
+    public Vector2 Velocity => _rigidbody2D.velocity;
+    public float MovementSpeed => _config.MovementSpeed;
 
     public event Action OnHealsChanged;
     public event Action OnDied;
@@ -53,11 +58,17 @@ public class Character : MonoBehaviour, IHitable, IPushable
         }
     }
 
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        OnCollisionEnter2D(collision);
+    }
+
     public void Initialize(CharacterConfiguration config)
     {
         _config = config;
         _currentHealsPoints = _config.MaxHealsPoints;
 
+        _colliderForEnemy = GetComponent<PolygonCollider2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
 
@@ -76,7 +87,7 @@ public class Character : MonoBehaviour, IHitable, IPushable
     {
         if (!_isDashing)
         {
-            _rigidbody2D.MovePosition(transform.position + (Vector3)direction * _config.MovementSpeed * Time.fixedDeltaTime);
+            _rigidbody2D.velocity = (Vector3)direction * _config.MovementSpeed;
         }
     }
 
@@ -85,6 +96,7 @@ public class Character : MonoBehaviour, IHitable, IPushable
         if (_attackTimer.IsFinished)
         {
             transform.LookAt2D(targetPosition);
+            CameraShaker.Instance.ShakeCamera(0.05f, 0.05f);
             _weapon.Attack(targetPosition, _config.Projectile);
         }
     }
@@ -122,7 +134,9 @@ public class Character : MonoBehaviour, IHitable, IPushable
     private IEnumerator BecomeInvulnerable(float time)
     {
         _isInvulnerable = true;
+        _colliderForEnemy.isTrigger = true;
         yield return new WaitForSeconds(time);
+        _colliderForEnemy.isTrigger = false;
         _isInvulnerable = false;
     }
 
@@ -183,5 +197,4 @@ public class Character : MonoBehaviour, IHitable, IPushable
     {
 
     }
-
 }

@@ -12,6 +12,6 @@ public abstract class BulletCollisionBehaviour : ScriptableObject
         return collisionBehaviour;
     }
 
-    public abstract void HandleCollision(Collision2D collision);
+    public abstract void HandleCollision(Collider2D collider);
 }
 

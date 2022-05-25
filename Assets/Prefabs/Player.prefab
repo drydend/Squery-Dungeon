@@ -57,7 +57,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4d6d47547a6ce44cbe8c41baeb2d145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _input: {fileID: 0}
+  _input: {fileID: 6393331585658017685}
+  _startConfig: {fileID: 11400000, guid: 4b7e183bcfa588842b129f219e6c94d5, type: 2}
   _currentCharacter: {fileID: 869082210798524051}
 --- !u!1001 &1768267709505456467
 PrefabInstance:
@@ -66,9 +67,58 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6393331585658017686}
     m_Modifications:
+    - target: {fileID: 1137854719, guid: 6da42aa6a2d006e4589ef9a9f5a5b88f, type: 3}
+      propertyPath: m_SortingOrder
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1208935501, guid: 6da42aa6a2d006e4589ef9a9f5a5b88f, type: 3}
       propertyPath: m_LightVolumeOpacity
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1478798843005640640, guid: 6da42aa6a2d006e4589ef9a9f5a5b88f,
+        type: 3}
+      propertyPath: _colorAlfaOnInvulnerable.m_PostInfinity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1478798843005640640, guid: 6da42aa6a2d006e4589ef9a9f5a5b88f,
+        type: 3}
+      propertyPath: _colorAlfaOnInvulnerable.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1478798843005640640, guid: 6da42aa6a2d006e4589ef9a9f5a5b88f,
+        type: 3}
+      propertyPath: _colorAlfaOnInvulnerable.m_Curve.Array.data[1].time
+      value: 0.19999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 1478798843005640640, guid: 6da42aa6a2d006e4589ef9a9f5a5b88f,
+        type: 3}
+      propertyPath: _colorAlfaOnInvulnerable.m_Curve.Array.data[0].value
+      value: 0.2000122
+      objectReference: {fileID: 0}
+    - target: {fileID: 1478798843005640640, guid: 6da42aa6a2d006e4589ef9a9f5a5b88f,
+        type: 3}
+      propertyPath: _colorAlfaOnInvulnerable.m_Curve.Array.data[1].value
+      value: 0.70000076
+      objectReference: {fileID: 0}
+    - target: {fileID: 1478798843005640640, guid: 6da42aa6a2d006e4589ef9a9f5a5b88f,
+        type: 3}
+      propertyPath: _colorAlfaOnInvulnerable.m_Curve.Array.data[0].inSlope
+      value: -0.12703204
+      objectReference: {fileID: 0}
+    - target: {fileID: 1478798843005640640, guid: 6da42aa6a2d006e4589ef9a9f5a5b88f,
+        type: 3}
+      propertyPath: _colorAlfaOnInvulnerable.m_Curve.Array.data[0].outSlope
+      value: -0.12703204
+      objectReference: {fileID: 0}
+    - target: {fileID: 1478798843005640640, guid: 6da42aa6a2d006e4589ef9a9f5a5b88f,
+        type: 3}
+      propertyPath: _colorAlfaOnInvulnerable.m_Curve.Array.data[0].outWeight
+      value: 0.30898026
+      objectReference: {fileID: 0}
+    - target: {fileID: 6989749871075246369, guid: 6da42aa6a2d006e4589ef9a9f5a5b88f,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6989749871075246374, guid: 6da42aa6a2d006e4589ef9a9f5a5b88f,
         type: 3}
@@ -78,12 +128,12 @@ PrefabInstance:
     - target: {fileID: 6989749871075246374, guid: 6da42aa6a2d006e4589ef9a9f5a5b88f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.71
       objectReference: {fileID: 0}
     - target: {fileID: 6989749871075246374, guid: 6da42aa6a2d006e4589ef9a9f5a5b88f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.65
       objectReference: {fileID: 0}
     - target: {fileID: 6989749871075246374, guid: 6da42aa6a2d006e4589ef9a9f5a5b88f,
         type: 3}

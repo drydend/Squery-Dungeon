@@ -10,6 +10,8 @@ public class Crate : MonoBehaviour, IHitable
     protected float _particleScaleFactor = 1;
     protected bool _isDestructed;
 
+    public Transform Transform => transform;
+
     public void RecieveHit(float damage, GameObject sender)
     {
         if (damage < 0)

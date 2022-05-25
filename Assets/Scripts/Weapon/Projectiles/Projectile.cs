@@ -36,23 +36,24 @@ public class Projectile : MonoBehaviour
     public float Damage => _baseDamage * _damageMultiplier;
     public float Speed => _baseSpeed * _speedMultiplier;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (_hitEnemy)
+        if (collider.gameObject == _sender || collider.isTrigger)
         {
             return;
         }
 
-        if (collision.gameObject.TryGetComponent(out IHitable hitable))
+        if(collider.TryGetComponent(out Enemy enemy))
+            Debug.Log("Triggered");
+
+        if (collider.gameObject.TryGetComponent(out IHitable hitable))
         {
             _hitBehaviour.HandleHit(hitable);
-            _hitEnemy = true;
         }
         else
         {
-            _collisionBehaviour.HandleCollision(collision);
+            _collisionBehaviour.HandleCollision(collider);
         }
-
     }
 
     public void Initialize(Vector2 direction, GameObject sender, float speedMultiplier, float damageMultiplier)
@@ -69,6 +70,7 @@ public class Projectile : MonoBehaviour
     public void DestroyProjectile()
     {
         PlayHitParticle();
+        gameObject.SetActive(false);
         Destroy(gameObject);
     }
 

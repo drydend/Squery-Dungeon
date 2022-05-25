@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: RecochetCollisionBehaviour
   m_EditorClassIdentifier: 
   _ricochetNumber: 2
+  _raycastLayers:
+    serializedVersion: 2
+    m_Bits: 256

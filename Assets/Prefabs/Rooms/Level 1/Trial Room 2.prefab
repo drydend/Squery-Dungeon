@@ -416,7 +416,7 @@ MonoBehaviour:
   _enemySpawnRange: 10
   _minTimeBeforeSpawn: 0
   _maxTimeBeforeSpawn: 0.2
-  _maxNumberOfEnemiesInWave: 1
+  _maxNumberOfEnemiesInWave: 4
   _minNumberOfEnemiesInWave: 1
   _enemySpawner: {fileID: 0}
 --- !u!61 &8804990579265848937

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Linq;
 
-[RequireComponent(typeof(NavMeshAgent), typeof(Animator))]
+[RequireComponent(typeof(NavMeshAgent), typeof(Animator), typeof(Rigidbody2D))]
 public class Enemy : MonoBehaviour, IHitable, IPushable
 {
     [Header("Spawn animation")]
@@ -15,15 +15,6 @@ public class Enemy : MonoBehaviour, IHitable, IPushable
     protected ParticleSystem _spawnExplosionParticle;
     [SerializeField]
     protected float _spawnAnimationDuration = 1;
-
-    [Header("Recieving damage animation")]
-    [SerializeField]
-    protected float _recievingDamageAnimationDuration;
-    [SerializeField]
-    protected Color _recievingDamageColor;
-    [SerializeField]
-    protected AnimationCurve _recievingDamageAnimation;
-
 
     [Header("Heals")]
     [SerializeField]
@@ -64,9 +55,9 @@ public class Enemy : MonoBehaviour, IHitable, IPushable
     protected bool _isPaused;
 
     protected Rigidbody2D _rigidbody2D;
-    protected Animator _animator;
-    protected SpriteRenderer _spriteRenderer;
+    protected SpriteRenderer _mainSpriteRenderer;
     protected Collider2D _collider;
+    protected List<SpriteRenderer> _allSpriteRendereres = new List<SpriteRenderer>();
 
     [SerializeField]
     private float _pushingDuration = 0.4f;
@@ -78,11 +69,14 @@ public class Enemy : MonoBehaviour, IHitable, IPushable
     public Character Target => _target;
     public int Difficulty => _enemyDifficulty;
 
+    public Transform Transform => transform;
+
     public event Action OnDie;
     public event Action OnSpawned;
 
-    public void OnSpawn()
+    public void Spawn()
     {
+        _isSpawned = false;
         StartCoroutine(SpawnAnimation());
     }
 
@@ -90,17 +84,17 @@ public class Enemy : MonoBehaviour, IHitable, IPushable
     {
         _currentHealsPoints = _maxHealsPoints;
         _target = target;
+        
         _rigidbody2D = GetComponent<Rigidbody2D>();
-        _animator = GetComponent<Animator>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _mainSpriteRenderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<PolygonCollider2D>();
+        
+        _allSpriteRendereres = gameObject.GetComponentsInChildren<SpriteRenderer>().ToList();
+        _allSpriteRendereres.Add(_mainSpriteRenderer);
     }
-    
-    public virtual void Attack()
-    {
 
-    }
+    public virtual void Attack() { }
 
     public void SwitchState<State>() where State : BaseEnemyState
     {
@@ -117,17 +111,37 @@ public class Enemy : MonoBehaviour, IHitable, IPushable
         }
     }
 
+    public BaseEnemyState GetState<State>() where State : BaseEnemyState
+    {
+        var state = _allAvaibleStates.FirstOrDefault(x => x is State);
+
+        if (state == null)
+        {
+            throw new Exception($"This state is unavaible to get from enemy: {this}");
+        }
+
+        return state;
+    }
+
+    public bool CanSeePoint(Vector2 point)
+    {
+        var raycastDirection = (point - (Vector2)transform.position).normalized;
+        var hits = Physics2D.RaycastAll(transform.position, raycastDirection, Vector2.Distance(point, transform.position), _raycastLayers);
+
+        return !(hits.Length > 1);
+    }
+
     public bool CanSeeTarget()
     {
-        var raycastDirection = -(transform.position - _target.transform.position).normalized;
-        var ray = Physics2D.RaycastAll(transform.position, raycastDirection, Mathf.Infinity, _raycastLayers);
-        if (ray.Length > 1)
+        var raycastDirection = (_target.transform.position - transform.position).normalized;
+        var hits = Physics2D.RaycastAll(transform.position, raycastDirection, Mathf.Infinity, _raycastLayers);
+        if (hits.Length > 1)
         {
-            return ray[1].collider.TryGetComponent(out Character character);
+            return hits[1].collider.TryGetComponent(out Character character);
         }
-        else if (ray.Length == 1)
+        else if (hits.Length == 1)
         {
-            return ray[0].collider.TryGetComponent(out Character character);
+            return hits[0].collider.TryGetComponent(out Character character);
         }
         else
         {
@@ -137,14 +151,14 @@ public class Enemy : MonoBehaviour, IHitable, IPushable
 
     public virtual void RecieveHit(float damage, GameObject sender)
     {
-        if (_isInvulnerable)
+        if (_isInvulnerable || _isDead)
         {
             return;
         }
 
-        if (damage <= 0 && _isDead)
+        if (damage <= 0)
         {
-            Debug.LogError("Already dead or damage less than zero");
+            throw new Exception("Damage less than zero");
         }
 
         _currentHealsPoints -= damage;
@@ -157,11 +171,11 @@ public class Enemy : MonoBehaviour, IHitable, IPushable
             var hitParticle = Instantiate(_hitParticle, transform.position, Quaternion.identity);
             var particleStartColor = hitParticle.main.startColor;
             particleStartColor = new ParticleSystem.MinMaxGradient(Color.white);
-            StartCoroutine(RecievingDamageAnimation());
+            OnRecieveHit();
         }
     }
 
-    public void ApplyForce(Vector2 direction, float force, float duration)
+    public virtual void ApplyForce(Vector2 direction, float force, float duration)
     {
         if (_pushingCoroutine != null)
         {
@@ -171,34 +185,38 @@ public class Enemy : MonoBehaviour, IHitable, IPushable
         _pushingCoroutine = StartCoroutine(PushingCoroutine(direction, force, duration));
     }
 
+    public virtual void BecomeInvulnarable()
+    {
+        _isInvulnerable = true;
+    }
+
+    public virtual void BecomeVulnarable()
+    {
+        _isInvulnerable = false;
+    }
+
+    protected virtual void OnRecieveHit() { }
+        
     protected virtual IEnumerator SpawnAnimation()
     {
-        _spriteRenderer.enabled = false;
+        foreach (var spriteRenderer in _allSpriteRendereres)
+        {
+            spriteRenderer.enabled = false;
+        }
+
         _collider.enabled = false;
 
         var spawningParticle = Instantiate(_spawnChargingParticle, transform);
-        yield return new WaitUntil(() => spawningParticle.isStopped);
+        yield return new WaitForSeconds(_spawnChargingParticle.main.duration + 0.4f);
         var spawnExplosionParticle = Instantiate(_spawnExplosionParticle, transform);
 
-        _spriteRenderer.enabled = true;
         _collider.enabled = true;
         _isSpawned = true;
-    }
 
-    protected virtual IEnumerator RecievingDamageAnimation()
-    {
-        _isInvulnerable = true;
-        float timeFromStart = 0;
-        Color currentColor = _spriteRenderer.color;
-        while (timeFromStart < 1)
+        foreach (var spriteRenderer in _allSpriteRendereres)
         {
-            var animationValue = _recievingDamageAnimation.Evaluate(timeFromStart);
-            _spriteRenderer.color = Color.Lerp(currentColor, _recievingDamageColor, animationValue);
-
-            timeFromStart += Time.deltaTime / _recievingDamageAnimationDuration;
-            yield return null;
+            spriteRenderer.enabled = true;
         }
-        _isInvulnerable = false;
     }
 
     protected virtual void Die()
@@ -222,4 +240,5 @@ public class Enemy : MonoBehaviour, IHitable, IPushable
 
         _rigidbody2D.velocity = Vector2.zero;
     }
+
 }

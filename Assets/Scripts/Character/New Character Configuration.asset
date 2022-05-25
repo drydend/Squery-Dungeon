@@ -15,14 +15,18 @@ MonoBehaviour:
   _dashDistance: 5
   _dashDuration: 0.2
   _dashingPushForce: 8
-  _defaultPushForce: 5
-  _pushingDuration: 0.2
+  _defaultPushForce: 8
+  _pushingDuration: 0.3
   _collisionDamage: 1
   _maxHealsPoints: 15
   _invulnerabilityAfterHitDuration: 1
-  _movementSpeed: 11
+  _movementSpeed: 8
   _attackSpeed: 0.3
   _projectileDamageMultiplier: 0
   _weapon: {fileID: 0}
   _projectile: {fileID: 1747654433843252693, guid: a411b070af6322f44a4df61db14c8866,
     type: 3}
+  _bulletStartHitBehaviour: {fileID: 11400000, guid: 4b43a42665e098a46b2251608a175896,
+    type: 2}
+  _bulletStartCollisionBehaviour: {fileID: 11400000, guid: 1d0a699f8037d6441aab48ab1daf860e,
+    type: 2}

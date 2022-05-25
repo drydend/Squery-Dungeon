@@ -4,12 +4,12 @@
 
     public override void OnEnter()
     {
-        _controlableEnemy.OnSpawn();
+        _controlableEnemy.Spawn();
     }
 
     public override void OnExit()
     {
-      
+
     }
 
     public override void Update()

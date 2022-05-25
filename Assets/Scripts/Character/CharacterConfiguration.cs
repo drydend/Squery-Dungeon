@@ -36,6 +36,10 @@ public class CharacterConfiguration : ScriptableObject
     private RangeWeapon _weapon;
     [SerializeField]
     private Projectile _projectile;
+    [SerializeField]
+    private BulletHitBehaviour _bulletStartHitBehaviour;
+    [SerializeField]
+    private BulletCollisionBehaviour _bulletStartCollisionBehaviour;
 
     public float DashDistance => _dashDistance;
     public float DashDuration => _dashDuration;
@@ -59,11 +63,15 @@ public class CharacterConfiguration : ScriptableObject
     public event Action OnMaxHealsChanged;
     public event Action OnAttackSpeedChanged;
 
+    public void Initialize()
+    {
+        _projectile.SetHitBehaviour(_bulletStartHitBehaviour);
+        _projectile.SetCollisionBehaviour(_bulletStartCollisionBehaviour);
+    }
+
     public CharacterConfiguration Clone()
-    {   
+    {
         var clonedConfig = (CharacterConfiguration)MemberwiseClone();
-        clonedConfig._projectile = _projectile.Clone();
-        Debug.Log(clonedConfig.Equals(this));
         return clonedConfig;
     }
 
@@ -73,7 +81,9 @@ public class CharacterConfiguration : ScriptableObject
 
         if (bulletUpgradeType == typeof(BulletHitBehaviourUpgrade))
         {
+            var bulletHitBehaviourUpgrade = (BulletHitBehaviourUpgrade)bulletUpgrade;
             
+            UpgradeBulletHitBehaviour(bulletHitBehaviourUpgrade);
         }
         else if (bulletUpgradeType == typeof(BulletCollisionBehaviourUpgrade))
         {
@@ -112,30 +122,12 @@ public class CharacterConfiguration : ScriptableObject
 
     private void UpgradeBulletCollisionBehaviour(BulletCollisionBehaviourUpgrade upgrade)
     {
-        if (upgrade.NewCollisionBehaviour.GetType() == typeof(RicochetCollisionBehaviour))
-        {
-            if (_projectile.HitBehaviour.GetType() == typeof(BulletExplosiveHitBehaviour))
-            {
-                _projectile.SetCollisionBehaviour(new RicochetExplosiveCollisionBehaviour(
-                    (BulletExplosiveHitBehaviour)_projectile.HitBehaviour,
-                    (RicochetCollisionBehaviour)upgrade.NewCollisionBehaviour));
-                _projectile.SetCollisionParticle(_projectile.CollisionParticle);
-            }
-            else
-            {
-                _projectile.SetCollisionBehaviour(upgrade.NewCollisionBehaviour);
-                _projectile.SetCollisionParticle(upgrade.CollisionParticle);
-            }
-        }
-        else
-        {
-            _projectile.SetCollisionBehaviour(upgrade.NewCollisionBehaviour);
-            _projectile.SetCollisionParticle(upgrade.CollisionParticle);
-        }
+        _projectile.SetCollisionBehaviour(upgrade.NewCollisionBehaviour);
     }
 
     private void UpgradeBulletHitBehaviour(BulletHitBehaviourUpgrade upgrade)
     {
+        _projectile.SetHitBehaviour(upgrade.NewHitBehaviour);
 
     }
 }

@@ -2,23 +2,60 @@
 using UnityEngine;
 using System.Linq;
 
+[RequireComponent(typeof(Animator))]
 public class ShootingEnemy : Enemy
 {
     public const string ShootingAnimationTrigger = "Shoot trigger";
+    public const string HitAnimationTrigger = "Hit trigger";
 
     [SerializeField]
     private Projectile _projectile;
     [SerializeField]
     private RangeWeapon _weapon;
     [SerializeField]
+
     private float _attackSpeed;
     private Timer _attackTimer;
     private bool _isAttacking = false;
-    
+
+    private Animator _animator;
+
     private void Start()
     {
         _navMeshAgent.updateRotation = false;
         _navMeshAgent.updateUpAxis = false;
+    }
+
+    private void Update()
+    {
+        _attackTimer.UpdateTick(Time.deltaTime);
+        _currentState.Update();
+
+        if (!_isSpawned || _isAttacking)
+        {
+            return;
+        }
+
+        if (CanSeeTarget())
+        {
+            if (DistanceToTarget > MaxAttackDistance)
+            {
+                SwitchState<ChasingState>();
+            }
+            else if (DistanceToTarget < MaxAttackDistance && DistanceToTarget > MinAttakcDistance)
+            {
+                SwitchState<ShootingEnemyShootingAndWalkingState>();
+            }
+            else if (DistanceToTarget <= MinAttakcDistance)
+            {
+                SwitchState<ShootingEnemyShootingState>();
+            }
+        }
+        else
+        {
+            SwitchState<ChasingState>();
+        }
+
     }
 
     public override void Attack()
@@ -46,6 +83,7 @@ public class ShootingEnemy : Enemy
     {
         base.Initialize(target);
 
+        _animator = GetComponent<Animator>();
         _attackTimer = new Timer(_attackSpeed);
         _weapon.OnShooted += () => _attackTimer.ResetTimer();
         _allAvaibleStates = new List<BaseEnemyState>()
@@ -53,42 +91,16 @@ public class ShootingEnemy : Enemy
             new SpawningState(this),
             new IdleState(this,_navMeshAgent),
             new ChasingState(this, _navMeshAgent),
-            new ShootingState(this, _attackTimer),
-            new ShootingAndWalkingState(this, _navMeshAgent, _attackTimer)
+            new ShootingEnemyShootingState(this, _attackTimer),
+            new ShootingEnemyShootingAndWalkingState(this, _navMeshAgent, _attackTimer)
         };
 
         _currentState = _allAvaibleStates.FirstOrDefault(state => state is SpawningState);
         _currentState.OnEnter();
     }
 
-
-    private void Update()
+    protected override void OnRecieveHit()
     {
-        _attackTimer.UpdateTick(Time.deltaTime);
-        _currentState.Update();
-
-        if (_isSpawned && !_isAttacking)
-        {
-            if (CanSeeTarget())
-            {
-                if (DistanceToTarget > MaxAttackDistance)
-                {
-                    SwitchState<ChasingState>();
-                }
-                else if (DistanceToTarget < MaxAttackDistance && DistanceToTarget > MinAttakcDistance)
-                {
-                    SwitchState<ShootingAndWalkingState>();
-                }
-                else if (DistanceToTarget <= MinAttakcDistance)
-                {
-                    SwitchState<ShootingState>();
-                }
-            }
-            else
-            {
-                SwitchState<ChasingState>();
-            }
-        }
-
+        _animator.SetTrigger(HitAnimationTrigger);
     }
 }

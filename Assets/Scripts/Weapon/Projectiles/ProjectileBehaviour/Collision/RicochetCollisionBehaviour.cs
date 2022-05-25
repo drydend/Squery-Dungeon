@@ -5,11 +5,14 @@ public class RicochetCollisionBehaviour : BulletCollisionBehaviour
 {
     [SerializeField]
     protected int _ricochetNumber = 1;
+    [SerializeField]
+    private LayerMask _raycastLayers;
+
     private Vector2 _previousRicochetNormal;
 
     public int RicochetNumber => _ricochetNumber;
 
-    public override void HandleCollision(Collision2D collision)
+    public override void HandleCollision(Collider2D collider)
     {
         if (_ricochetNumber == 0)
         {
@@ -17,10 +20,15 @@ public class RicochetCollisionBehaviour : BulletCollisionBehaviour
             _projectile.PlayCollisionParticle();
         }
 
-        var normal = collision.contacts[0].normal;
+        var raycastHit = Physics2D.RaycastAll(_projectile.transform.position, 
+            _projectile.MoveDirection, 
+            1f, _raycastLayers);
+        
+        var normal = raycastHit[0].normal;
 
         if (_previousRicochetNormal == normal)
         {
+            Debug.Log("Double collision");
             return;
         }
 

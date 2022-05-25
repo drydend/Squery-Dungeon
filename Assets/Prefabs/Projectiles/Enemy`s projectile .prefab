@@ -118,7 +118,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -143,6 +143,7 @@ MonoBehaviour:
   _hitBehaviour: {fileID: 11400000, guid: 4b43a42665e098a46b2251608a175896, type: 2}
   _hitParticle: {fileID: 971222865377220651, guid: c04c36e4578454b4a81a1f1cfda8cc49,
     type: 3}
+  _collisionParticle: {fileID: 0}
 --- !u!1 &2953895637779774192
 GameObject:
   m_ObjectHideFlags: 0

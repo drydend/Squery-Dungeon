@@ -14,14 +14,14 @@ TagManager:
   - 
   - 
   - Wall
-  - Player
+  - 
   - Enemy
   - Enemy`s projectiles
   - 'Player`s projectiles '
   - Backgroud
-  - 
-  - 
-  - 
+  - Obstacle
+  - Player`s wall collider
+  - Player`s enemy collider
   - 
   - 
   - 
