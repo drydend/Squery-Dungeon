@@ -11,11 +11,22 @@ public class Player : MonoBehaviour
     private Character _currentCharacter;
     private CharacterConfiguration _characterConfig;
 
+    private float _currentEnergy = 0;
+
+    private Timer _attackTimer;
+    private Timer _dashTimer;
+
     public event Action OnCurrentCharacterHealsChanged;
     public event Action OnCurrentCharacterMaxHealsChanged;
 
+    public float CurrentEnergy => _currentEnergy;
+    public float MaxEnergy => _characterConfig.MaxEnergy;
+
     public float MaxHealsPoints => _characterConfig.MaxHealsPoints;
     public float CurrentHealsPoints => _currentCharacter.CurrentHealsPoints;
+
+    public float DashCooldownTime => _characterConfig.DashCooldown;
+    public float CurrentDashColldown => _dashTimer.SecondsPassed;
 
     public Character CurrentCharacter => _currentCharacter;
     public Transform CharacterTransform => _currentCharacter.transform;
@@ -25,6 +36,24 @@ public class Player : MonoBehaviour
         _characterConfig = _startConfig.Clone();
         _characterConfig.Initialize();
         _currentCharacter.Initialize(_characterConfig);
+
+        _attackTimer = new Timer(_characterConfig.AttackCooldown);
+        _dashTimer = new Timer(_characterConfig.DashCooldown);
+
+        _attackTimer.FinishTimer();
+        _dashTimer.FinishTimer();
+
+        _characterConfig.OnAttackSpeedChanged += () => _attackTimer.SetSecondsToFinish(_characterConfig.AttackCooldown);
+
+        _currentEnergy = MaxEnergy;
+    }
+
+    private void Update()
+    {
+        _attackTimer.UpdateTick(Time.deltaTime);
+        _dashTimer.UpdateTick(Time.deltaTime);
+
+        RecieveEnergy(_characterConfig.EnergyRecovery * Time.deltaTime);
     }
 
     private void FixedUpdate()
@@ -32,11 +61,12 @@ public class Player : MonoBehaviour
         if (PauseMenager.Instance.IsPaused)
             return;
 
-        _currentCharacter.Move(_input.PlayerMoveDirection);
+        Move(_input.PlayerMoveDirection);
         _currentCharacter.transform.LookAt2D(_input.CurrentMousePoisition);
+        
         if (_input.IsAttackButtonBeingHolded)
         {
-            _currentCharacter.Attack(_input.CurrentMousePoisition);
+            Attack(_input.CurrentMousePoisition);
         }
     }
 
@@ -45,37 +75,79 @@ public class Player : MonoBehaviour
         OnCurrentCharacterHealsChanged += () => CameraShaker.Instance.ShakeCamera(0.2f, 0.3f);
         _currentCharacter.OnHealsChanged +=() => OnCurrentCharacterHealsChanged?.Invoke();
         _characterConfig.OnMaxHealsChanged += () => OnCurrentCharacterMaxHealsChanged?.Invoke();
-        _input.DashButton.performed += (context) => _currentCharacter.Dash(_input.PlayerMoveDirection);
-        _input.AttackButton.performed += (context) => _currentCharacter.Attack(_input.CurrentMousePoisition);
+        _input.DashButton.performed += (context) => Dash(_input.PlayerMoveDirection);
+        _input.AttackButton.performed += (context) => Attack(_input.CurrentMousePoisition);
     }
 
     private void OnDisable()
     {
         _currentCharacter.OnHealsChanged -= OnCurrentCharacterHealsChanged.Invoke;
-        _input.AttackButton.performed -= (context) => _currentCharacter.Attack(_input.CurrentMousePoisition);
-        _input.DashButton.performed -= (context) => _currentCharacter.Dash(_input.PlayerMoveDirection);
     }
 
-    public void ApplyUpgrade(Upgrade upgrade)
+    public void ApplyPowerUP(Upgrade powerUP)
     {
-        if (upgrade.GetType() == typeof(StatUpgrade))
+        powerUP.ApplyUpgrade(_characterConfig);
+    }
+
+    public void RevertPowerUP(Upgrade powerUp) { }
+
+    public void RecieveEnergy(float value)
+    {
+        if(_currentEnergy >= MaxEnergy)
         {
-            var statUpgrade = upgrade as StatUpgrade;
-            _characterConfig.IncreaseStatValue(statUpgrade.StatType, statUpgrade.Value);
+            return;
         }
-        else if (upgrade.GetType().IsSubclassOf(typeof(BulletUpgrade)))
+
+        if (value < 0)
         {
-            _characterConfig.UpgradeBullet((BulletUpgrade)upgrade);
+            throw new Exception("Value must be more than zero");
         }
-        else
-        {
-            throw new Exception($"Can`t apply upgrade to character of type: {upgrade.GetType()}");
-        }
-      
+
+        _currentEnergy = _currentEnergy + value > MaxEnergy ? MaxEnergy : _currentEnergy + value;
     }
 
     public void SetCharacterPosition(Vector2 position)
     {
         _currentCharacter.transform.position = position;
+    }
+
+    private void Attack(Vector2 targetPosition)
+    {
+        if (_attackTimer.IsFinished && _currentEnergy > _characterConfig.AttackEnergyCost)
+        {
+            _currentCharacter.Attack(targetPosition);
+            _attackTimer.ResetTimer();
+            SpendEnergy(_characterConfig.AttackEnergyCost);
+        }
+    }
+
+    private void Move(Vector2 direction)
+    {
+        _currentCharacter.Move(_input.PlayerMoveDirection);
+    }
+
+    private void Dash(Vector2 direction)
+    {   
+        if(direction == Vector2.zero)
+        {
+            return;
+        }
+
+        if (_dashTimer.IsFinished && _currentEnergy > _characterConfig.DashEnergyCost)
+        {
+            _currentCharacter.Dash(direction);
+            _dashTimer.ResetTimer();
+            SpendEnergy(_characterConfig.DashEnergyCost);
+        }
+    }
+
+    private void SpendEnergy(float value)
+    {
+        if(value < 0)
+        {
+            throw new Exception("Value must be more than zero");
+        }
+
+        _currentEnergy = _currentEnergy - value > 0 ? _currentEnergy - value : 0;
     }
 }

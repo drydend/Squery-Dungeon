@@ -51,6 +51,14 @@ public class Timer
         }
     }
 
+    public void FinishTimer()
+    {
+        OnFinished?.Invoke();
+        SecondsPassed = _secondsToFinish;
+        IsFinished = true;
+        Pause();
+    }
+
     public void ResetTimer()
     {
         SecondsPassed = 0;

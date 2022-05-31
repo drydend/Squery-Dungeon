@@ -35,7 +35,7 @@ public class LevelCreator : MonoBehaviour
 
     private EnemySpawner _enemySpawner;
     private EnemyWaveCreator _enemyWaveCreator;
-    private UpgradeHandler _powerUpHandler;
+    private PowerUPHandler _powerUpHandler;
 
     public StartRoom StartRoom { get; private set; }
     public Room FinaleRoom { get; private set; }
@@ -45,7 +45,7 @@ public class LevelCreator : MonoBehaviour
         _roomsMap = new Room[_maxXPos, _maxYPos];
     }
 
-    public void Initialize(EnemyWaveCreator enemyWaveCreator, EnemySpawner enemySpawner, UpgradeHandler powerUpHandler)
+    public void Initialize(EnemyWaveCreator enemyWaveCreator, EnemySpawner enemySpawner, PowerUPHandler powerUpHandler)
     {
         _enemySpawner = enemySpawner;
         _enemyWaveCreator = enemyWaveCreator;

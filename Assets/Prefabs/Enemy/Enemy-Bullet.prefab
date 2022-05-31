@@ -220,8 +220,8 @@ MonoBehaviour:
     type: 3}
   _hitParticle: {fileID: 112468737741113653, guid: 8048324f601c1d14e916a6c41c789dd5,
     type: 3}
-  _maxAttackDistance: 5
-  _minAttackDistance: 3
+  _maxAttackDistance: 12
+  _minAttackDistance: 0
   _enemyDifficulty: 2
   _raycastLayers:
     serializedVersion: 2

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerHealsUI : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class PlayerHealsUI : MonoBehaviour
     private Player _player;
     [SerializeField]
     private Slider _healsBar;
+    [SerializeField]
+    private TMP_Text _text;
 
     private void Awake()
     {
@@ -22,5 +25,6 @@ public class PlayerHealsUI : MonoBehaviour
     private void UpdateUI()
     {
         _healsBar.value = _player.CurrentHealsPoints / _player.MaxHealsPoints;
+        _text.text = $"{_player.CurrentHealsPoints}/{_player.MaxHealsPoints}";
     }
 }

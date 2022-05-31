@@ -9,6 +9,9 @@ public class Projectile : MonoBehaviour
     [SerializeField]
     private float _baseDamage;
 
+    private float _additiveDamage;
+    private float _additiveSpeed;
+
     [SerializeField]
     private BulletCollisionBehaviour _collisionBehaviour;
     [SerializeField]
@@ -29,12 +32,14 @@ public class Projectile : MonoBehaviour
 
     public ParticleSystem HitParticle => _hitParticle;
     public ParticleSystem CollisionParticle => _collisionParticle;
+    
     public BulletHitBehaviour HitBehaviour => _hitBehaviour;
     public BulletCollisionBehaviour CollisionBehaviour => _collisionBehaviour;
+    
     public GameObject Sender => _sender;
     public Vector2 MoveDirection => _direction;
-    public float Damage => _baseDamage * _damageMultiplier;
-    public float Speed => _baseSpeed * _speedMultiplier;
+    public float Damage => (_baseDamage + _additiveDamage) * _damageMultiplier;
+    public float Speed => (_baseSpeed + _additiveSpeed) * _speedMultiplier;
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
@@ -42,9 +47,6 @@ public class Projectile : MonoBehaviour
         {
             return;
         }
-
-        if(collider.TryGetComponent(out Enemy enemy))
-            Debug.Log("Triggered");
 
         if (collider.gameObject.TryGetComponent(out IHitable hitable))
         {
@@ -105,6 +107,17 @@ public class Projectile : MonoBehaviour
 
         _baseDamage = value;
     }
+
+    public void SetDamage(float value)
+    {
+        _additiveDamage = value;
+    }
+
+    public void SetSpeed(float value)
+    {
+        _additiveSpeed = value;
+    }
+
     public void SetCollisionBehaviour(BulletCollisionBehaviour collisionBehaviour)
     {
         _collisionBehaviour = collisionBehaviour;

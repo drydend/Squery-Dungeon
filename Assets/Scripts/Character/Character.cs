@@ -12,10 +12,9 @@ public class Character : MonoBehaviour, IHitable, IPushable
 
     private float _currentHealsPoints;
 
-    private Coroutine _currentDashingCoroutine;
     [SerializeField]
     private AnimationCurve _colorAlfaOnInvulnerable;
-    private Timer _attackTimer;
+    private Coroutine _currentDashingCoroutine;
     private bool _isDashing;
     private bool _isInvulnerable;
     private bool _isPushed;
@@ -32,11 +31,6 @@ public class Character : MonoBehaviour, IHitable, IPushable
 
     public event Action OnHealsChanged;
     public event Action OnDied;
-
-    private void Update()
-    {
-        _attackTimer.UpdateTick(Time.deltaTime);
-    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -71,11 +65,6 @@ public class Character : MonoBehaviour, IHitable, IPushable
         _colliderForEnemy = GetComponent<PolygonCollider2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
-
-        _config.OnAttackSpeedChanged += () => _attackTimer.SetSecondsToFinish(_config.AttackSpeed);
-
-        _attackTimer = new Timer(_config.AttackSpeed);
-        _weapon.OnShooted += () => _attackTimer.ResetTimer();
     }
 
     public void Dash(Vector2 direction)
@@ -93,12 +82,9 @@ public class Character : MonoBehaviour, IHitable, IPushable
 
     public void Attack(Vector3 targetPosition)
     {
-        if (_attackTimer.IsFinished)
-        {
-            transform.LookAt2D(targetPosition);
-            CameraShaker.Instance.ShakeCamera(0.05f, 0.05f);
-            _weapon.Attack(targetPosition, _config.Projectile);
-        }
+        transform.LookAt2D(targetPosition);
+        CameraShaker.Instance.ShakeCamera(0.05f, 0.05f);
+        _weapon.Attack(targetPosition, _config.Projectile);
     }
 
     public void RecieveHit(float damage, GameObject sender)

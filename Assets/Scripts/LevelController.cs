@@ -3,7 +3,7 @@
 public class LevelController : MonoBehaviour
 {
     [SerializeField]
-    private UpgradeHandler _powerUpHandler;
+    private PowerUPHandler _powerUpHandler;
     [SerializeField]
     private EnemyWaveCreator _enemyWaveCreator;
     [SerializeField]
