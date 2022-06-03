@@ -46,6 +46,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -137,6 +138,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -247,12 +249,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 763ab35ffad1ff44f9444e3e91bfcb2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyDifficulty: 3
+  _movementSpeed: 0
   _spawnChargingParticle: {fileID: 3985932363235512094, guid: 3999c1c7aba812d4ca01483e21103267,
     type: 3}
   _spawnExplosionParticle: {fileID: 2624291922052365963, guid: 029f5ca32ac6c2f4db0df8bb66073153,
     type: 3}
   _spawnAnimationDuration: 0.3
-  _maxHealsPoints: 5
+  _maxHealsPoints: 20
   _cameraShakeStrenghtOnDeath: 0.2
   _cameraShakeDurationOnDeath: 0.2
   _deathParticle: {fileID: 2087089109392609804, guid: a5ee5069d4becf14b8a5d7d0ea8ea32e,
@@ -261,7 +265,6 @@ MonoBehaviour:
     type: 3}
   _maxAttackDistance: 12
   _minAttackDistance: 10
-  _enemyDifficulty: 3
   _raycastLayers:
     serializedVersion: 2
     m_Bits: 66816
@@ -269,6 +272,7 @@ MonoBehaviour:
   _projectile: {fileID: 4513312512559798218, guid: bea682f4269ddcd4fa9cc622a38c6ab3,
     type: 3}
   _weapon: {fileID: 4136429974276561528}
+  _projectileEffects: []
   _attackSpeed: 2
 --- !u!60 &6332629090628438152
 PolygonCollider2D:

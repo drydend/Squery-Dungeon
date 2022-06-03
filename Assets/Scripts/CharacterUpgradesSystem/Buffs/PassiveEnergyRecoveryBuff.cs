@@ -3,13 +3,13 @@
 [CreateAssetMenu(menuName = "Character upgrades/Stat buff/Passsive energy recovery", fileName = "Passsive energy recovery buff")]
 public class PassiveEnergyRecoveryBuff : StatUpgrade
 {
-    public override void ApplyUpgrade(CharacterConfiguration characterConfiguration)    
+    public override void ApplyUpgrade(Player player)
     {
-        characterConfiguration.IncreasePassiveEnergyRecovery(_value);
+        player.CharacterConfig.IncreasePassiveEnergyRecovery(_value);
     }
 
-    public override void RevertUpgrade(CharacterConfiguration characterConfiguration)
+    public override void RevertUpgrade(Player player)
     {
-        characterConfiguration.DecreasePassiveEnergyRecovery(_value);
+        player.CharacterConfig.DecreasePassiveEnergyRecovery(_value);
     }
 }

@@ -3,14 +3,14 @@
 [CreateAssetMenu(menuName = "Character upgrades/Stat buff/Projectile damage", fileName = "Projectile damage buff")]
 public class ProjectileDamageBuff : StatUpgrade
 {
-    public override void ApplyUpgrade(CharacterConfiguration characterConfiguration)
+    public override void ApplyUpgrade(Player player)
     {
-        characterConfiguration.IncreaseProjectileDamage(_value);
+        player.CharacterConfig.IncreaseProjectileDamage(_value);
     }
 
-    public override void RevertUpgrade(CharacterConfiguration characterConfiguration)
+    public override void RevertUpgrade(Player player)
     {
-        characterConfiguration.DecreaseProjectileDamage(_value);
+        player.CharacterConfig.DecreaseProjectileDamage(_value);
     }
 }
 

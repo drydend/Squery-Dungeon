@@ -36,7 +36,7 @@ public class MultipleRangeWeapon : RangeWeapon
 
                 projectileDirection = Quaternion.AngleAxis(_angleBetweenProjectiles * (j + 1) * -1,
                     Vector3.forward) * directionToTarget;
-                ShootProjectile(projectileDirection,projectilePrefab);
+                ShootProjectile(projectileDirection, projectilePrefab);
             }
         }
     }
@@ -44,6 +44,8 @@ public class MultipleRangeWeapon : RangeWeapon
     private void ShootProjectile(Vector2 projectileDirection, Projectile projectilePrefab)
     {
         var projectile = Instantiate(projectilePrefab, _projectileSpawnPosition.position, Quaternion.identity);
-        projectile.Initialize(projectileDirection, _owner, _projectileSpeedMulptiplier, _projectileDamageMulptiplier);
+        projectile.Initialize(projectileDirection, _owner, _projectileEffects,
+            _projectileSpeedMulptiplier, _projectileDamageMulptiplier,
+            _projectileAdditiveDamage, _projectileAdditiveSpeed);
     }
 }

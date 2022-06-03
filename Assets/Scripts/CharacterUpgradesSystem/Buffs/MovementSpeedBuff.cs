@@ -3,13 +3,13 @@
 [CreateAssetMenu(menuName = "Character upgrades/Stat buff/Movement speed", fileName = "Movement speed buff")]
 public class MovementSpeedBuff : StatUpgrade
 {
-    public override void ApplyUpgrade(CharacterConfiguration characterConfiguration)
+    public override void ApplyUpgrade(Player player)
     {
-        characterConfiguration.IncreaseMovementSpeed(_value);
+        player.CharacterConfig.IncreaseMovementSpeed(_value);
     }
 
-    public override void RevertUpgrade(CharacterConfiguration characterConfiguration)
+    public override void RevertUpgrade(Player player)
     {
-        characterConfiguration.DecreaseMovementSpeed(_value);
+        player.CharacterConfig.DecreaseMovementSpeed(_value);
     }
 }

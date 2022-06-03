@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Charcter config")]
@@ -53,15 +54,16 @@ public class CharacterConfiguration : ScriptableObject
     [SerializeField]
     private float _collisionDamage = 1;
 
-
     [SerializeField]
-    private RangeWeapon _weapon;
+    private RangeWeapon _weaponPrefab;
     [SerializeField]
-    private Projectile _projectile;
+    private Projectile _projectilePrefab;
     [SerializeField]
     private BulletHitBehaviour _bulletStartHitBehaviour;
     [SerializeField]
     private BulletCollisionBehaviour _bulletStartCollisionBehaviour;
+    [SerializeField]
+    private List<Effect> _projectileEffects;
 
     public float MaxEnergy => _maxEnergy;
     public float EnergyRecovery => _passiveEnergyRecovery;
@@ -85,24 +87,33 @@ public class CharacterConfiguration : ScriptableObject
     public float AttackEnergyCost => _attackEnergyCost;
     public float AttackCooldown => _attackCooldown;
     public float ProjectileDamageMultiplier => _projectileDamageMultiplier;
-    public RangeWeapon Weapon => _weapon;
-    public Projectile Projectile => _projectile;
+    public float ProjectileAdditiveDamage => _projectileAdditiveDamage;
+    public float ProjectileAdditiveSpeed => _projectileAdditiveSpeed;
+    public RangeWeapon Weapon => _weaponPrefab;
+    public Projectile Projectile => _projectilePrefab;
+    public List<Effect> ProjectileEffects => _projectileEffects;
 
+    public event Action<float> OnProjectileAdditiveSpeedChanged;
+    public event Action<float> OnProjectileAdditiveDamageChanged;
     public event Action OnMaxHealsChanged;
     public event Action OnAttackSpeedChanged;
 
     public void Initialize()
     {
-        _projectile.SetHitBehaviour(_bulletStartHitBehaviour);
-        _projectile.SetCollisionBehaviour(_bulletStartCollisionBehaviour);
-        _projectile.SetSpeed(_projectileAdditiveSpeed);
-        _projectile.SetDamage(_projectileAdditiveDamage);
+        _projectilePrefab.SetHitBehaviour(_bulletStartHitBehaviour);
+        _projectilePrefab.SetCollisionBehaviour(_bulletStartCollisionBehaviour);
     }
 
     public CharacterConfiguration Clone()
     {
         var clonedConfig = (CharacterConfiguration)MemberwiseClone();
+        clonedConfig._projectileEffects = new List<Effect>(_projectileEffects);
         return clonedConfig;
+    }
+
+    public void AddEffectToProjectile(Effect effect) 
+    {
+        _projectileEffects.Add(effect);
     }
 
     public void IncreaseMaxHeals(float value)
@@ -192,49 +203,49 @@ public class CharacterConfiguration : ScriptableObject
     public void IncreaseProjectileDamage(float value)
     {
         IncreaseStatValue(ref _projectileAdditiveDamage, value);
-        _projectile.SetDamage(value);
+        OnProjectileAdditiveDamageChanged?.Invoke(_projectileAdditiveDamage);
     }
     
     public void DecreaseProjectileDamage(float value)
     {
         DecreaseStatValue(ref _projectileAdditiveDamage, value);
-        _projectile.SetDamage(value);
+        OnProjectileAdditiveDamageChanged?.Invoke(_projectileAdditiveDamage);
     }
 
     public void IncreaseProjectileSpeed(float value)
     {
         IncreaseStatValue(ref _projectileAdditiveSpeed, value);
-        _projectile.SetSpeed(value);
+        OnProjectileAdditiveSpeedChanged?.Invoke(_projectileAdditiveSpeed);
     }
 
     public void DecreaseProjectileSpeed(float value)
     {
         DecreaseStatValue(ref _projectileAdditiveSpeed, value);
-        _projectile.SetSpeed(value);
+        OnProjectileAdditiveSpeedChanged?.Invoke(_projectileAdditiveSpeed);
     }
 
     public void IncreaseProjectileSpeedMultiplier(float value)
     {
         IncreaseStatValue(ref _projectileSpeedMultiplier, value);
-        _weapon.SetSpeedMulptiplier(_projectileSpeedMultiplier);
+        _weaponPrefab.SetSpeedMulptiplier(_projectileSpeedMultiplier);
     }
     
     public void DecreaseProjectileSpeedMultiplier(float value)
     {
         DecreaseStatValue(ref _projectileSpeedMultiplier, value);
-        _weapon.SetSpeedMulptiplier(_projectileSpeedMultiplier);
+        _weaponPrefab.SetSpeedMulptiplier(_projectileSpeedMultiplier);
     }
     
     public void IncreaseAttackDamageMultiplier(float value)
     {
         DecreaseStatValue(ref _projectileDamageMultiplier, value);
-        _weapon.SetDamageMultiplier(_projectileDamageMultiplier);
+        _weaponPrefab.SetDamageMultiplier(_projectileDamageMultiplier);
     }
 
     public void DecreaseAttackDamageMultiplier(float value)
     {
         IncreaseStatValue(ref _projectileDamageMultiplier, value);
-        _weapon.SetDamageMultiplier(_projectileDamageMultiplier);
+        _weaponPrefab.SetDamageMultiplier(_projectileDamageMultiplier);
     }
 
     private void IncreaseStatValue(ref float stat ,float value)

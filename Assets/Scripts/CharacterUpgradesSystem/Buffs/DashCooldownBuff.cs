@@ -3,13 +3,13 @@
 [CreateAssetMenu(menuName = "Character upgrades/Stat buff/Dash cooldown", fileName = "Dash cooldown buff")]
 public class DashCooldownBuff : StatUpgrade
 {
-    public override void ApplyUpgrade(CharacterConfiguration characterConfiguration)
+    public override void ApplyUpgrade(Player player)
     {
-        characterConfiguration.DecreaseDashCooldown(_value);
+        player.CharacterConfig.DecreaseDashCooldown(_value);
     }
 
-    public override void RevertUpgrade(CharacterConfiguration characterConfiguration)
+    public override void RevertUpgrade(Player player)
     {
-        characterConfiguration.IncreaseDashCooldown(_value);
+        player.CharacterConfig.IncreaseDashCooldown(_value);
     }
 }

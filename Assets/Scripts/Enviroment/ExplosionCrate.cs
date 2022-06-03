@@ -53,7 +53,7 @@ public class ExplosionCrate : Crate
             if (collider.gameObject == gameObject)
                 continue;
 
-            var directionToCollider = Vector2.ClampMagnitude(transform.position - collider.transform.position, 1);
+            var directionToCollider = Vector2.ClampMagnitude(collider.transform.position - transform.position, 1);
 
             if (Physics2D.Raycast(transform.position, directionToCollider, _explosionRadious, _wallLayer))
             {

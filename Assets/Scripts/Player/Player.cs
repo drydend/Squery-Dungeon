@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     private Timer _attackTimer;
     private Timer _dashTimer;
 
+    public event Action OnCurrentCharacterEndedDashing;
     public event Action OnCurrentCharacterHealsChanged;
     public event Action OnCurrentCharacterMaxHealsChanged;
 
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour
     public float DashCooldownTime => _characterConfig.DashCooldown;
     public float CurrentDashColldown => _dashTimer.SecondsPassed;
 
+    public CharacterConfiguration CharacterConfig => _characterConfig;
     public Character CurrentCharacter => _currentCharacter;
     public Transform CharacterTransform => _currentCharacter.transform;
 
@@ -71,22 +73,19 @@ public class Player : MonoBehaviour
     }
 
     private void OnEnable()
-    {
+    {   
         OnCurrentCharacterHealsChanged += () => CameraShaker.Instance.ShakeCamera(0.2f, 0.3f);
+        _currentCharacter.OnEndedDash += () => OnCurrentCharacterEndedDashing?.Invoke();
         _currentCharacter.OnHealsChanged +=() => OnCurrentCharacterHealsChanged?.Invoke();
         _characterConfig.OnMaxHealsChanged += () => OnCurrentCharacterMaxHealsChanged?.Invoke();
         _input.DashButton.performed += (context) => Dash(_input.PlayerMoveDirection);
         _input.AttackButton.performed += (context) => Attack(_input.CurrentMousePoisition);
     }
 
-    private void OnDisable()
-    {
-        _currentCharacter.OnHealsChanged -= OnCurrentCharacterHealsChanged.Invoke;
-    }
 
     public void ApplyPowerUP(Upgrade powerUP)
     {
-        powerUP.ApplyUpgrade(_characterConfig);
+        powerUP.ApplyUpgrade(this);
     }
 
     public void RevertPowerUP(Upgrade powerUp) { }
@@ -104,6 +103,11 @@ public class Player : MonoBehaviour
         }
 
         _currentEnergy = _currentEnergy + value > MaxEnergy ? MaxEnergy : _currentEnergy + value;
+    }
+
+    public void AddEffectToProjectile(Effect effect)
+    {
+        _characterConfig.AddEffectToProjectile(effect);
     }
 
     public void SetCharacterPosition(Vector2 position)

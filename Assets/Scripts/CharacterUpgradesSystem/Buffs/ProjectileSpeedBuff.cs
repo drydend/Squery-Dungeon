@@ -3,13 +3,13 @@
 [CreateAssetMenu(menuName = "Character upgrades/Stat buff/Projectile speed", fileName = "Projectile speed buff")]
 public class ProjectileSpeedBuff : StatUpgrade
 {
-    public override void ApplyUpgrade(CharacterConfiguration characterConfiguration)
+    public override void ApplyUpgrade(Player player)
     {
-        characterConfiguration.IncreaseProjectileSpeed(_value);
+        player.CharacterConfig.IncreaseProjectileSpeed(_value);
     }
 
-    public override void RevertUpgrade(CharacterConfiguration characterConfiguration)
+    public override void RevertUpgrade(Player player)
     {
-        characterConfiguration.DecreaseProjectileSpeed(_value);
+        player.CharacterConfig.DecreaseProjectileSpeed(_value);
     }
 }

@@ -6,8 +6,14 @@ using UnityEngine.AI;
 using System.Linq;
 
 [RequireComponent(typeof(NavMeshAgent), typeof(Animator), typeof(Rigidbody2D))]
-public class Enemy : MonoBehaviour, IHitable, IPushable
+public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable, IEntity, IEffectable
 {
+    [SerializeField]
+    [Range(1, 10)]
+    protected int _enemyDifficulty;
+    [Header("Movement")]
+    [SerializeField]
+    private float _movementSpeed;
     [Header("Spawn animation")]
     [SerializeField]
     protected ParticleSystem _spawnChargingParticle;
@@ -38,10 +44,6 @@ public class Enemy : MonoBehaviour, IHitable, IPushable
     protected float _minAttackDistance;
 
     [SerializeField]
-    [Range(1, 10)]
-    protected int _enemyDifficulty;
-
-    [SerializeField]
     protected LayerMask _raycastLayers;
     protected Character _target;
     protected NavMeshAgent _navMeshAgent;
@@ -59,6 +61,8 @@ public class Enemy : MonoBehaviour, IHitable, IPushable
     protected Collider2D _collider;
     protected List<SpriteRenderer> _allSpriteRendereres = new List<SpriteRenderer>();
 
+    protected List<Effect> _appliedEffects = new List<Effect>();
+
     [SerializeField]
     private float _pushingDuration = 0.4f;
     private Coroutine _pushingCoroutine;
@@ -68,8 +72,13 @@ public class Enemy : MonoBehaviour, IHitable, IPushable
     public float DistanceToTarget => Vector2.Distance(_target.transform.position, transform.position);
     public Character Target => _target;
     public int Difficulty => _enemyDifficulty;
+    public float MovementSpeed => _movementSpeed;
 
     public Transform Transform => transform;
+
+    public IDamageable Damageable => this;
+    public IHitable Hitable => this;
+    public IMoveable Moveable => this;
 
     public event Action OnDie;
     public event Action OnSpawned;
@@ -84,12 +93,12 @@ public class Enemy : MonoBehaviour, IHitable, IPushable
     {
         _currentHealsPoints = _maxHealsPoints;
         _target = target;
-        
+
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _mainSpriteRenderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<PolygonCollider2D>();
-        
+
         _allSpriteRendereres = gameObject.GetComponentsInChildren<SpriteRenderer>().ToList();
         _allSpriteRendereres.Add(_mainSpriteRenderer);
     }
@@ -156,23 +165,11 @@ public class Enemy : MonoBehaviour, IHitable, IPushable
             return;
         }
 
-        if (damage <= 0)
-        {
-            throw new Exception("Damage less than zero");
-        }
-
-        _currentHealsPoints -= damage;
-        if (_currentHealsPoints <= 0)
-        {
-            Die();
-        }
-        else
-        {
-            var hitParticle = Instantiate(_hitParticle, transform.position, Quaternion.identity);
-            var particleStartColor = hitParticle.main.startColor;
-            particleStartColor = new ParticleSystem.MinMaxGradient(Color.white);
-            OnRecieveHit();
-        }
+        ApplyDamage(damage);
+        var hitParticle = Instantiate(_hitParticle, transform.position, Quaternion.identity);
+        var particleStartColor = hitParticle.main.startColor;
+        particleStartColor = new ParticleSystem.MinMaxGradient(Color.white);
+        OnRecieveHit();
     }
 
     public virtual void ApplyForce(Vector2 direction, float force, float duration)
@@ -185,6 +182,46 @@ public class Enemy : MonoBehaviour, IHitable, IPushable
         _pushingCoroutine = StartCoroutine(PushingCoroutine(direction, force, duration));
     }
 
+    public void ApplyDamage(float damage)
+    {
+        if (_isDead)
+        {
+            return;
+        }
+
+        if (damage <= 0)
+        {
+            throw new Exception("Damage less than zero");
+        }
+
+        _currentHealsPoints -= damage;
+        if (_currentHealsPoints <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void ApplyEffect(Effect effect)
+    {
+        var clonedEffect = effect.Clone();
+        clonedEffect.Initialize(this);
+        _appliedEffects.Add(clonedEffect);
+        clonedEffect.OnEnded += RemoveEffect;
+    }
+
+    public bool CanApplyEffect(Effect effect)
+    {
+        foreach (var appliedEffect in _appliedEffects)
+        {
+            if(appliedEffect.GetType() == effect.GetType())
+            {
+                return false; 
+            }
+        }
+
+        return effect.CanBeAppliedTo(this);
+    }
+
     public virtual void BecomeInvulnarable()
     {
         _isInvulnerable = true;
@@ -195,8 +232,14 @@ public class Enemy : MonoBehaviour, IHitable, IPushable
         _isInvulnerable = false;
     }
 
+    public void SetMovementSpeed(float value)
+    {
+        _movementSpeed = value;
+        _navMeshAgent.speed = value;
+    }
+
     protected virtual void OnRecieveHit() { }
-        
+
     protected virtual IEnumerator SpawnAnimation()
     {
         foreach (var spriteRenderer in _allSpriteRendereres)
@@ -220,7 +263,7 @@ public class Enemy : MonoBehaviour, IHitable, IPushable
     }
 
     protected virtual void Die()
-    {   
+    {
         _isDead = true;
         Instantiate(_deathParticle, transform.position, Quaternion.identity);
         CameraShaker.Instance.ShakeCamera(_cameraShakeDurationOnDeath, _cameraShakeStrenghtOnDeath);
@@ -241,4 +284,8 @@ public class Enemy : MonoBehaviour, IHitable, IPushable
         _rigidbody2D.velocity = Vector2.zero;
     }
 
+    private void RemoveEffect(Effect effect)
+    {
+        _appliedEffects.Remove(effect);
+    }
 }

@@ -13,7 +13,9 @@ public class ShootingEnemy : Enemy
     [SerializeField]
     private RangeWeapon _weapon;
     [SerializeField]
+    private List<Effect> _projectileEffects;
 
+    [SerializeField]
     private float _attackSpeed;
     private Timer _attackTimer;
     private bool _isAttacking = false;
@@ -31,7 +33,17 @@ public class ShootingEnemy : Enemy
         _attackTimer.UpdateTick(Time.deltaTime);
         _currentState.Update();
 
-        if (!_isSpawned || _isAttacking)
+        if (!_isSpawned)
+        {
+            return;
+        }
+
+        for (int i = 0; i < _appliedEffects.Count; i++)
+        {
+            _appliedEffects[i].Update();
+        }
+
+        if (_isAttacking)
         {
             return;
         }
@@ -95,6 +107,7 @@ public class ShootingEnemy : Enemy
             new ShootingEnemyShootingAndWalkingState(this, _navMeshAgent, _attackTimer)
         };
 
+        _weapon.Initialize(gameObject, _projectileEffects, 0, 0);
         _currentState = _allAvaibleStates.FirstOrDefault(state => state is SpawningState);
         _currentState.OnEnter();
     }

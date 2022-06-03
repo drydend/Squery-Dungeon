@@ -3,13 +3,13 @@
 [CreateAssetMenu(menuName = "Character upgrades/Stat buff/Dash energy cost", fileName = "Dash energy cost buff")]
 public class DashEnergyCostBuff : StatUpgrade
 {
-    public override void ApplyUpgrade(CharacterConfiguration characterConfiguration)
+    public override void ApplyUpgrade(Player player)
     {
-        characterConfiguration.DecreaseDashEnergyCost(_value);
+        player.CharacterConfig.DecreaseDashEnergyCost(_value);
     }
 
-    public override void RevertUpgrade(CharacterConfiguration characterConfiguration)
+    public override void RevertUpgrade(Player player)
     {
-        characterConfiguration.IncreaseDashEnergyCost(_value);
+        player.CharacterConfig.IncreaseDashEnergyCost(_value);
     }
 }

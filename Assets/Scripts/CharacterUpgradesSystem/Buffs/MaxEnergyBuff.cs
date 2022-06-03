@@ -3,13 +3,13 @@
 [CreateAssetMenu(menuName = "Character upgrades/Stat buff/Max energy ", fileName = "Max energy buff")]
 public class MaxEnergyBuff : StatUpgrade
 {
-    public override void ApplyUpgrade(CharacterConfiguration characterConfiguration)
+    public override void ApplyUpgrade(Player player)
     {
-        characterConfiguration.IncreaseMaxEnergy(_value);
+        player.CharacterConfig.IncreaseMaxEnergy(_value);
     }
 
-    public override void RevertUpgrade(CharacterConfiguration characterConfiguration)
+    public override void RevertUpgrade(Player player)
     {
-        characterConfiguration.DecreaseMaxEnergy(_value);
+        player.CharacterConfig.DecreaseMaxEnergy(_value);
     }
 }

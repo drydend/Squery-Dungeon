@@ -3,13 +3,13 @@
 [CreateAssetMenu(menuName = "Character upgrades/Stat debuff/Attack energy cost", fileName = "Attack energy cost debuff")]
 public class AttackEnergyCostDebuff : StatUpgrade
 {
-    public override void ApplyUpgrade(CharacterConfiguration characterConfiguration)
+    public override void ApplyUpgrade(Player player)
     {
-        characterConfiguration.IncreaseAttackEnergyCost(_value);
+        player.CharacterConfig.IncreaseAttackEnergyCost(_value);
     }
 
-    public override void RevertUpgrade(CharacterConfiguration characterConfiguration)
+    public override void RevertUpgrade(Player player)
     {
-        characterConfiguration.DecreaseAttackEnergyCost(_value);
+        player.CharacterConfig.DecreaseAttackEnergyCost(_value);
     }
 }

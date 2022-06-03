@@ -3,13 +3,13 @@
 [CreateAssetMenu(menuName = "Character upgrades/Stat buff/Max heals", fileName = "Max heals buff")]
 public class MaxHealsBuff : StatUpgrade
 {
-    public override void ApplyUpgrade(CharacterConfiguration characterConfiguration)
+    public override void ApplyUpgrade(Player player)
     {
-        characterConfiguration.IncreaseMaxHeals(_value);
+        player.CharacterConfig.IncreaseMaxHeals(_value);
     }
 
-    public override void RevertUpgrade(CharacterConfiguration characterConfiguration)
+    public override void RevertUpgrade(Player player)
     {
-        characterConfiguration.DecreaseMaxHeals(_value);
+        player.CharacterConfig.DecreaseMaxHeals(_value);
     }
 }

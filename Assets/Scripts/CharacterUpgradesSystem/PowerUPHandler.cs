@@ -15,8 +15,14 @@ public class PowerUPHandler : MonoBehaviour, IRewardHandler
 
     private List<CharacterModificator> _currentModificators = new List<CharacterModificator>();
 
-    public void ApplySelectedPowerUp()
+    private void Start()
     {
+        _upgradeChoiceMenu.OnConfrimedChoice += ConfrimChoice;
+    }
+
+    public void ApplySelectedPowerUp()
+    {   
+
         _currentModificators.Remove(_selectedUpgrade.CurrentModificator);
         
         foreach (var item in _currentModificators)
@@ -51,5 +57,15 @@ public class PowerUPHandler : MonoBehaviour, IRewardHandler
     {
         _selectedUpgrade?.Unselect();
         _selectedUpgrade = upgradeBlank;
+    }
+
+    private void ConfrimChoice()
+    {
+        if(_selectedUpgrade == null)
+        {
+            return;
+        }
+
+        ApplySelectedPowerUp();
     }
 }

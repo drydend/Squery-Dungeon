@@ -44,6 +44,9 @@ public class EnemyBullet : Enemy
     [SerializeField]
     private float _damageInFlight = 1f;
 
+    [SerializeField]
+    private List<Effect> _attackEffects;
+
     private ParticleSystem _flightParticle;
     private ParticleSystem _chargingAttackParticle;
     private Vector2 _targetLastVisiblePosition;
@@ -67,13 +70,18 @@ public class EnemyBullet : Enemy
 
     private void Update()
     {
+        _currentState.Update();
+        _attackTimer.UpdateTick(Time.deltaTime);
+
         if (!_isSpawned)
         {
             return;
         }
 
-        _attackTimer.UpdateTick(Time.deltaTime);
-        _currentState.Update();
+        for (int i = 0; i < _appliedEffects.Count - 1; i++)
+        {
+            _appliedEffects[i].Update();
+        }
 
         if (CanSeeTarget())
         {
@@ -119,6 +127,17 @@ public class EnemyBullet : Enemy
         if (collision.gameObject.TryGetComponent(out IHitable hitable))
         {
             hitable.RecieveHit(collisionDamage, gameObject);
+        }
+
+        if (collision.gameObject.TryGetComponent(out IEffectable effectable))
+        {
+            foreach (var effect in _attackEffects)
+            {
+                if (effectable.CanApplyEffect(effect))
+                {
+                    effectable.ApplyEffect(effect);
+                }
+            }
         }
     }
 
@@ -178,8 +197,8 @@ public class EnemyBullet : Enemy
             interceptionPoint = Vector2.zero;
             return false;
         }
-       
-        if(t1 < 0 && t2 < 0)
+
+        if (t1 < 0 && t2 < 0)
         {
             interceptionPoint = Vector2.zero;
             return false;
@@ -187,7 +206,7 @@ public class EnemyBullet : Enemy
 
         float timeToInterception = 0;
 
-        if(t1 > 0 && t2 > 0)
+        if (t1 > 0 && t2 > 0)
         {
             timeToInterception = Math.Min(t1, t2);
         }

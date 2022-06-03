@@ -10,10 +10,12 @@ public class Timer
 
     public bool IsFinished { get; private set; }
     public float SecondsPassed { get; private set; }
+    public float SecondsToFinish => _secondsToFinish;
 
     public Timer(float seconds)
     {
         _secondsToFinish = seconds;
+        _remainingSeconds = _secondsToFinish;
         OnFinished += Pause;
         OnFinished += () => IsFinished = true;
     }

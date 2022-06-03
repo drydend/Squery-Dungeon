@@ -43,7 +43,7 @@ public class CameraShaker : MonoBehaviour
 
             transform.localPosition = (Vector2)startPosition + new Vector2(xPos, yPos);
 
-            timeFromStart += Time.deltaTime / duration;
+            timeFromStart += Time.unscaledDeltaTime / duration;
             yield return null;
         }
     }

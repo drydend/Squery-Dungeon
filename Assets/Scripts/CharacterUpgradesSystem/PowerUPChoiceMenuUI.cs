@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class PowerUPChoiceMenuUI : UIMenu
 {
@@ -23,23 +24,28 @@ public class PowerUPChoiceMenuUI : UIMenu
     [SerializeField]
     private AnimationCurve _upgradeCrationAnimation;
     [SerializeField]
-    private float _upgradeCreationDuration = 0.7f;
-
-    private List<PowerUPBlank> _currentModificatorsBlanks = new List<PowerUPBlank>();
-
-    private Dictionary<PowerUPRarity, Color> _modificatorBackLightColor = new Dictionary<PowerUPRarity, Color>();
+    private float _upgradeCreationDuration = 0.7f;   
     
     [SerializeField]
     private GameObject _choiceMenu;
+    [SerializeField]
+    private Button _confrimButton;
+
+    private List<PowerUPBlank> _currentModificatorsBlanks = new List<PowerUPBlank>();
+    private Dictionary<PowerUPRarity, Color> _modificatorBackLightColor = new Dictionary<PowerUPRarity, Color>();
 
     public override bool CanBeClosed { get; set; }
 
     public override event Action OnOpened;
+    public override event Action OnClosed;
+    public event Action OnConfrimedChoice;
 
-    private void Awake()
+    public override void Initialize()
     {
         InitializeDictionaries();
+        _confrimButton.onClick.AddListener(() => OnConfrimedChoice?.Invoke());
     }
+    
 
     public List<PowerUPBlank> Show(List<CharacterModificator> modificators)
     {
@@ -76,17 +82,24 @@ public class PowerUPChoiceMenuUI : UIMenu
         Close();
     }
 
+    public override void OnCovered()
+    {
+        _choiceMenu.SetActive(false);
+    }
 
     public override void Open()
     {
         CanBeClosed = false;
         OnOpened?.Invoke();
         _choiceMenu.SetActive(true);
+        PauseMenager.Instance.Pause();
     }
 
     public override void Close()
     {
+        OnClosed?.Invoke();
         _choiceMenu.SetActive(false);
+        PauseMenager.Instance.Unpause();
     }
 
     private void InitializeDictionaries()
@@ -113,7 +126,7 @@ public class PowerUPChoiceMenuUI : UIMenu
                 rectTransform.localScale = new Vector3(currentScale, currentScale, currentScale);
             }
 
-            timeFromStart += Time.deltaTime / _upgradeCreationDuration;
+            timeFromStart += Time.unscaledDeltaTime / _upgradeCreationDuration;
             yield return null;
         }
 

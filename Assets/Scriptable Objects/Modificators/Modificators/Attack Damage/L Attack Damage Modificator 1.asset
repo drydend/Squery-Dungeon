@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aab6bbd021e3467448b5cff414415ec5, type: 3}
+  m_Name: L Attack Damage Modificator 1
+  m_EditorClassIdentifier: 
+  _powerUPs:
+  - {fileID: 11400000, guid: d10ec1b013039094ea35ebc52fc616d7, type: 2}
+  - {fileID: 11400000, guid: 3829239e53f180846a15f994d34d39a1, type: 2}
+  - {fileID: 11400000, guid: b923bb87940790a4ebde4c6a88c94400, type: 2}

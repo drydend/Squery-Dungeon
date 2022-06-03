@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Character : MonoBehaviour, IHitable, IPushable
+public class Character : MonoBehaviour, IHitable, IPushable, IDamageable, IMoveable, IEffectable, IEntity
 {
-    [SerializeField]
     private RangeWeapon _weapon;
 
     private CharacterConfiguration _config;
@@ -29,8 +29,23 @@ public class Character : MonoBehaviour, IHitable, IPushable
     public Vector2 Velocity => _rigidbody2D.velocity;
     public float MovementSpeed => _config.MovementSpeed;
 
+    public IDamageable Damageable => this;
+    public IHitable Hitable => this;
+    public IMoveable Moveable => this;
+
+    private List<Effect> _appliedEffects = new List<Effect>();
+
+    public event Action OnEndedDash;
     public event Action OnHealsChanged;
     public event Action OnDied;
+
+    private void Update()
+    {
+        for (int i = 0; i < _appliedEffects.Count; i++)
+        {
+            _appliedEffects[i].Update();
+        }
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -44,6 +59,7 @@ public class Character : MonoBehaviour, IHitable, IPushable
         if (_isDashing)
         {
             StopCoroutine(_currentDashingCoroutine);
+            OnEndedDash?.Invoke();
             _isDashing = false;
             if (collision.gameObject.TryGetComponent(out IHitable hitable))
             {
@@ -62,9 +78,15 @@ public class Character : MonoBehaviour, IHitable, IPushable
         _config = config;
         _currentHealsPoints = _config.MaxHealsPoints;
 
+        _weapon = Instantiate(config.Weapon, transform);
+        _weapon.Initialize(gameObject,_config.ProjectileEffects,_config.ProjectileAdditiveDamage, _config.ProjectileAdditiveSpeed);
+        config.OnProjectileAdditiveDamageChanged += (newValue) => _weapon.SetAdditiveDamage(newValue);
+        config.OnProjectileAdditiveSpeedChanged += (newValue) => _weapon.SetAdditiveSpeed(newValue);
+
         _colliderForEnemy = GetComponent<PolygonCollider2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
+
     }
 
     public void Dash(Vector2 direction)
@@ -95,6 +117,27 @@ public class Character : MonoBehaviour, IHitable, IPushable
             StartCoroutine(TookDamageAnimation(_config.InvulnerabilityAfterHitDuration));
             ApplyDamage(damage);
         }
+    }
+
+    public void ApplyEffect(Effect effect)
+    {
+        var clonedEffect = effect.Clone();
+        clonedEffect.Initialize(this);
+        _appliedEffects.Add(clonedEffect);
+        clonedEffect.OnEnded += RemoveEffect;
+    }
+
+    public bool CanApplyEffect(Effect effect)
+    {
+        foreach (var appliedEffect in _appliedEffects)
+        {
+            if (appliedEffect.GetType() == effect.GetType())
+            {
+                return false;
+            }
+        }
+
+        return effect.CanBeAppliedTo(this);
     }
 
     public void ApplyDamage(float damage)
@@ -156,7 +199,7 @@ public class Character : MonoBehaviour, IHitable, IPushable
         yield return new WaitForSeconds(_config.DashDuration);
         _rigidbody2D.velocity = Vector2.zero;
         _isDashing = false;
-
+        OnEndedDash?.Invoke();
     }
 
     private IEnumerator PushingCoroutine(Vector2 direction, float force, float duration)
@@ -177,6 +220,11 @@ public class Character : MonoBehaviour, IHitable, IPushable
 
         _isPushed = false;
         _rigidbody2D.velocity = Vector2.zero;
+    }
+
+    private void RemoveEffect(Effect effect)
+    {
+        _appliedEffects.Remove(effect);
     }
 
     private void Die()

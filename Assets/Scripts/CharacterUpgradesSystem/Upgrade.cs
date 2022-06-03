@@ -13,12 +13,12 @@ public class Upgrade : ScriptableObject
     public Sprite Icon => _icon;
     public string Discription => _discription;
 
-    public virtual void ApplyUpgrade(CharacterConfiguration characterConfiguration)
+    public virtual void ApplyUpgrade(Player player)
     {
 
     }
 
-    public virtual void RevertUpgrade(CharacterConfiguration characterConfiguration)
+    public virtual void RevertUpgrade(Player player)
     {
 
     }
