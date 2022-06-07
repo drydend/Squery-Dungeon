@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Utils
+﻿namespace Utils
 {
     public static class Math
     {
         public static bool QuadraticSolver(float a, float b, float c, ref float x1, ref float x2)
         {
             var preRoot = b * b - 4 * a * c;
-            
+
             if (preRoot < 0)
             {
                 return false;
@@ -26,3 +20,4 @@ namespace Utils
         }
     }
 }
+

@@ -18,7 +18,7 @@ public class LevelCreator : MonoBehaviour
     [SerializeField]
     private int _startRoomMapPosY = 0;
     [SerializeField]
-    private Room _finaleRommPrefab;
+    private Room _finaleRoomPrefab;
     [SerializeField]
     private GameObject _gatewayPrefab;
     [SerializeField]
@@ -40,11 +40,6 @@ public class LevelCreator : MonoBehaviour
     public StartRoom StartRoom { get; private set; }
     public Room FinaleRoom { get; private set; }
 
-    private void Awake()
-    {
-        _roomsMap = new Room[_maxXPos, _maxYPos];
-    }
-
     public void Initialize(EnemyWaveCreator enemyWaveCreator, EnemySpawner enemySpawner, PowerUPHandler powerUpHandler)
     {
         _enemySpawner = enemySpawner;
@@ -52,8 +47,9 @@ public class LevelCreator : MonoBehaviour
         _powerUpHandler = powerUpHandler;
     }
 
-    public void CreateLevel()
+    public Room[,] CreateLevel()
     {
+        _roomsMap = new Room[_maxXPos, _maxYPos];
         Stack<Room> roomCreationStack = new Stack<Room>();
         var startRoomWorldPos = new Vector2(_startRoomMapPosX * _distanceBetweenRomms, _startRoomMapPosY * _distanceBetweenRomms);
 
@@ -104,6 +100,7 @@ public class LevelCreator : MonoBehaviour
             }
         }
 
+        return _roomsMap;
     }
 
     private void ConnectRooms(Room originRoom, List<Room> adjacentRooms)

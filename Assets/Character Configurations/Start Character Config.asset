@@ -26,9 +26,9 @@ MonoBehaviour:
   _movementSpeed: 7
   _attackEnergyCost: 10
   _attackCooldown: 1
-  _projectileAdditiveDamage: 0
+  _projectileAdditiveDamage: 5
   _projectileAdditiveSpeed: 11
-  _projectileDamageMultiplier: 100
+  _projectileDamageMultiplier: 1
   _projectileSpeedMultiplier: 1
   _collisionDamage: 1
   _weaponPrefab: {fileID: 2430817525714816292, guid: 58431b7a4dc4ab1408d0b53aec4604fd,
@@ -39,3 +39,4 @@ MonoBehaviour:
     type: 2}
   _bulletStartCollisionBehaviour: {fileID: 11400000, guid: 1d0a699f8037d6441aab48ab1daf860e,
     type: 2}
+  _projectileEffects: []

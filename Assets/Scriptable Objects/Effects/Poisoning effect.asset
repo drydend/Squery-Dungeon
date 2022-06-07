@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eceed6290b802b940bcd1f4259c175ed, type: 3}
   m_Name: Poisoning effect
   m_EditorClassIdentifier: 
-  _effectDuration: 3
+  _effectDuration: 5
   _damagePerTick: 1
   _numberOfTicks: 3
+  _tickParticle: {fileID: 3604582596818916750, guid: d38eccc8c48d77247924e8438a56ebbd,
+    type: 3}
+  _lastTickParticle: {fileID: 7219516904160300850, guid: 79bd4ea6903f01649ae2d4867aa8d953,
+    type: 3}

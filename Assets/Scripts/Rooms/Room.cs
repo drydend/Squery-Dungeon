@@ -1,10 +1,15 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class Room : MonoBehaviour
 {
     protected Vector2Int _mapPosition;
     protected int _maxConnections;
     protected int _connectionsAmount;
+
+    [SerializeField]
+    protected Sprite _minimapIcon;
     [SerializeField]
     protected GameObject _gatewayPrefab;
     [SerializeField]
@@ -16,6 +21,13 @@ public class Room : MonoBehaviour
     [SerializeField]
     protected RoomEntrance _leftEntrance;
 
+    protected List<Room> _connectedRooms = new List<Room>();
+
+    public virtual event Action OnEntered;
+    public virtual event Action OnCompleated;
+
+    public List<Room> ConnectedRooms => _connectedRooms;
+    public Sprite MinimapIcon => _minimapIcon;
     public int MaxConnections => _maxConnections;
     public bool CanBeConnected => _maxConnections > _connectionsAmount;
     public Vector2Int MapPoistion => _mapPosition;
@@ -36,7 +48,11 @@ public class Room : MonoBehaviour
         {
             room._connectionsAmount++;
             _connectionsAmount++;
-            var directionToRoom =  room.MapPoistion - _mapPosition;
+
+            room._connectedRooms.Add(this);
+            _connectedRooms.Add(room);
+
+            var directionToRoom =  GetDirectionToRoom(room);
 
             var gatewayPosition = transform.position + (room.transform.position - transform.position) / 2;
             var gatewayRotation = (room.MapPoistion - MapPoistion).x == 0 ? 90 : 0;
@@ -70,5 +86,20 @@ public class Room : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public Vector2Int GetDirectionToRoom(Room room)
+    {
+        return room.MapPoistion - _mapPosition;
+    }
+
+    protected void OnRoomEntered()
+    {
+        OnEntered?.Invoke();
+    }
+
+    protected void OnRoomCompleated()
+    {
+        OnCompleated?.Invoke();
     }
 }

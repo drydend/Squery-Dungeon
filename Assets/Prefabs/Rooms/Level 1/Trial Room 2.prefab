@@ -406,6 +406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9f6b9119872df945b39202d5003a98a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _minimapIcon: {fileID: 21300000, guid: d2ce7aec9bd2c1346985382186b9b4ba, type: 3}
   _gatewayPrefab: {fileID: 7928314599333885327, guid: a19398371e1517c48a436a0d7b600182,
     type: 3}
   _upperEntrance: {fileID: 7791649386531274607}

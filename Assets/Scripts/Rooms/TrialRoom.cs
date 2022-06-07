@@ -28,7 +28,6 @@ public class TrialRoom : Room
 
     public int MinEnemiesInWave => _minNumberOfEnemiesInWave;
     public int MaxEnemiesInWave => _maxNumberOfEnemiesInWave;
-    public event Action OnWaveFinished;
 
     public void SetEnemyWaves(List<EnemyWave> enemyWaves)
     {
@@ -73,6 +72,7 @@ public class TrialRoom : Room
         _lowerEntrance.Open();
         _rightEntrance.Open();
         _leftEntrance.Open();
+        OnRoomCompleated();
         _rewardHandler.GiveReward();
     }
 
@@ -104,6 +104,7 @@ public class TrialRoom : Room
         if (collision.TryGetComponent(out Character character) && _roomState == RoomState.NotFinished)
         {
             _roomState = RoomState.InProcess;
+            OnRoomEntered();
             StartRoomTrial();
         }
     }

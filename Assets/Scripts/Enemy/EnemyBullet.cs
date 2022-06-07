@@ -78,7 +78,7 @@ public class EnemyBullet : Enemy
             return;
         }
 
-        for (int i = 0; i < _appliedEffects.Count - 1; i++)
+        for (int i = 0; i < _appliedEffects.Count; i++)
         {
             _appliedEffects[i].Update();
         }

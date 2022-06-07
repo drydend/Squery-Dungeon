@@ -15,6 +15,11 @@ public class CameraFollower : MonoBehaviour
         Follow(_player.CharacterTransform);
     }
 
+    public void SetCameraPosition(Vector2 position)
+    {
+        transform.position = new Vector3(position.x, position.y, transform.position.z);
+    }
+
     private void Follow(Transform target)
     {
         var newX = Mathf.Lerp(transform.position.x, target.position.x, _lerpFactor);
