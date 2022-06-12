@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4987425361326940432}
-  - component: {fileID: 4987425361326940433}
+  - component: {fileID: 2377663328702986332}
   m_Layer: 5
   m_Name: Choice Menu
   m_TagString: Untagged
@@ -36,8 +36,8 @@ RectTransform:
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4987425361326940433
+  m_Pivot: {x: 0.5, y: 0.4}
+--- !u!114 &2377663328702986332
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -46,28 +46,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 4987425361326940463}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40aad3c556680f945a9b4508dad112ea, type: 3}
+  m_Script: {fileID: 11500000, guid: 6df6427a2752d874b9f8dd1fc0d8da8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _backLightCommon: {fileID: 1933725852033448605, guid: 7479fb83977cc12408662f2fd12fce95,
+  _backLightColorCommon: {r: 0.5707547, g: 0.98228556, b: 1, a: 0}
+  _backLightColorRare: {r: 0.34349412, g: 0.7830189, b: 0.38206804, a: 0}
+  _backLightColorEpic: {r: 0.8396226, g: 0.14653791, b: 0.6555025, a: 0}
+  _backLightColorLegendary: {r: 0.8867924, g: 0.6267258, b: 0.1966002, a: 0}
+  _upgradeBlankPrefab: {fileID: 7145514081223998108, guid: 25e0dc79de6114242a1f7003076da701,
     type: 3}
-  _backLightRare: {fileID: -7523910368627721671, guid: 7479fb83977cc12408662f2fd12fce95,
-    type: 3}
-  _backLightEpic: {fileID: -2051229442297355825, guid: 7479fb83977cc12408662f2fd12fce95,
-    type: 3}
-  _backLightLegendary: {fileID: -3769386729268415729, guid: 7479fb83977cc12408662f2fd12fce95,
-    type: 3}
-  _gemCommon: {fileID: -6222452102138856250, guid: 7479fb83977cc12408662f2fd12fce95,
-    type: 3}
-  _gemRare: {fileID: 809924322218894698, guid: 7479fb83977cc12408662f2fd12fce95, type: 3}
-  _gemEpic: {fileID: -8014377438261335591, guid: 7479fb83977cc12408662f2fd12fce95,
-    type: 3}
-  _gemLegendary: {fileID: -8589169047156043848, guid: 7479fb83977cc12408662f2fd12fce95,
-    type: 3}
-  _distanceBettwenBlanks: 450
-  _upgradeBlankPrefab: {fileID: 2848629100268327516, guid: 25e0dc79de6114242a1f7003076da701,
-    type: 3}
-  _choiceMenu: {fileID: 4987425361326940463}
+  _distanceBettwenBlanks: 150
   _upgradeCrationAnimation:
     serializedVersion: 2
     m_Curve:
@@ -93,6 +81,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _upgradeCreationDuration: 0.7
+  _choiceMenu: {fileID: 4987425361326940463}
+  _confrimButton: {fileID: 4987425362137738993}
 --- !u!1 &4987425362130047787
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,6 +143,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -264,7 +255,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -437}
+  m_AnchoredPosition: {x: 0, y: -407}
   m_SizeDelta: {x: -1417.0618, y: -984.6392}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4987425362137738995
@@ -290,6 +281,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -318,6 +310,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -347,19 +340,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4987425362363305064}
-        m_MethodName: ApplySelectedPowerUp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 0}
-        m_MethodName: ReturnToPreviousMenu
+        m_TargetAssemblyTypeName: PowerUPHandler, Assembly-CSharp
+        m_MethodName: ApplySelectedPowerUp
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -381,8 +364,6 @@ GameObject:
   - component: {fileID: 4987425362363305062}
   - component: {fileID: 4987425362363305061}
   - component: {fileID: 4987425362363305060}
-  - component: {fileID: 4987425362363305065}
-  - component: {fileID: 4987425362363305064}
   m_Layer: 5
   m_Name: Upgrade Canvas
   m_TagString: Untagged
@@ -419,7 +400,7 @@ Canvas:
   m_GameObject: {fileID: 4987425362363305059}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -453,6 +434,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &4987425362363305060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -470,41 +452,3 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &4987425362363305065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4987425362363305059}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 677520b51dce85f45ba64efa11a61277, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _commonWeight: 50
-  _rareWeight: 30
-  _epicWeight: 15
-  _legendaryWeight: 5
-  _commonPowerUps: []
-  _rarePowerUps:
-  - {fileID: 11400000, guid: d320219238740d44c95872dcc6000bb5, type: 2}
-  _epicPowerUps:
-  - {fileID: 11400000, guid: 34786bd499f225b4089eb001ba1a0f8e, type: 2}
-  - {fileID: 11400000, guid: 6051f48608dfa91488730cac07178d41, type: 2}
-  _legendaryPowerUps: []
---- !u!114 &4987425362363305064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4987425362363305059}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6f7e8eae93387445a1d60145a49008c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _upgradeCreator: {fileID: 4987425362363305065}
-  _upgradeChoiceMenu: {fileID: 4987425361326940433}
-  _player: {fileID: 0}

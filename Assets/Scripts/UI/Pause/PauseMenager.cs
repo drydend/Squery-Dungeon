@@ -67,4 +67,9 @@ public class PauseMenager : MonoBehaviour
             item.UnPause();
         }
     }
+
+    private void OnDestroy()
+    {
+        Unpause();
+    }
 }

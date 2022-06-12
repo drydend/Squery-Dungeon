@@ -36,8 +36,6 @@ public class PowerUPChoiceMenuUI : UIMenu
 
     public override bool CanBeClosed { get; set; }
 
-    public override event Action OnOpened;
-    public override event Action OnClosed;
     public event Action OnConfrimedChoice;
 
     public override void Initialize()
@@ -90,14 +88,14 @@ public class PowerUPChoiceMenuUI : UIMenu
     public override void Open()
     {
         CanBeClosed = false;
-        OnOpened?.Invoke();
+        OnMenuOpened();
         _choiceMenu.SetActive(true);
         PauseMenager.Instance.Pause();
     }
 
     public override void Close()
     {
-        OnClosed?.Invoke();
+        OnMenuClosed();
         _choiceMenu.SetActive(false);
         PauseMenager.Instance.Unpause();
     }

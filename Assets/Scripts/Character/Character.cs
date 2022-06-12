@@ -21,6 +21,7 @@ public class Character : MonoBehaviour, IHitable, IPushable, IDamageable, IMovea
 
     private SpriteRenderer _spriteRenderer;
     private Rigidbody2D _rigidbody2D;
+    [SerializeField]
     private PolygonCollider2D _colliderForEnemy;
 
     public float CurrentHealsPoints => _currentHealsPoints;
@@ -83,7 +84,6 @@ public class Character : MonoBehaviour, IHitable, IPushable, IDamageable, IMovea
         config.OnProjectileAdditiveDamageChanged += (newValue) => _weapon.SetAdditiveDamage(newValue);
         config.OnProjectileAdditiveSpeedChanged += (newValue) => _weapon.SetAdditiveSpeed(newValue);
 
-        _colliderForEnemy = GetComponent<PolygonCollider2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
 

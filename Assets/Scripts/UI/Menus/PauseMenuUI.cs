@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class PauseMenuUI : UIMenu
 {
@@ -8,11 +9,10 @@ public class PauseMenuUI : UIMenu
     private GameObject _pauseMenu;
     [SerializeField]
     private Button _closeButton;
+    [SerializeField]
+    private List<ParticleSystem> _particles;
 
     public override bool CanBeClosed { get { return true; } set { } }
-
-    public override event Action OnOpened;
-    public override event Action OnClosed;
 
     public override void Initialize()
     {
@@ -26,14 +26,24 @@ public class PauseMenuUI : UIMenu
 
     public override void Open()
     {
-        OnOpened?.Invoke();
+        foreach (var particle in _particles)
+        {
+            particle.Play();
+        }
+
+        OnMenuOpened();
         _pauseMenu.SetActive(true);
         PauseMenager.Instance.Pause();
     }
 
     public override void Close()
     {
-        OnClosed?.Invoke();
+        foreach (var particle in _particles)
+        {
+            particle.Stop();
+        }
+
+        OnMenuClosed();
         _pauseMenu.SetActive(false);
         PauseMenager.Instance.Unpause();
     }

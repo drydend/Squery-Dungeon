@@ -22,7 +22,7 @@ public class TrialRoom : Room
     [SerializeField]
     private EnemySpawner _enemySpawner;
 
-    private IRewardHandler _rewardHandler;                                    
+    private IRewardHandler _rewardHandler;
     private List<EnemyWave> _enemyWaves;
     private RoomState _roomState = RoomState.NotFinished;
 
@@ -33,7 +33,7 @@ public class TrialRoom : Room
     {
         _enemyWaves = enemyWaves;
     }
-    
+
     public void SetEnemySpawner(EnemySpawner enemySpawner)
     {
         _enemySpawner = enemySpawner;
@@ -56,7 +56,7 @@ public class TrialRoom : Room
         Debug.LogException(new Exception("Can`t find random place on navMesh"));
         return Vector3.zero;
     }
-    
+
     private void StartRoomTrial()
     {
         _upperEntrance.Close();
@@ -101,11 +101,14 @@ public class TrialRoom : Room
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out Character character) && _roomState == RoomState.NotFinished)
+        if (collision.TryGetComponent(out Character character))
         {
-            _roomState = RoomState.InProcess;
             OnRoomEntered();
-            StartRoomTrial();
+            if (_roomState == RoomState.NotFinished)
+            {
+               _roomState = RoomState.InProcess;
+                StartRoomTrial();
+            }
         }
     }
 }

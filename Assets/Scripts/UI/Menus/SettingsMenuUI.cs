@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class SettingsMenuUI : UIMenu
 {
@@ -8,16 +9,17 @@ public class SettingsMenuUI : UIMenu
     private GameObject _settingMenu;
     [SerializeField]
     private Button _openButton;
+    [SerializeField]
+    private Button _closeButton;
+    [SerializeField]
+    private List<ParticleSystem> _particles;
 
     public override bool CanBeClosed { get { return true; } set { } }
-
-    public override event Action OnOpened;
-    public override event Action OnClosed;
 
     public override void Initialize()
     {
         _openButton.onClick.AddListener(Open);
-        _openButton.onClick.AddListener(() => Debug.Log("uuuu"));
+        _closeButton.onClick.AddListener(Close);
     }
 
     public override void OnCovered()
@@ -27,14 +29,23 @@ public class SettingsMenuUI : UIMenu
 
     public override void Close()
     {
-        OnClosed?.Invoke();
+        foreach ( var particle in _particles)
+        {
+            particle.Stop();
+        }
+
+        OnMenuClosed();
         _settingMenu.SetActive(false);
     }
 
     public override void Open()
     {
-        Debug.Log("Opened");
-        OnOpened?.Invoke();
+        foreach (var particle in _particles)
+        {
+            particle.Play();
+        }
+
+        OnMenuOpened();
         _settingMenu.SetActive(true);
     }
 }

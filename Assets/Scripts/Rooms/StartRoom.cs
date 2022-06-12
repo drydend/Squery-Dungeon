@@ -15,6 +15,14 @@ public class StartRoom : Room
         OnRoomCompleated();
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent(out Character character))
+        {
+            OnRoomEntered();
+        }
+    }
+
     public void OpenExits()
     {
         _upperEntrance.Open();

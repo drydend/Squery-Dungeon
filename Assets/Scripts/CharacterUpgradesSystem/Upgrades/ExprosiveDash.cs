@@ -50,6 +50,11 @@ public class ExprosiveDash : Upgrade
                 continue;
             }
 
+            if(collider.TryGetComponent(out Projectile projectile))
+            {
+                Destroy(projectile.gameObject);
+            }
+
             collider.GetComponent<IHitable>()?
                 .RecieveHit(_explosionDamage, _player.CurrentCharacter.gameObject);
             collider.GetComponent<IPushable>()?

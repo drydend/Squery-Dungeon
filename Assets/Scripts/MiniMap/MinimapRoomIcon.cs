@@ -36,6 +36,14 @@ public class MinimapRoomIcon : MonoBehaviour
         RectTransform.sizeDelta = size;
     }
 
+    public void CompleateAllPassages()
+    {
+        foreach (var passage in _connectedPassages)
+        {
+            passage.Compleate();
+        }
+    }
+
     public void Unselect()
     {
         Image.color = _compleatedColor;

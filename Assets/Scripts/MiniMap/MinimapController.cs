@@ -48,6 +48,7 @@ public class MinimapController : MonoBehaviour
                 _roomMap[x, y].OnCompleated += () =>
                 {
                     _minimap[x1, y1].BecameVisible();
+                    _minimap[x1, y1].CompleateAllPassages();
 
                     foreach (var roomIcon in _minimap[x1, y1].ConnectedRoomIcons)
                     {

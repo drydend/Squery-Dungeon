@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Linq;
 
 [RequireComponent(typeof(Image))]
 public class MinimapPassageIcon : MonoBehaviour
 {
+    [SerializeField]
+    private Color _onCompleatedColor;
+
     private MinimapRoomIcon _firstRoom;
     private MinimapRoomIcon _secondRoom;
     
@@ -26,7 +27,12 @@ public class MinimapPassageIcon : MonoBehaviour
         _rectTransform.anchoredPosition = iconPosition;
         _rectTransform.sizeDelta = iconSize;
     }
-  
+    
+    public void Compleate()
+    {
+        _image.color = _onCompleatedColor;
+    }
+
     public void BecameVisible()
     {
         if (IsVisible)
