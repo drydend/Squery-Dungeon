@@ -5,8 +5,6 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
     protected Vector2Int _mapPosition;
-    protected int _maxConnections;
-    protected int _connectionsAmount;
 
     [SerializeField]
     protected Sprite _minimapIcon;
@@ -28,63 +26,48 @@ public class Room : MonoBehaviour
 
     public List<Room> ConnectedRooms => _connectedRooms;
     public Sprite MinimapIcon => _minimapIcon;
-    public int MaxConnections => _maxConnections;
-    public bool CanBeConnected => _maxConnections > _connectionsAmount;
     public Vector2Int MapPoistion => _mapPosition;
 
-    public void Initialize(Vector2Int mapPosition, int connectionsAmount)
+    public void Initialize(Vector2Int mapPosition)
     {
         _mapPosition = mapPosition;
-        _maxConnections = connectionsAmount;
         _upperEntrance.Block();
         _rightEntrance.Block();
         _leftEntrance.Block();
         _lowerEntrance.Block();
     }
 
-    public bool TryConnectToRoom(Room room)
+    public void ConnectToRoom(Room room)
     {
-        if (CanBeConnected && room.CanBeConnected)
+        room._connectedRooms.Add(this);
+        _connectedRooms.Add(room);
+
+        var directionToRoom = GetDirectionToRoom(room);
+
+        var gatewayPosition = transform.position + (room.transform.position - transform.position) / 2;
+        var gatewayRotation = (room.MapPoistion - MapPoistion).x == 0 ? 90 : 0;
+
+        Instantiate(_gatewayPrefab, gatewayPosition, Quaternion.Euler(0, 0, gatewayRotation));
+
+        if (directionToRoom == Vector2Int.up)
         {
-            room._connectionsAmount++;
-            _connectionsAmount++;
-
-            room._connectedRooms.Add(this);
-            _connectedRooms.Add(room);
-
-            var directionToRoom =  GetDirectionToRoom(room);
-
-            var gatewayPosition = transform.position + (room.transform.position - transform.position) / 2;
-            var gatewayRotation = (room.MapPoistion - MapPoistion).x == 0 ? 90 : 0;
-
-            Instantiate(_gatewayPrefab, gatewayPosition, Quaternion.Euler(0, 0, gatewayRotation));
-
-            if (directionToRoom == Vector2Int.up)
-            {
-                _upperEntrance.Unblock();
-                room._lowerEntrance.Unblock();
-            }
-            else if (directionToRoom == Vector2Int.down)
-            {
-                _lowerEntrance.Unblock();
-                room._upperEntrance.Unblock();
-            }
-            else if(directionToRoom == Vector2Int.right)
-            {
-                _rightEntrance.Unblock();
-                room._leftEntrance.Unblock();
-            }
-            else if (directionToRoom == Vector2Int.left)
-            {
-                _leftEntrance.Unblock();
-                room._rightEntrance.Unblock();
-            }
-
-            return true;
+            _upperEntrance.Unblock();
+            room._lowerEntrance.Unblock();
         }
-        else
+        else if (directionToRoom == Vector2Int.down)
         {
-            return false;
+            _lowerEntrance.Unblock();
+            room._upperEntrance.Unblock();
+        }
+        else if (directionToRoom == Vector2Int.right)
+        {
+            _rightEntrance.Unblock();
+            room._leftEntrance.Unblock();
+        }
+        else if (directionToRoom == Vector2Int.left)
+        {
+            _leftEntrance.Unblock();
+            room._rightEntrance.Unblock();
         }
     }
 

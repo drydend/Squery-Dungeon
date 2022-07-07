@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class LevelCreator : MonoBehaviour
 {
-    private const int _minRoomConnections = 2;
-    private const int _maxRoomConnections = 4;
     [SerializeField]
     private AnimationCurve _difficultyCurve;
     [SerializeField]
@@ -25,6 +23,9 @@ public class LevelCreator : MonoBehaviour
     private float _distanceBetweenRomms;
     [SerializeField]
     private int _numberOfRooms;
+    [SerializeField]
+    [Range(0, 1)]
+    private float _chanceToConnectRooms;
     [SerializeField]
     private int _maxXPos;
     [SerializeField]
@@ -56,7 +57,7 @@ public class LevelCreator : MonoBehaviour
         var startRoom = Instantiate(_startRoomPrefab, startRoomWorldPos, _startRoomPrefab.transform.rotation);
         StartRoom = startRoom;
         roomCreationStack.Push(startRoom);
-        startRoom.Initialize(new Vector2Int(_startRoomMapPosX, _startRoomMapPosY), 1);
+        startRoom.Initialize(new Vector2Int(_startRoomMapPosX, _startRoomMapPosY));
         _roomsMap[_startRoomMapPosX, _startRoomMapPosY] = startRoom;
 
         Room currentRoom = startRoom;
@@ -66,7 +67,7 @@ public class LevelCreator : MonoBehaviour
         {
             var adjacentEmptyPoints = new List<Vector2Int>();
             var adjacentRooms = new List<Room>();
-            if (currentRoom.CanBeConnected && TryFindAllAdjacentEmptyPoint(currentRoom.MapPoistion, adjacentEmptyPoints))
+            if (TryFindAllAdjacentEmptyPoint(currentRoom.MapPoistion, adjacentEmptyPoints))
             {
                 int roomDifficulty = (int)_difficultyCurve.Evaluate(numberOfGeneratedRooms / _numberOfRooms) * 10;
                 var roomMapPos = adjacentEmptyPoints[Random.Range(0, adjacentEmptyPoints.Count)];
@@ -75,22 +76,20 @@ public class LevelCreator : MonoBehaviour
 
                 var newRoom = Instantiate(roomPrefab, roomWorldsPos, roomPrefab.transform.rotation);
 
-                newRoom.Initialize(roomMapPos, GetConnectionsAmountForRoom(roomMapPos));
+                newRoom.Initialize(roomMapPos);
                 var enemyWaves = _enemyWaveCreator.GenerateEnemyWaves(roomDifficulty, newRoom.MaxEnemiesInWave, newRoom.MinEnemiesInWave);
                 newRoom.SetEnemyWaves(enemyWaves);
                 newRoom.SetEnemySpawner(_enemySpawner);
                 newRoom.SetRevardHandler(_powerUpHandler);
 
                 _roomsMap[roomMapPos.x, roomMapPos.y] = newRoom;
-                newRoom.TryConnectToRoom(currentRoom);
+                newRoom.ConnectToRoom(currentRoom);
+                
                 TryFindAllAdjacentRooms(newRoom.MapPoistion, adjacentRooms);
                 adjacentRooms.Remove(currentRoom);
                 ConnectRooms(newRoom, adjacentRooms);
 
-                if (newRoom.CanBeConnected)
-                {
-                    roomCreationStack.Push(newRoom);
-                }
+                roomCreationStack.Push(newRoom);
                 numberOfGeneratedRooms++;
                 currentRoom = newRoom;
             }
@@ -106,46 +105,12 @@ public class LevelCreator : MonoBehaviour
     private void ConnectRooms(Room originRoom, List<Room> adjacentRooms)
     {
         foreach (var adjacentRoom in adjacentRooms)
-        {
-            originRoom.TryConnectToRoom(adjacentRoom);
+        {   
+            if(RandomUtils.RandomBoolean(_chanceToConnectRooms * 100))
+            {
+                originRoom.ConnectToRoom(adjacentRoom);
+            }
         }
-    }
-
-    private int GetConnectionsAmountForRoom(Vector2Int roomMapPos)
-    {
-        var currentRoomMaxConnections = (int)Mathf.Round(_maxRoomConnections + _maxRoomConnectionsDelta);
-        currentRoomMaxConnections = currentRoomMaxConnections > 4 ? 4 : currentRoomMaxConnections;
-        var currentRoomMinConnections = (int)Mathf.Round(_minRoomConnections + _minRoomConnectionsDelta);
-        currentRoomMinConnections = currentRoomMinConnections < 2 ? 1 : currentRoomMinConnections;
-
-        if (roomMapPos.x == 0 || roomMapPos.x == _roomsMap.GetLength(0) - 1)
-            currentRoomMaxConnections -= 1;
-        if (roomMapPos.y == 0 || roomMapPos.y == _roomsMap.GetLength(0) - 1)
-            currentRoomMaxConnections -= 1;
-
-        var connectionsAmount = Random.Range(currentRoomMinConnections, currentRoomMaxConnections);
-
-        switch (connectionsAmount)
-        {
-            case 1:
-                _maxRoomConnectionsDelta = 0;
-                _minRoomConnectionsDelta = 0;
-                break;
-            case 2:
-                _maxRoomConnectionsDelta += 0.5f;
-                _minRoomConnectionsDelta += 0.5f;
-                break;
-            case 3:
-                _maxRoomConnectionsDelta -= 0.4f;
-                _minRoomConnectionsDelta -= 0.4f;
-                break;
-            case 4:
-                _maxRoomConnectionsDelta -= 0.4f;
-                _minRoomConnectionsDelta -= 0.4f;
-                break;
-        }
-
-        return connectionsAmount;
     }
 
     private bool TryFindAllAdjacentRooms(Vector2Int currentRoomMapPos, List<Room> adjacentRooms)
