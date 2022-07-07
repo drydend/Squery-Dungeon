@@ -1,7 +1,7 @@
 ﻿using UnityEngine.UI;
 using UnityEngine;
 
-public class ExitToMenuButton : MonoBehaviour
+public class ExitToMenuSceneButton : MonoBehaviour
 {
     [SerializeField]
     private Button _button;
@@ -9,6 +9,8 @@ public class ExitToMenuButton : MonoBehaviour
     private SceneTransition _sceneTransition;
     [SerializeField]
     private ConfirmPanel _confirmPanel;
+    [SerializeField]
+    private LevelController _levelController;
 
     private void Awake()
     {
@@ -23,6 +25,7 @@ public class ExitToMenuButton : MonoBehaviour
     
     private void ExitToMenu()
     {
+        _levelController.OnLevelExit();
         _sceneTransition.SwitchToMainMenu();
     }
 

@@ -12,8 +12,6 @@ public class ShootingEnemy : Enemy
     private Projectile _projectile;
     [SerializeField]
     private RangeWeapon _weapon;
-    [SerializeField]
-    private List<Effect> _projectileEffects;
 
     [SerializeField]
     private float _attackSpeed;
@@ -107,7 +105,7 @@ public class ShootingEnemy : Enemy
             new ShootingEnemyShootingAndWalkingState(this, _navMeshAgent, _attackTimer)
         };
 
-        _weapon.Initialize(gameObject, _projectileEffects, 0, 0);
+        _weapon.Initialize(gameObject, _attackEffects, 0, 0);
         _currentState = _allAvaibleStates.FirstOrDefault(state => state is SpawningState);
         _currentState.OnEnter();
     }

@@ -13,6 +13,5 @@ public static class ListExtensions
         return list[UnityEngine.Random.Range(0, list.Count)];
 
     }
-
 }
 

@@ -44,9 +44,6 @@ public class EnemyBullet : Enemy
     [SerializeField]
     private float _damageInFlight = 1f;
 
-    [SerializeField]
-    private List<Effect> _attackEffects;
-
     private ParticleSystem _flightParticle;
     private ParticleSystem _chargingAttackParticle;
     private Vector2 _targetLastVisiblePosition;

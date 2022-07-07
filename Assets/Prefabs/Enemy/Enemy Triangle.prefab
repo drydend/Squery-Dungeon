@@ -383,6 +383,7 @@ MonoBehaviour:
     type: 3}
   _maxAttackDistance: 17
   _minAttackDistance: 10
+  _attackEffects: []
   _raycastLayers:
     serializedVersion: 2
     m_Bits: 66816
@@ -390,7 +391,6 @@ MonoBehaviour:
   _projectile: {fileID: 8349999306990363028, guid: 1e1a84db31c4c474c952a7af83d28d77,
     type: 3}
   _weapon: {fileID: 6066173975325511981}
-  _projectileEffects: []
   _attackSpeed: 1
 --- !u!1 &4586656368892806384
 GameObject:
@@ -501,23 +501,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2551171430907470465}
     m_Modifications:
-    - target: {fileID: 2430817525714816292, guid: 58431b7a4dc4ab1408d0b53aec4604fd,
-        type: 3}
-      propertyPath: _owner
-      value: 
-      objectReference: {fileID: 2551171430907470492}
-    - target: {fileID: 2430817525714816292, guid: 58431b7a4dc4ab1408d0b53aec4604fd,
-        type: 3}
-      propertyPath: _projectilePrefab
-      value: 
-      objectReference: {fileID: 247102203812978508, guid: 1e1a84db31c4c474c952a7af83d28d77,
-        type: 3}
-    - target: {fileID: 2430817525714816292, guid: 58431b7a4dc4ab1408d0b53aec4604fd,
-        type: 3}
-      propertyPath: _shootingParticle
-      value: 
-      objectReference: {fileID: 2202537529900242428, guid: 35e1859a4b5ab7b47b551b6056c720f6,
-        type: 3}
     - target: {fileID: 2430817525714816293, guid: 58431b7a4dc4ab1408d0b53aec4604fd,
         type: 3}
       propertyPath: m_RootOrder
@@ -577,11 +560,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Range Weapon
-      objectReference: {fileID: 0}
-    - target: {fileID: 8446681312890163462, guid: 58431b7a4dc4ab1408d0b53aec4604fd,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58431b7a4dc4ab1408d0b53aec4604fd, type: 3}

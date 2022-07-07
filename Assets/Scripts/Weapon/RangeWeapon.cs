@@ -2,18 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class RangeWeapon : MonoBehaviour
 {   
     [SerializeField]
     protected Transform _projectileSpawnPosition;
     [SerializeField]
     protected ParticleSystem _shootingParticle;
+    [SerializeField]
+    protected AudioClip _shootSound;
     protected List<Effect> _projectileEffects;
     protected float _projectileDamageMulptiplier = 1f;
     protected float _projectileSpeedMulptiplier = 1f;
     protected float _projectileAdditiveDamage;
     protected float _projectileAdditiveSpeed;
     protected GameObject _owner;
+    protected AudioSource _audioSource;
 
     public event Action OnShooted;
 
@@ -24,6 +28,7 @@ public class RangeWeapon : MonoBehaviour
         _projectileEffects = projectileEffects;
         _projectileAdditiveDamage = projectileAdditiveDamage;
         _projectileAdditiveSpeed = projectileAdditiveSpeed;
+        _audioSource = GetComponent<AudioSource>();
     }
 
     public void SetAdditiveSpeed(float value)
@@ -64,10 +69,10 @@ public class RangeWeapon : MonoBehaviour
 
     public virtual void Attack(Vector3 targetPosition, Projectile projectilePrefab)
     {
-        OnShooted?.Invoke();
         Vector2 projectileDirection = targetPosition - _owner.transform.position;
         projectileDirection = VectorExtensions.ClampMagnitude(projectileDirection, 1, 1);
         ShootProjectile(projectileDirection , projectilePrefab);
+        OnShootedProjectile();
     }
 
     private void ShootProjectile(Vector2 projectileDirection, Projectile projectilePrefab)
@@ -78,8 +83,9 @@ public class RangeWeapon : MonoBehaviour
             _projectileDamageMulptiplier, _projectileAdditiveDamage, _projectileAdditiveSpeed);
     }
 
-    protected void InvokeOnShooted()
+    protected void OnShootedProjectile()
     {
+        _audioSource.PlayOneShot(_shootSound);
         OnShooted?.Invoke();
     }
 }

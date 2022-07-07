@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class Player : MonoBehaviour
 {
     [SerializeField]
@@ -10,11 +11,16 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Character _currentCharacter;
     private CharacterConfiguration _characterConfig;
+    
+    [SerializeField]
+    private AudioClip _powerUPApplyingSound;
 
     private float _currentEnergy = 0;
 
     private Timer _attackTimer;
     private Timer _dashTimer;
+
+    private AudioSource _audioSource;
 
     public event Action OnCurrentCharacterEndedDashing;
     public event Action OnCurrentCharacterHealsChanged;
@@ -35,6 +41,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        _audioSource = GetComponent<AudioSource>();
         _characterConfig = _startConfig.Clone();
         _characterConfig.Initialize();
         _currentCharacter.Initialize(_characterConfig);
@@ -85,6 +92,7 @@ public class Player : MonoBehaviour
 
     public void ApplyPowerUP(Upgrade powerUP)
     {
+        _audioSource.PlayOneShot(_powerUPApplyingSound);
         powerUP.ApplyUpgrade(this);
     }
 

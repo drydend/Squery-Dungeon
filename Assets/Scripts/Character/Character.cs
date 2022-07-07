@@ -3,14 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(AudioSource))]
 public class Character : MonoBehaviour, IHitable, IPushable, IDamageable, IMoveable, IEffectable, IEntity
 {
+    [SerializeField]
+    private AudioClip _dashSound;
+    [SerializeField]
+    private AudioClip _hitSound;
+   
     private RangeWeapon _weapon;
 
     private CharacterConfiguration _config;
 
     private float _currentHealsPoints;
+    
 
     [SerializeField]
     private AnimationCurve _colorAlfaOnInvulnerable;
@@ -21,6 +27,7 @@ public class Character : MonoBehaviour, IHitable, IPushable, IDamageable, IMovea
 
     private SpriteRenderer _spriteRenderer;
     private Rigidbody2D _rigidbody2D;
+    private AudioSource _audioSource;
     [SerializeField]
     private PolygonCollider2D _colliderForEnemy;
 
@@ -86,12 +93,13 @@ public class Character : MonoBehaviour, IHitable, IPushable, IDamageable, IMovea
 
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
-
+        _audioSource = GetComponent<AudioSource>();
     }
 
     public void Dash(Vector2 direction)
     {
         _currentDashingCoroutine = StartCoroutine(DashCoroutine(direction));
+        _audioSource.PlayOneShot(_dashSound);
     }
 
     public void Move(Vector2 direction)
@@ -116,6 +124,7 @@ public class Character : MonoBehaviour, IHitable, IPushable, IDamageable, IMovea
             StartCoroutine(BecomeInvulnerable(_config.InvulnerabilityAfterHitDuration));
             StartCoroutine(TookDamageAnimation(_config.InvulnerabilityAfterHitDuration));
             ApplyDamage(damage);
+            _audioSource.PlayOneShot(_hitSound);
         }
     }
 

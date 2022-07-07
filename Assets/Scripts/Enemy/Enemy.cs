@@ -42,6 +42,8 @@ public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable,
     protected float _maxAttackDistance;
     [SerializeField]
     protected float _minAttackDistance;
+    [SerializeField]
+    protected List<Effect> _attackEffects;
 
     [SerializeField]
     protected LayerMask _raycastLayers;

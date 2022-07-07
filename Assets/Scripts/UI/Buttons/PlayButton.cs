@@ -9,6 +9,8 @@ public class PlayButton : MonoBehaviour
     private Button _playButton;
     [SerializeField]
     private SceneTransition _sceneTransition;
+    [SerializeField]
+    private MainMenu _mainMenu;
 
     private void Awake()
     {
@@ -17,6 +19,7 @@ public class PlayButton : MonoBehaviour
 
     private void StartGame()
     {
+        _mainMenu.OnMainMenuClosed();
         _sceneTransition.SwitchToScene(LevelName);
     }
 }

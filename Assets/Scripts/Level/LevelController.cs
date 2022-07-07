@@ -23,17 +23,23 @@ public class LevelController : MonoBehaviour
     private void Awake()
     {
         _currentLevelCreator.Initialize(_enemyWaveCreator, _enemySpawner, _powerUpHandler);
-        BeginLevel();
-        _minimapController.Initialize(_levelMap);
     }
 
     private void Start()
-    {   
+    {
+        SaveController.Instance.LoadGame();
+        BeginLevel();
+    }
+
+    public void OnLevelExit()
+    {
+        SaveController.Instance.SaveGame();
     }
 
     private void BeginLevel()
     {
         _levelMap = _currentLevelCreator.CreateLevel();
+        _minimapController.Initialize(_levelMap);
         _player.SetCharacterPosition(_currentLevelCreator.StartRoom.transform.position);
         _cameraFollower.SetCameraPosition(_player.CharacterTransform.position);
     }

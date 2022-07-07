@@ -60,6 +60,8 @@ MonoBehaviour:
   _input: {fileID: 6393331585658017685}
   _startConfig: {fileID: 11400000, guid: 4b7e183bcfa588842b129f219e6c94d5, type: 2}
   _currentCharacter: {fileID: 869082210798524051}
+  _powerUPApplyingSound: {fileID: 8300000, guid: 662a8e2149c877441b040ce0544c48c1,
+    type: 3}
 --- !u!1001 &1768267709505456467
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -67,6 +69,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6393331585658017686}
     m_Modifications:
+    - target: {fileID: -8958016324587641844, guid: 6da42aa6a2d006e4589ef9a9f5a5b88f,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -1758219044968412316, guid: 48bd8a9fc30b8434ea74df6334c83b93,
+        type: 2}
     - target: {fileID: 172511263, guid: 6da42aa6a2d006e4589ef9a9f5a5b88f, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1
@@ -79,6 +87,16 @@ PrefabInstance:
       propertyPath: m_LightVolumeOpacity
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1478798843005640640, guid: 6da42aa6a2d006e4589ef9a9f5a5b88f,
+        type: 3}
+      propertyPath: _hitSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 10b5bb8fde98fd040a45ab3e155dab7a, type: 3}
+    - target: {fileID: 1478798843005640640, guid: 6da42aa6a2d006e4589ef9a9f5a5b88f,
+        type: 3}
+      propertyPath: _dashSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 5ef7de55e31983947851147a5ccdc368, type: 3}
     - target: {fileID: 1478798843005640640, guid: 6da42aa6a2d006e4589ef9a9f5a5b88f,
         type: 3}
       propertyPath: _colorAlfaOnInvulnerable.m_PostInfinity

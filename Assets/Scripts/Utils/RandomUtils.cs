@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public static class RandomUtils
 {   
@@ -32,5 +33,16 @@ public static class RandomUtils
         return values[Random.Range(0, values.Length)];
     }
 
-
+    public static void ShuffleList<T>( IList<T> list)
+    {
+        int n = list.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = Random.Range(0, n);
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
+    }
 }

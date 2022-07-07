@@ -265,6 +265,7 @@ MonoBehaviour:
     type: 3}
   _maxAttackDistance: 12
   _minAttackDistance: 10
+  _attackEffects: []
   _raycastLayers:
     serializedVersion: 2
     m_Bits: 66816
@@ -272,7 +273,6 @@ MonoBehaviour:
   _projectile: {fileID: 4513312512559798218, guid: bea682f4269ddcd4fa9cc622a38c6ab3,
     type: 3}
   _weapon: {fileID: 4136429974276561528}
-  _projectileEffects: []
   _attackSpeed: 2
 --- !u!60 &6332629090628438152
 PolygonCollider2D:
@@ -551,27 +551,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Multiple Range Weapon
-      objectReference: {fileID: 0}
-    - target: {fileID: 8527773825243876774, guid: 5c112c492dac4704384a6c7e7ea278cc,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.45
-      objectReference: {fileID: 0}
-    - target: {fileID: 8571617021778657452, guid: 5c112c492dac4704384a6c7e7ea278cc,
-        type: 3}
-      propertyPath: _owner
-      value: 
-      objectReference: {fileID: 5733941462931112176}
-    - target: {fileID: 8571617021778657452, guid: 5c112c492dac4704384a6c7e7ea278cc,
-        type: 3}
-      propertyPath: _shootingParticle
-      value: 
-      objectReference: {fileID: 2202537529900242428, guid: 35e1859a4b5ab7b47b551b6056c720f6,
-        type: 3}
-    - target: {fileID: 8571617021778657452, guid: 5c112c492dac4704384a6c7e7ea278cc,
-        type: 3}
-      propertyPath: _numberOfProjectiles
-      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c112c492dac4704384a6c7e7ea278cc, type: 3}

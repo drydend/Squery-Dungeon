@@ -12,8 +12,8 @@ public class QuitButton : MonoBehaviour
     }
 
     private void QuitGame()
-    {
-        Application.Quit();
+    {   
+        App.Quit();
     }
 }
 

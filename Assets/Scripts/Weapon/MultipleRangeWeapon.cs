@@ -9,7 +9,7 @@ public class MultipleRangeWeapon : RangeWeapon
 
     public override void Attack(Vector3 targetPosition, Projectile projectilePrefab)
     {
-        InvokeOnShooted();
+        OnShootedProjectile();
         if (_numberOfProjectiles % 2 == 0)
         {
             var directionToTarget = VectorExtensions.ClampMagnitude(targetPosition - transform.position, 1, 1);
