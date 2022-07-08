@@ -1,1 +1,1 @@
-{"SettingsData":{"MasterVolume":0.343166321516037,"MusicVolume":0.23148243129253388,"SoundsVolume":0.3872528076171875}}
+{"SettingsData":{"MasterVolume":0.7154286503791809,"MusicVolume":0.00009999999747378752,"SoundsVolume":0.24679847061634065}}

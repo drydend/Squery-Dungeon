@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3439273181071679887}
   - component: {fileID: 7946428985827824675}
   - component: {fileID: 1564909366367381807}
-  - component: {fileID: 4322113108298297076}
+  - component: {fileID: 1627447271929704573}
   m_Layer: 14
   m_Name: Explosion Crate
   m_TagString: Untagged
@@ -49,6 +49,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -73,8 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1515622694917723629, guid: 8a181d76203a28c4390bb8febcb10fb5,
-    type: 3}
+  m_Sprite: {fileID: 38433539612607256, guid: 8a181d76203a28c4390bb8febcb10fb5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -127,7 +127,7 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
---- !u!114 &4322113108298297076
+--- !u!114 &1627447271929704573
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -136,18 +136,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 3439273181071679886}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1a8c14f66baeb840a3844c3cacdc74c, type: 3}
+  m_Script: {fileID: 11500000, guid: bd388946dafb3184d947681927bf299a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _heals: 1
   _destructParticlePrefab: {fileID: 7135577926925368173, guid: 501c7646b09df1a4aa8f1c18e8bd4276,
     type: 3}
-  _particleScaleFactor: 1
+  _particleScaleFactor: 3
   _destructionDelay: 0.2
   _explosionDamage: 1
   _explosionRadious: 2
   _explosionPushForce: 40
-  _explosionPushDuration: 0.1
+  _explosionPushDuration: 0.3
   _wallLayer:
     serializedVersion: 2
     m_Bits: 256

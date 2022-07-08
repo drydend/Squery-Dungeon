@@ -6,7 +6,8 @@ using UnityEngine.AI;
 using System.Linq;
 
 [RequireComponent(typeof(NavMeshAgent), typeof(Animator), typeof(Rigidbody2D))]
-public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable, IEntity, IEffectable
+[RequireComponent(typeof(AudioSource))]
+public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable, IEffectable, IEntity
 {
     [SerializeField]
     [Range(1, 10)]
@@ -36,6 +37,8 @@ public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable,
     protected ParticleSystem _deathParticle;
     [SerializeField]
     protected ParticleSystem _hitParticle;
+    [SerializeField]
+    protected AudioClip _hitSound;
 
     [Header("Attack configuration")]
     [SerializeField]
@@ -58,6 +61,7 @@ public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable,
     protected bool _isSpawned;
     protected bool _isPaused;
 
+    protected AudioSource _audioSource;
     protected Rigidbody2D _rigidbody2D;
     protected SpriteRenderer _mainSpriteRenderer;
     protected Collider2D _collider;
@@ -96,6 +100,7 @@ public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable,
         _currentHealsPoints = _maxHealsPoints;
         _target = target;
 
+        _audioSource = GetComponent<AudioSource>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _mainSpriteRenderer = GetComponent<SpriteRenderer>();
@@ -166,12 +171,14 @@ public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable,
         {
             return;
         }
+        
 
-        ApplyDamage(damage);
         var hitParticle = Instantiate(_hitParticle, transform.position, Quaternion.identity);
         var particleStartColor = hitParticle.main.startColor;
         particleStartColor = new ParticleSystem.MinMaxGradient(Color.white);
+        //_audioSource.PlayOneShot(_hitSound);
         OnRecieveHit();
+        ApplyDamage(damage);
     }
 
     public virtual void ApplyForce(Vector2 direction, float force, float duration)

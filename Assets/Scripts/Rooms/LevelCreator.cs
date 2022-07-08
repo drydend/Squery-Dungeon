@@ -31,8 +31,6 @@ public class LevelCreator : MonoBehaviour
     [SerializeField]
     private int _maxYPos;
     private Room[,] _roomsMap;
-    private float _minRoomConnectionsDelta;
-    private float _maxRoomConnectionsDelta;
 
     private EnemySpawner _enemySpawner;
     private EnemyWaveCreator _enemyWaveCreator;

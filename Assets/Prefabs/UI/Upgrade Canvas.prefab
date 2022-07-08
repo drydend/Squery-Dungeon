@@ -465,7 +465,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _onPointerEnterSound: {fileID: 8300000, guid: dd5f9a70683a98d40bdb716b7d6c8e70,
     type: 3}
-  _onPointerDownSound: {fileID: 8300000, guid: 2881b53ca9bc01346ab93e4fb57b8e5f, type: 3}
+  _onPointerDownSound: {fileID: 8300000, guid: 1f52b524959cbbd49bc7689f2ab4a572, type: 3}
   _audioSource: {fileID: 4759585056485235115}
 --- !u!1 &4987425362363305059
 GameObject:

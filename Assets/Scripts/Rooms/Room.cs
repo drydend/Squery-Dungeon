@@ -18,6 +18,8 @@ public class Room : MonoBehaviour
     protected RoomEntrance _rightEntrance;
     [SerializeField]
     protected RoomEntrance _leftEntrance;
+    [SerializeField]
+    protected List<Trap> _traps;
 
     protected List<Room> _connectedRooms = new List<Room>();
 
@@ -30,6 +32,8 @@ public class Room : MonoBehaviour
 
     public void Initialize(Vector2Int mapPosition)
     {
+        OnEntered += ActivateTraps;
+        OnCompleated += DeactivateTraps;
         _mapPosition = mapPosition;
         _upperEntrance.Block();
         _rightEntrance.Block();
@@ -74,6 +78,22 @@ public class Room : MonoBehaviour
     public Vector2Int GetDirectionToRoom(Room room)
     {
         return room.MapPoistion - _mapPosition;
+    }
+
+    private void ActivateTraps()
+    {
+        foreach (var trap in _traps)
+        {
+            trap.Activate();
+        }
+    }
+
+    private void DeactivateTraps()
+    {
+        foreach (var trap in _traps)
+        {
+            trap.Deactivate();
+        }
     }
 
     protected void OnRoomEntered()

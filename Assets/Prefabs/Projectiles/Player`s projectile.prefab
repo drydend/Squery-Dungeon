@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 247102203812978511}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -10.736105, y: 2.3042674, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -49,6 +49,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -136,7 +137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _baseSpeed: 7
   _baseDamage: 1
-  _collisionBehaviour: {fileID: 11400000, guid: 936171356aa996d4e9b9076d2b7b4b42,
+  _collisionBehaviour: {fileID: 11400000, guid: 1d0a699f8037d6441aab48ab1daf860e,
     type: 2}
   _hitBehaviour: {fileID: 11400000, guid: 4b43a42665e098a46b2251608a175896, type: 2}
   _hitParticle: {fileID: 2266793797983441876, guid: 487176bbc5ca72340aa0f76fe70016c2,

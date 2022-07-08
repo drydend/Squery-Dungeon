@@ -124,7 +124,6 @@ public class Character : MonoBehaviour, IHitable, IPushable, IDamageable, IMovea
             StartCoroutine(BecomeInvulnerable(_config.InvulnerabilityAfterHitDuration));
             StartCoroutine(TookDamageAnimation(_config.InvulnerabilityAfterHitDuration));
             ApplyDamage(damage);
-            _audioSource.PlayOneShot(_hitSound);
         }
     }
 
@@ -151,14 +150,18 @@ public class Character : MonoBehaviour, IHitable, IPushable, IDamageable, IMovea
 
     public void ApplyDamage(float damage)
     {
-        if (damage >= 0)
+        if (damage > 0)
         {
             _currentHealsPoints = _currentHealsPoints - damage > 0 ? _currentHealsPoints - damage : 0;
             OnHealsChanged?.Invoke();
+            _audioSource.PlayOneShot(_hitSound);
+
             if (_currentHealsPoints == 0)
+            {
                 Die();
+            }
         }
-        else
+        else if(damage < 0)
         {
             throw new Exception("Incorrect damage");
         }

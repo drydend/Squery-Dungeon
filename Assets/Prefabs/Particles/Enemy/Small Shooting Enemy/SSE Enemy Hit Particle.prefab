@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 112468737741113653}
   - component: {fileID: 112468737741113652}
   m_Layer: 0
-  m_Name: Small Shoting Enemy Hit particle
+  m_Name: SSE Enemy Hit Particle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

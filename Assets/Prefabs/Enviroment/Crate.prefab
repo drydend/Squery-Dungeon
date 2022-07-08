@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4150026126125062974}
   - component: {fileID: 4150026126125062973}
-  - component: {fileID: 1142603474154921278}
   - component: {fileID: 8676881179093954193}
   - component: {fileID: 259720852919686045}
+  - component: {fileID: 4731671681499844499}
   m_Layer: 14
   m_Name: Crate
   m_TagString: Untagged
@@ -49,6 +49,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1503016370545623098, guid: 8a181d76203a28c4390bb8febcb10fb5,
+  m_Sprite: {fileID: 1515622694917723629, guid: 8a181d76203a28c4390bb8febcb10fb5,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -85,22 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1142603474154921278
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4150026126125062972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f34fff2599691a48b8a68d376e0fb27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _heals: 1
-  _destructParticlePrefab: {fileID: 1502061728, guid: ec8bbf2b6540c854bb52ae689f130110,
-    type: 3}
-  _particleScaleFactor: 1
 --- !u!61 &8676881179093954193
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -143,3 +128,19 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &4731671681499844499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4150026126125062972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59e923a5490b0834aa6760d749d0f23b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _heals: 1
+  _destructParticlePrefab: {fileID: 1502061728, guid: ec8bbf2b6540c854bb52ae689f130110,
+    type: 3}
+  _particleScaleFactor: 1

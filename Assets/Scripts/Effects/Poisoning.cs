@@ -32,8 +32,9 @@ public class Poisoning : Effect
 
     public override void Initialize(IEntity entity)
     {
+        _ticksTime += _effectDuration / _numberOfTicks;
         _damageable = entity.Damageable;
-        _timer = new Timer(_effectDuration);
+        _timer = new Timer(_effectDuration + _ticksTime);
         _timer.OnFinished += OnEffectEnded;
     }
 
