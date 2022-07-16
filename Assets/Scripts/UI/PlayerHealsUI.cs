@@ -13,8 +13,8 @@ public class PlayerHealsUI : MonoBehaviour
 
     private void Awake()
     {
-        _player.OnCurrentCharacterHealsChanged += UpdateUI;
-        _player.OnCurrentCharacterMaxHealsChanged += UpdateUI;
+        _player.OnCharacterHealsChanged += UpdateUI;
+        _player.OnCharacterMaxHealsChanged += UpdateUI;
     }
 
     private void Start()

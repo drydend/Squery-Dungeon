@@ -19,6 +19,7 @@ public class Poisoning : Effect
     private float _ticksTime;
     private Timer _timer;
     private IDamageable _damageable;
+    private IEntity _entity;
 
     public float DamagePerTick => _damagePerTick;
     public float NumberOfTicks => _numberOfTicks;
@@ -32,6 +33,7 @@ public class Poisoning : Effect
 
     public override void Initialize(IEntity entity)
     {
+        _entity = entity;
         _ticksTime += _effectDuration / _numberOfTicks;
         _damageable = entity.Damageable;
         _timer = new Timer(_effectDuration + _ticksTime);
@@ -49,12 +51,12 @@ public class Poisoning : Effect
             if(_numberOfTickPassed == _numberOfTicks)
             {   
                 OnEffectEnded();
-                Instantiate(_lastTickParticle, _damageable.Transform.position, Quaternion.identity);
+                Instantiate(_lastTickParticle, _entity.Transform.position, Quaternion.identity);
                 _timer.Pause();
             }
             else
             {
-                Instantiate(_tickParticle, _damageable.Transform.position, Quaternion.identity);
+                Instantiate(_tickParticle, _entity.Transform.position, Quaternion.identity);
             }
         }
 

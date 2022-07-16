@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3439273181071679886}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.66, y: 7.14, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -121,7 +121,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.05}
+  m_Extents: {x: 0.5, y: 0.5, z: 0.1}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
@@ -143,6 +143,7 @@ MonoBehaviour:
   _destructParticlePrefab: {fileID: 7135577926925368173, guid: 501c7646b09df1a4aa8f1c18e8bd4276,
     type: 3}
   _particleScaleFactor: 3
+  _breakingSound: {fileID: 8300000, guid: 3574622a0f9060e48818c77d00c3b6f3, type: 3}
   _destructionDelay: 0.2
   _explosionDamage: 1
   _explosionRadious: 2

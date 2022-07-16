@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Start Character Config
   m_EditorClassIdentifier: 
   _maxEnergy: 100
-  _passiveEnergyRecovery: 15
+  _passiveEnergyRecovery: 100
   _dashCooldown: 0.2
   _dashDistance: 5
   _dashDuration: 0.2
@@ -21,13 +21,13 @@ MonoBehaviour:
   _dashingPushForce: 14
   _defaultPushForce: 8
   _pushingDuration: 0.3
-  _maxHealsPoints: 15
+  _maxHealsPoints: 1000
   _invulnerabilityAfterHitDuration: 1
   _movementSpeed: 7
   _attackEnergyCost: 10
-  _attackCooldown: 1
-  _projectileAdditiveDamage: 5
-  _projectileAdditiveSpeed: 11
+  _attackCooldown: 0.4
+  _projectileAdditiveDamage: 2
+  _projectileAdditiveSpeed: 9
   _projectileDamageMultiplier: 1
   _projectileSpeedMultiplier: 1
   _collisionDamage: 1

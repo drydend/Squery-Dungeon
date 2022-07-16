@@ -11,7 +11,5 @@ public class UIInput : MonoBehaviour
     {
         _playerInput.EscapeButton.performed += (context) => _uiMenusHandler.EscapeButtonPressed();
     }
-
-
 }
 

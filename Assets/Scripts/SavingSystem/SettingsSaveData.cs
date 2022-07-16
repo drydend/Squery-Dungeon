@@ -7,7 +7,7 @@ public class SettingsSaveData
     public float MusicVolume;
     public float SoundsVolume;
 
-    public SettingsSaveData(float masterVolume = default, float musicVolume = default, float soundsVolume = default)
+    public SettingsSaveData(float masterVolume = 0.5f, float musicVolume = default, float soundsVolume = default)
     {
         MasterVolume = masterVolume;
         MusicVolume = musicVolume;

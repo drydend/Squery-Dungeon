@@ -2,18 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
 public class BackgroundMusicPlayer : MonoBehaviour
 {
     [SerializeField]
     private List<AudioClip> _allTracks;
-    private AudioSource _audioSource;
     private bool _isPaused;
     private int _currentPlayingClipIndex;
+    private AudioSource _audioSource;
 
     private void Awake()
     {
-        _audioSource = GetComponent<AudioSource>();
+        _audioSource = AudioSourceProvider.Instance.GetMusicSource();
         RestartPlaying();
     }
 

@@ -7,7 +7,7 @@ public class EnemyWaveCreator : MonoBehaviour
     [SerializeField]
     private List<Enemy> _enemiesPrefabs;
     [SerializeField]
-    private int _enemyNumberMultiplier;
+    private float _enemyNumberMultiplier;
     [SerializeField]
     private int _enemyDifficultyRange;
     [SerializeField]
@@ -31,8 +31,8 @@ public class EnemyWaveCreator : MonoBehaviour
 
     public List<EnemyWave> GenerateEnemyWaves(int roomDifficulty, int maxEnemiesInWave, int minEnemiesInWave)
     {
-        var scaledMaxEnemiesInWave = maxEnemiesInWave * _enemyNumberMultiplier;
-        var scaledMinEnemiesInWave = minEnemiesInWave * _enemyNumberMultiplier;
+        var scaledMaxEnemiesInWave = Mathf.RoundToInt(maxEnemiesInWave * _enemyNumberMultiplier);
+        var scaledMinEnemiesInWave = Mathf.RoundToInt(minEnemiesInWave * _enemyNumberMultiplier);
 
         var waves = new List<EnemyWave>();
         var availableEnemies = _enemiesPrefabs.FindAll(enemyController =>

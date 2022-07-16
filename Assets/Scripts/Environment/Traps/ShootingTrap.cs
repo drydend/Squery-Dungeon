@@ -22,12 +22,6 @@ public class ShootingTrap : Trap
         _weapon.Initialize(gameObject, _projectileEffects, 0, 0);
     }
 
-    private void Start()
-    {
-        Activate();
-    }
-
-
     private void Update()
     {
         if (!_isActive)

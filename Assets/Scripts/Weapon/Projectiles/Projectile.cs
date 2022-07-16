@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Projectile : MonoBehaviour
 {
+    protected Transform _target;
+
     [SerializeField]
     private float _baseSpeed;
     [SerializeField]
@@ -25,7 +27,6 @@ public class Projectile : MonoBehaviour
 
     private Vector2 _direction;
     private GameObject _sender;
-    private bool _hitEnemy = false;
 
     private float _speedMultiplier = 1f;
     private float _damageMultiplier = 1f;
@@ -34,23 +35,23 @@ public class Projectile : MonoBehaviour
 
     public ParticleSystem HitParticle => _hitParticle;
     public ParticleSystem CollisionParticle => _collisionParticle;
-    
+
     public BulletHitBehaviour HitBehaviour => _hitBehaviour;
     public BulletCollisionBehaviour CollisionBehaviour => _collisionBehaviour;
-    
+
     public GameObject Sender => _sender;
     public Vector2 MoveDirection => _direction;
     public float Damage => (_baseDamage + _additiveDamage) * _damageMultiplier;
     public float Speed => (_baseSpeed + _additiveSpeed) * _speedMultiplier;
 
-    private void OnTriggerEnter2D(Collider2D collider)
+    protected void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.gameObject == _sender || collider.isTrigger)
         {
             return;
         }
 
-        if(collider.gameObject.TryGetComponent(out IEffectable effectable))
+        if (collider.gameObject.TryGetComponent(out IEffectable effectable))
         {
             foreach (var effect in _effectsToApply)
             {
@@ -71,9 +72,9 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    public void Initialize(Vector2 direction, GameObject sender, List<Effect> effectsToApply ,float speedMultiplier,
+    public void Initialize(Vector2 direction, GameObject sender, List<Effect> effectsToApply, float speedMultiplier,
         float damageMultiplier, float additiveDamage, float additiveSpeed)
-    {   
+    {
         _additiveDamage = additiveDamage;
         _additiveSpeed = additiveSpeed;
         _sender = sender;
@@ -84,6 +85,13 @@ public class Projectile : MonoBehaviour
         _hitBehaviour = _hitBehaviour.Initialize(this);
         _collisionBehaviour = _collisionBehaviour.Initialize(this);
         Move();
+    }
+
+    public void Initialize(Vector2 direction, Transform target, GameObject sender, List<Effect> effectsToApply, 
+        float speedMultiplier, float damageMultiplier, float additiveDamage, float additiveSpeed)
+    {
+        Initialize(direction, sender, effectsToApply, speedMultiplier, damageMultiplier, additiveDamage, additiveSpeed);
+        _target = target;
     }
 
     public void DestroyProjectile()

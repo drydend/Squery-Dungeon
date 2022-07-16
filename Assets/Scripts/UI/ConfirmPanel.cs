@@ -12,7 +12,7 @@ public class ConfirmPanel : UIMenu
 
     private Action _action;
 
-    public override bool CanBeClosed { get { return false; } set { } }
+    public override bool CanBeClosed { get => false; set { } }
 
     public override void Initialize()
     {

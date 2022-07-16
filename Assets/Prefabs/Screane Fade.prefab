@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2674721580855176423}
   - component: {fileID: 1151762488219774167}
   - component: {fileID: 2743476603350343646}
-  - component: {fileID: 4102444871068372737}
   - component: {fileID: 5966912765951228451}
   m_Layer: 5
   m_Name: Screane Fade
@@ -77,25 +76,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!95 &4102444871068372737
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 439483575820464739}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0879609c66ffa414a8267d7e998f8009, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &5966912765951228451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,3 +88,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 697be3e64434ab444be2d61fed15b884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shouldPlayUnfadeAtStart: 0
+  _animationDuration: 1

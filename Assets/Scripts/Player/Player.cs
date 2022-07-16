@@ -22,9 +22,10 @@ public class Player : MonoBehaviour
 
     private AudioSource _audioSource;
 
-    public event Action OnCurrentCharacterEndedDashing;
-    public event Action OnCurrentCharacterHealsChanged;
-    public event Action OnCurrentCharacterMaxHealsChanged;
+    public event Action OnCharacterDied;
+    public event Action OnCharacterEndedDashing;
+    public event Action OnCharacterHealsChanged;
+    public event Action OnCharacterMaxHealsChanged;
 
     public float CurrentEnergy => _currentEnergy;
     public float MaxEnergy => _characterConfig.MaxEnergy;
@@ -81,10 +82,11 @@ public class Player : MonoBehaviour
 
     private void OnEnable()
     {   
-        OnCurrentCharacterHealsChanged += () => CameraShaker.Instance.ShakeCamera(0.2f, 0.3f);
-        _currentCharacter.OnEndedDash += () => OnCurrentCharacterEndedDashing?.Invoke();
-        _currentCharacter.OnHealsChanged +=() => OnCurrentCharacterHealsChanged?.Invoke();
-        _characterConfig.OnMaxHealsChanged += () => OnCurrentCharacterMaxHealsChanged?.Invoke();
+        OnCharacterHealsChanged += () => CameraShaker.Instance.ShakeCamera(0.2f, 0.3f);
+        _currentCharacter.OnDied += () => OnCharacterDied?.Invoke();
+        _currentCharacter.OnEndedDash += () => OnCharacterEndedDashing?.Invoke();
+        _currentCharacter.OnHealsChanged +=() => OnCharacterHealsChanged?.Invoke();
+        _characterConfig.OnMaxHealsChanged += () => OnCharacterMaxHealsChanged?.Invoke();
         _input.DashButton.performed += (context) => Dash(_input.PlayerMoveDirection);
         _input.AttackButton.performed += (context) => Attack(_input.CurrentMousePoisition);
     }

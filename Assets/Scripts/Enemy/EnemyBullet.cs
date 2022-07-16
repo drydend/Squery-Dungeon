@@ -82,7 +82,7 @@ public class EnemyBullet : Enemy
 
         if (CanSeeTarget())
         {
-            _targetLastVisiblePosition = Target.Transform.position;
+            _targetLastVisiblePosition = Target.transform.position;
         }
 
         if (_isFlying || _isChargingAttack || !_isStoped)

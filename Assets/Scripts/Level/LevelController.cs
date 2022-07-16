@@ -3,27 +3,16 @@
 public class LevelController : MonoBehaviour
 {
     [SerializeField]
-    private PowerUPHandler _powerUpHandler;
-    [SerializeField]
-    private EnemyWaveCreator _enemyWaveCreator;
-    [SerializeField]
-    private EnemySpawner _enemySpawner;
-    [SerializeField]
     private LevelCreator _currentLevelCreator;
     [SerializeField]
     private MinimapController _minimapController;
+
     [SerializeField]
     private CameraFollower _cameraFollower;
-
     [SerializeField]
     private Player _player;
 
     private Room[,] _levelMap;
-
-    private void Awake()
-    {
-        _currentLevelCreator.Initialize(_enemyWaveCreator, _enemySpawner, _powerUpHandler);
-    }
 
     private void Start()
     {
@@ -31,7 +20,7 @@ public class LevelController : MonoBehaviour
         BeginLevel();
     }
 
-    public void OnLevelExit()
+    public void SaveLevel()
     {
         SaveController.Instance.SaveGame();
     }

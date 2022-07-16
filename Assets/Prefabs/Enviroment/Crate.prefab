@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4150026126125062972}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.66, y: 7.14, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 1515622694917723629, guid: 8a181d76203a28c4390bb8febcb10fb5,
     type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8679245, g: 0.85753673, b: 0.81470275, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -122,7 +122,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.05}
+  m_Extents: {x: 0.5, y: 0.5, z: 0.1}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
@@ -144,3 +144,4 @@ MonoBehaviour:
   _destructParticlePrefab: {fileID: 1502061728, guid: ec8bbf2b6540c854bb52ae689f130110,
     type: 3}
   _particleScaleFactor: 1
+  _breakingSound: {fileID: 8300000, guid: 3574622a0f9060e48818c77d00c3b6f3, type: 3}

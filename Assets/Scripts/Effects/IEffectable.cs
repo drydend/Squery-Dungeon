@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-    public interface IEffectable
-    {
-        public void ApplyEffect(Effect effect);
-        public bool CanApplyEffect(Effect effect);
-    }
+public interface IEffectable
+{
+    public void ApplyEffect(Effect effect);
+    public void RemoveEffect(Effect effect);
+    public bool CanApplyEffect(Effect effect);
+}
 

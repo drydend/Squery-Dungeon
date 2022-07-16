@@ -10,8 +10,12 @@ public class UIInteractionSoundsPlayer : MonoBehaviour, IPointerEnterHandler, IP
     private AudioClip _onPointerEnterSound;
     [SerializeField]
     private AudioClip _onPointerDownSound;
-    [SerializeField]
     private AudioSource _audioSource;
+
+    private void Awake()
+    {
+        _audioSource = AudioSourceProvider.Instance.GetSoundsSource();
+    }
 
     public void OnPointerDown(PointerEventData eventData)
     {

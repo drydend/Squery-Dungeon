@@ -3,20 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(AudioSource))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class Character : MonoBehaviour, IHitable, IPushable, IDamageable, IMoveable, IEffectable, IEntity
 {
     [SerializeField]
     private AudioClip _dashSound;
     [SerializeField]
     private AudioClip _hitSound;
-   
+
     private RangeWeapon _weapon;
 
     private CharacterConfiguration _config;
 
     private float _currentHealsPoints;
-    
 
     [SerializeField]
     private AnimationCurve _colorAlfaOnInvulnerable;
@@ -28,6 +27,9 @@ public class Character : MonoBehaviour, IHitable, IPushable, IDamageable, IMovea
     private SpriteRenderer _spriteRenderer;
     private Rigidbody2D _rigidbody2D;
     private AudioSource _audioSource;
+
+    [SerializeField]
+    private AudioSourceProvider _audioSourceProvider;
     [SerializeField]
     private PolygonCollider2D _colliderForEnemy;
 
@@ -66,12 +68,9 @@ public class Character : MonoBehaviour, IHitable, IPushable, IDamageable, IMovea
 
         if (_isDashing)
         {
-            StopCoroutine(_currentDashingCoroutine);
-            OnEndedDash?.Invoke();
-            _isDashing = false;
-            if (collision.gameObject.TryGetComponent(out IHitable hitable))
+            if (collision.gameObject.TryGetComponent(out Enemy enemy))
             {
-                hitable.RecieveHit(_config.CollisionDamage, gameObject);
+                enemy.RecieveHit(_config.CollisionDamage, gameObject);
             }
         }
     }
@@ -87,13 +86,13 @@ public class Character : MonoBehaviour, IHitable, IPushable, IDamageable, IMovea
         _currentHealsPoints = _config.MaxHealsPoints;
 
         _weapon = Instantiate(config.Weapon, transform);
-        _weapon.Initialize(gameObject,_config.ProjectileEffects,_config.ProjectileAdditiveDamage, _config.ProjectileAdditiveSpeed);
+        _weapon.Initialize(gameObject, _config.ProjectileEffects, _config.ProjectileAdditiveDamage, _config.ProjectileAdditiveSpeed);
         config.OnProjectileAdditiveDamageChanged += (newValue) => _weapon.SetAdditiveDamage(newValue);
         config.OnProjectileAdditiveSpeedChanged += (newValue) => _weapon.SetAdditiveSpeed(newValue);
 
+        _audioSource = AudioSourceProvider.Instance.GetSoundsSource();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
-        _audioSource = GetComponent<AudioSource>();
     }
 
     public void Dash(Vector2 direction)
@@ -150,20 +149,18 @@ public class Character : MonoBehaviour, IHitable, IPushable, IDamageable, IMovea
 
     public void ApplyDamage(float damage)
     {
-        if (damage > 0)
-        {
-            _currentHealsPoints = _currentHealsPoints - damage > 0 ? _currentHealsPoints - damage : 0;
-            OnHealsChanged?.Invoke();
-            _audioSource.PlayOneShot(_hitSound);
-
-            if (_currentHealsPoints == 0)
-            {
-                Die();
-            }
-        }
-        else if(damage < 0)
+        if (damage < 0)
         {
             throw new Exception("Incorrect damage");
+        }
+
+        _currentHealsPoints = _currentHealsPoints - damage > 0 ? _currentHealsPoints - damage : 0;
+        OnHealsChanged?.Invoke();
+        _audioSource.PlayOneShot(_hitSound);
+
+        if (_currentHealsPoints == 0)
+        {
+            Die();
         }
     }
 
@@ -207,9 +204,11 @@ public class Character : MonoBehaviour, IHitable, IPushable, IDamageable, IMovea
 
         _isDashing = true;
 
+        _colliderForEnemy.isTrigger = true;
         _rigidbody2D.velocity = direction * _config.DashDistance / _config.DashDuration;
         yield return new WaitForSeconds(_config.DashDuration);
         _rigidbody2D.velocity = Vector2.zero;
+        _colliderForEnemy.isTrigger = false;
         _isDashing = false;
         OnEndedDash?.Invoke();
     }
@@ -234,13 +233,13 @@ public class Character : MonoBehaviour, IHitable, IPushable, IDamageable, IMovea
         _rigidbody2D.velocity = Vector2.zero;
     }
 
-    private void RemoveEffect(Effect effect)
+    public virtual void RemoveEffect(Effect effect)
     {
         _appliedEffects.Remove(effect);
     }
 
     private void Die()
     {
-
+        OnDied?.Invoke();
     }
 }

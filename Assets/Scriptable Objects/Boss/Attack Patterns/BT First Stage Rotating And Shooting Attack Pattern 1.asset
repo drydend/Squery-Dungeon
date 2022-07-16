@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 665b0f1d94aef2744a5bb356145aef89, type: 3}
+  m_Name: BT First Stage Rotating And Shooting Attack Pattern 1
+  m_EditorClassIdentifier: 
+  _weaponPrefab: {fileID: 2430817525714816292, guid: b80718cfeac4793408dcb3b0df9fb189,
+    type: 3}
+  _projectilePrefab: {fileID: 8349999306990363028, guid: fdd0b1ea59317494f9e679c1c1de737c,
+    type: 3}
+  _projectileEffects: []
+  _duration: 12
+  _numberOfProjectiles: 3
+  _angleBetweenProjectiles: 120
+  _attackSpeed: 0.1
+  _rotatingSpeed: 120

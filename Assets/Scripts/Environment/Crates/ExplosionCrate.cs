@@ -20,8 +20,9 @@ public class ExplosionCrate : Crate
 
     private float ExplosionCameraShakeStrenght => _explosionDamage / 10;
 
-    private void Awake()
+    private new void Awake()
     {
+        base.Awake();
         _particleScaleFactor = _explosionRadious;
     }
 

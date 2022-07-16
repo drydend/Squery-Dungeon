@@ -50,7 +50,7 @@ public class BulletEnemyChargingAttackState : BaseEnemyState
     public override void Update()
     {
         _animationTimer.UpdateTick(Time.deltaTime);
-        _controlableEnemy.Transform.LookAt2D(_controlableEnemy.Target.transform.position);
+        _controlableEnemy.transform.LookAt2D(_controlableEnemy.Target.transform.position);
     }
 }
 

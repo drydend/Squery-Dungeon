@@ -20,12 +20,12 @@ public class ExprosiveDash : Upgrade
     public override void ApplyUpgrade(Player player)
     {
         _player = player;
-        player.OnCurrentCharacterEndedDashing += Explode;
+        player.OnCharacterEndedDashing += Explode;
     }
 
     public override void RevertUpgrade(Player player)
     {
-        player.OnCurrentCharacterEndedDashing -= Explode;
+        player.OnCharacterEndedDashing -= Explode;
         _player = null;
     }
 

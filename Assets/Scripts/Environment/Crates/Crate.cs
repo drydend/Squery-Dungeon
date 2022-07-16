@@ -8,9 +8,18 @@ public class Crate : MonoBehaviour, IHitable
     protected ScalableParticles _destructParticlePrefab;
     [SerializeField]
     protected float _particleScaleFactor = 1;
+    [SerializeField]
+    protected AudioClip _breakingSound;
+
+    protected AudioSource _audioSource;
     protected bool _isDestructed;
 
     public Transform Transform => transform;
+
+    protected void Awake()
+    {
+        _audioSource = AudioSourceProvider.Instance.GetSoundsSource();
+    }
 
     public void RecieveHit(float damage, GameObject sender)
     {
@@ -27,6 +36,7 @@ public class Crate : MonoBehaviour, IHitable
 
     protected virtual void Destruct()
     {
+        _audioSource.PlayOneShot(_breakingSound);
         _isDestructed = true;
         var destructionParticles = Instantiate(_destructParticlePrefab, transform.position, Quaternion.Euler(Vector3.zero));
         destructionParticles.Scale(_particleScaleFactor);

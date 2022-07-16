@@ -56,7 +56,7 @@ public class BulletEnemyStopingState : BaseEnemyState
 
     public override void Update()
     {
-        _controlableEnemy.Transform.LookAt2D(_controlableEnemy.Target.transform.position);
+        _controlableEnemy.transform.LookAt2D(_controlableEnemy.Target.transform.position);
         _rigidbody2D.velocity = _startVelocity * _stopCurve.Evaluate(_stopTimer.SecondsPassed / _stopTime);
         _stopTimer.UpdateTick(Time.deltaTime);
     }

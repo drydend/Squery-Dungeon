@@ -6,13 +6,11 @@ public class CameraFollower : MonoBehaviour
     [SerializeField]
     private Transform _target;
     [SerializeField]
-    private Player _player;
-    [SerializeField]
     private float _lerpFactor = 0.1f;
 
     private void FixedUpdate()
     {
-        Follow(_player.CharacterTransform);
+        Follow(_target);
     }
 
     public void SetCameraPosition(Vector2 position)

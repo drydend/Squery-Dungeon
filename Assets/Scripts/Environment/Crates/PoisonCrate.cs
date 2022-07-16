@@ -7,6 +7,11 @@ public class PoisonCrate : Crate
     [SerializeField]
     private float _poisoningRadius;
 
+    private new void Awake()
+    {
+        base.Awake();
+    }
+
     protected override void Destruct()
     {
         var colliders = Physics2D.OverlapCircleAll(transform.position, _poisoningRadius);

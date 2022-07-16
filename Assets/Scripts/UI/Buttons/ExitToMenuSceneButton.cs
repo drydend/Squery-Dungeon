@@ -25,7 +25,7 @@ public class ExitToMenuSceneButton : MonoBehaviour
     
     private void ExitToMenu()
     {
-        _levelController.OnLevelExit();
+        _levelController.SaveLevel();
         _sceneTransition.SwitchToMainMenu();
     }
 

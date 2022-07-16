@@ -1,4 +1,4 @@
-﻿enum RoomState
+﻿public enum RoomState
 {   
     NotFinished,
     Finished,

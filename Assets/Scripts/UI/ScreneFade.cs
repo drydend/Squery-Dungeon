@@ -1,48 +1,65 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Image))]
 public class ScreneFade : MonoBehaviour
 {
-    private const string FadeAnimationTrigger = "Fade";
-    private const string UnfadeAnimationTrigger = "Unfade";
+    [SerializeField]
+    private bool _shouldPlayUnfadeAtStart = false;
 
-    private static bool _shouldPlayOpeningAnimation = false;
+    [SerializeField]
+    private float _animationDuration = 1;
+    private Image _screne;
 
     public bool IsAnimated { get; private set; }
-    private Animator _animator;
-
 
     private void Awake()
     {
-        _animator = GetComponent<Animator>();
+        _screne = GetComponent<Image>();
     }
 
     public void Start()
     {
-        if (_shouldPlayOpeningAnimation)
+        if (_shouldPlayUnfadeAtStart)
         {
+            var startColor = _screne.color;
+            startColor.a = 1;
+            _screne.color = startColor;
             Unfade();
         }
     }
 
-    public void Fade()
+    public void Fade(float fadeIntencity = 1f)
     {
-        _shouldPlayOpeningAnimation = true;
-        IsAnimated = true;
-        _animator.SetTrigger(FadeAnimationTrigger);
+        StartCoroutine(FadeCoroutine(fadeIntencity));
     }
 
     public void Unfade()
-    {
-        _shouldPlayOpeningAnimation = false;
-        IsAnimated = true;
-        _animator.SetTrigger(UnfadeAnimationTrigger);
+    { 
+        StartCoroutine(FadeCoroutine(0));
     }
 
-    public void OnAnimationEnded()
+    private IEnumerator FadeCoroutine(float fadeIntencity = 1f)
     {
+        var timeElapsed = 0f;
+        var startAlpha = _screne.color.a;
+        IsAnimated = true;
+
+        while(timeElapsed < _animationDuration)
+        {
+            Color currentColor = _screne.color;
+            currentColor.a = Mathf.Lerp(startAlpha, fadeIntencity, timeElapsed / _animationDuration);
+            _screne.color = currentColor;
+            timeElapsed += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        Color color = _screne.color;
+        color.a = Mathf.Lerp(startAlpha, fadeIntencity, 1);
+        _screne.color = color;
+
         IsAnimated = false;
     }
 }

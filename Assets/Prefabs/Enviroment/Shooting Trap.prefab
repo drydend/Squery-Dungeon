@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 216414898896607311}
   - component: {fileID: 216414898896607308}
   - component: {fileID: 216414898896607309}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Shooting Trap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31,6 +31,7 @@ Transform:
   m_Children:
   - {fileID: 216414898771208683}
   - {fileID: 216414899700888430}
+  - {fileID: 4304796239178632935}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -134,6 +135,36 @@ Transform:
   m_Father: {fileID: 216414898896607311}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5112649094681745141
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4304796239178632935}
+  m_Layer: 0
+  m_Name: Projectile Spawn Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4304796239178632935
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5112649094681745141}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 216414898896607311}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &8996448722178302753
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -148,10 +179,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9212414607709719241, guid: 6076f835d2dd46047acd81da2282a06f,
         type: 3}
-      propertyPath: _shootingParticle
+      propertyPath: _projectileSpawnPosition
       value: 
-      objectReference: {fileID: 2202537529900242428, guid: 35e1859a4b5ab7b47b551b6056c720f6,
-        type: 3}
+      objectReference: {fileID: 4304796239178632935}
     - target: {fileID: 9212414607709719242, guid: 6076f835d2dd46047acd81da2282a06f,
         type: 3}
       propertyPath: m_RootOrder

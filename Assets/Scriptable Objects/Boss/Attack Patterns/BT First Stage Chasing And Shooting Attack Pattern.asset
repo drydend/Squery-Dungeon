@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75583f277b6f79d49ad9bf4c59052b39, type: 3}
+  m_Name: BT First Stage Chasing And Shooting Attack Pattern
+  m_EditorClassIdentifier: 
+  _weaponPrefab: {fileID: 2430817525714816292, guid: 2e77bf8b3c567d04f9075c7735e75b90,
+    type: 3}
+  _projectilePrefab: {fileID: 8349999306990363028, guid: fdd0b1ea59317494f9e679c1c1de737c,
+    type: 3}
+  _projectileEffects: []
+  _duration: 8
+  _numberOfProjectiles: 5
+  _angleBetweenProjectiles: 20
+  _attackSpeed: 1.3
+  _movementSpeed: 5

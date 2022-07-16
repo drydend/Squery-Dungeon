@@ -7,6 +7,8 @@ public class RoomEntrance : MonoBehaviour
     [SerializeField]
     private GameObject _blockingBound;
     [SerializeField]
+    private GameObject _entrancePart;
+    [SerializeField]
     private ParticleSystem _closingParticles;
     [SerializeField]
     private Light2D _closingLight;
@@ -45,12 +47,14 @@ public class RoomEntrance : MonoBehaviour
     {
         _isBlocked = true;
         _blockingBound.SetActive(true);
+        _entrancePart.SetActive(false);
     }
 
     public void Unblock()
     {
         _isBlocked = false;
         _blockingBound.SetActive(false);
+        _entrancePart.SetActive(true);
         _closingParticles.gameObject.SetActive(false);
         _closingLight.gameObject.SetActive(false);
         _closingCollider.gameObject.SetActive(false);

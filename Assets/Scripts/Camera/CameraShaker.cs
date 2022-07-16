@@ -8,6 +8,7 @@ public class CameraShaker : MonoBehaviour
     public static CameraShaker Instance;
 
     private Coroutine _currentCameraShake;
+    private bool _canBeCurrentShakeInterrupted;
 
     private void Awake()
     {
@@ -21,14 +22,15 @@ public class CameraShaker : MonoBehaviour
         }
     }
 
-    public void ShakeCamera(float duration, float shakeRadious)
+    public void ShakeCamera(float duration, float shakeRadious, bool canBeInterrupted = true)
     {   
-        if(_currentCameraShake != null)
+        if(_currentCameraShake != null && _canBeCurrentShakeInterrupted)
         {
             StopCoroutine(_currentCameraShake);
         }
 
         _currentCameraShake = StartCoroutine(ShakeCoroutine (duration, shakeRadious));
+        _canBeCurrentShakeInterrupted = canBeInterrupted;
     }
 
     private IEnumerator ShakeCoroutine(float duration , float shakeRadious)

@@ -26,13 +26,14 @@ public class PauseMenuUI : UIMenu
 
     public override void Open()
     {
+        _pauseMenu.SetActive(true);
+
         foreach (var particle in _particles)
         {
             particle.Play();
         }
 
         OnMenuOpened();
-        _pauseMenu.SetActive(true);
         PauseMenager.Instance.Pause();
     }
 

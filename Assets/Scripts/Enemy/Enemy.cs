@@ -6,7 +6,6 @@ using UnityEngine.AI;
 using System.Linq;
 
 [RequireComponent(typeof(NavMeshAgent), typeof(Animator), typeof(Rigidbody2D))]
-[RequireComponent(typeof(AudioSource))]
 public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable, IEffectable, IEntity
 {
     [SerializeField]
@@ -39,6 +38,8 @@ public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable,
     protected ParticleSystem _hitParticle;
     [SerializeField]
     protected AudioClip _hitSound;
+    [SerializeField]
+    protected AudioClip _deathSound;
 
     [Header("Attack configuration")]
     [SerializeField]
@@ -100,7 +101,7 @@ public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable,
         _currentHealsPoints = _maxHealsPoints;
         _target = target;
 
-        _audioSource = GetComponent<AudioSource>();
+        _audioSource = AudioSourceProvider.Instance.GetSoundsSource();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _mainSpriteRenderer = GetComponent<SpriteRenderer>();
@@ -171,12 +172,12 @@ public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable,
         {
             return;
         }
-        
+
 
         var hitParticle = Instantiate(_hitParticle, transform.position, Quaternion.identity);
         var particleStartColor = hitParticle.main.startColor;
         particleStartColor = new ParticleSystem.MinMaxGradient(Color.white);
-        //_audioSource.PlayOneShot(_hitSound);
+        _audioSource.PlayOneShot(_hitSound);
         OnRecieveHit();
         ApplyDamage(damage);
     }
@@ -218,13 +219,18 @@ public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable,
         clonedEffect.OnEnded += RemoveEffect;
     }
 
+    public void RemoveEffect(Effect effect)
+    {
+        _appliedEffects.Remove(effect);
+    }
+
     public bool CanApplyEffect(Effect effect)
     {
         foreach (var appliedEffect in _appliedEffects)
         {
-            if(appliedEffect.GetType() == effect.GetType())
+            if (appliedEffect.GetType() == effect.GetType())
             {
-                return false; 
+                return false;
             }
         }
 
@@ -249,6 +255,16 @@ public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable,
 
     protected virtual void OnRecieveHit() { }
 
+    protected virtual void Die()
+    {
+        _isDead = true;
+        Instantiate(_deathParticle, transform.position, Quaternion.identity);
+        CameraShaker.Instance.ShakeCamera(_cameraShakeDurationOnDeath, _cameraShakeStrenghtOnDeath);
+        _audioSource.PlayOneShot(_hitSound);
+        OnDie?.Invoke();
+        Destroy(gameObject);
+    }
+
     protected virtual IEnumerator SpawnAnimation()
     {
         foreach (var spriteRenderer in _allSpriteRendereres)
@@ -271,15 +287,6 @@ public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable,
         }
     }
 
-    protected virtual void Die()
-    {
-        _isDead = true;
-        Instantiate(_deathParticle, transform.position, Quaternion.identity);
-        CameraShaker.Instance.ShakeCamera(_cameraShakeDurationOnDeath, _cameraShakeStrenghtOnDeath);
-        OnDie?.Invoke();
-        Destroy(gameObject);
-    }
-
     private IEnumerator PushingCoroutine(Vector2 direction, float force, float duration)
     {
         var initialForce = force;
@@ -291,10 +298,5 @@ public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable,
         }
 
         _rigidbody2D.velocity = Vector2.zero;
-    }
-
-    private void RemoveEffect(Effect effect)
-    {
-        _appliedEffects.Remove(effect);
     }
 }
