@@ -145,7 +145,7 @@ MonoBehaviour:
   _destructParticlePrefab: {fileID: 1502061728, guid: e7ba2175dc3469e44a3d379e15c47615,
     type: 3}
   _particleScaleFactor: 1
-  _breakingSound: {fileID: 8300000, guid: 3574622a0f9060e48818c77d00c3b6f3, type: 3}
+  _breakingSound: {fileID: 8300000, guid: a27360365bcf2f544a36489876bf828a, type: 3}
   _weapon: {fileID: 2572424409866894997}
   _projectile: {fileID: 8349999306990363028, guid: 6b52e79f9a7e8c04aa64681f26b1b0fb,
     type: 3}
@@ -181,6 +181,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8446681312890163462, guid: 75348fc0ffee9fd43afb8aeb84f7ed6d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75348fc0ffee9fd43afb8aeb84f7ed6d, type: 3}

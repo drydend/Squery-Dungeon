@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(AudioSource))]
 public class Player : MonoBehaviour
@@ -76,7 +77,7 @@ public class Player : MonoBehaviour
         
         if (_input.IsAttackButtonBeingHolded)
         {
-            Attack(_input.CurrentMousePoisition);
+            Attack();
         }
     }
 
@@ -87,10 +88,15 @@ public class Player : MonoBehaviour
         _currentCharacter.OnEndedDash += () => OnCharacterEndedDashing?.Invoke();
         _currentCharacter.OnHealsChanged +=() => OnCharacterHealsChanged?.Invoke();
         _characterConfig.OnMaxHealsChanged += () => OnCharacterMaxHealsChanged?.Invoke();
-        _input.DashButton.performed += (context) => Dash(_input.PlayerMoveDirection);
-        _input.AttackButton.performed += (context) => Attack(_input.CurrentMousePoisition);
+        _input.DashButton.performed += Dash;
+        _input.AttackButton.performed += Attack;
     }
 
+    private void OnDisable()
+    {
+        _input.DashButton.performed -= Dash;
+        _input.AttackButton.performed -= Attack;
+    }
 
     public void ApplyPowerUP(Upgrade powerUP)
     {
@@ -125,11 +131,16 @@ public class Player : MonoBehaviour
         _currentCharacter.transform.position = position;
     }
 
-    private void Attack(Vector2 targetPosition)
+    private void Attack(InputAction.CallbackContext inputAction)
+    {
+        Attack();
+    }
+
+    private void Attack()
     {
         if (_attackTimer.IsFinished && _currentEnergy > _characterConfig.AttackEnergyCost)
         {
-            _currentCharacter.Attack(targetPosition);
+            _currentCharacter.Attack(_input.CurrentMousePoisition);
             _attackTimer.ResetTimer();
             SpendEnergy(_characterConfig.AttackEnergyCost);
         }
@@ -140,16 +151,21 @@ public class Player : MonoBehaviour
         _currentCharacter.Move(_input.PlayerMoveDirection);
     }
 
-    private void Dash(Vector2 direction)
-    {   
-        if(direction == Vector2.zero)
+    private void Dash(InputAction.CallbackContext inputAction)
+    {
+        Dash();
+    }
+
+    private void Dash()
+    {
+        if ((Vector2)_input.PlayerMoveDirection == Vector2.zero)
         {
             return;
         }
 
         if (_dashTimer.IsFinished && _currentEnergy > _characterConfig.DashEnergyCost)
         {
-            _currentCharacter.Dash(direction);
+            _currentCharacter.Dash(_input.PlayerMoveDirection);
             _dashTimer.ResetTimer();
             SpendEnergy(_characterConfig.DashEnergyCost);
         }

@@ -144,4 +144,4 @@ MonoBehaviour:
   _destructParticlePrefab: {fileID: 1502061728, guid: ec8bbf2b6540c854bb52ae689f130110,
     type: 3}
   _particleScaleFactor: 1
-  _breakingSound: {fileID: 8300000, guid: 3574622a0f9060e48818c77d00c3b6f3, type: 3}
+  _breakingSound: {fileID: 8300000, guid: a27360365bcf2f544a36489876bf828a, type: 3}

@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a19436d87388e648b505a627a3b35d4, type: 3}
-  m_Name: BT First Stage Shooting Homing Projectiles
+  m_Name: BT First Stage Shooting  Pattern
   m_EditorClassIdentifier: 
   _weaponPrefab: {fileID: 2430817525714816292, guid: f0cc415026d9446479244cc92f5bab50,
     type: 3}
-  _projectilePrefab: {fileID: 5815854692843970680, guid: 1cff19f98db3c8e45ad70395db7c3408,
+  _projectilePrefab: {fileID: 8349999306990363028, guid: fdd0b1ea59317494f9e679c1c1de737c,
     type: 3}
   _projectileEffects: []
-  _duration: 6.5
-  _numberOfProjectiles: 6
-  _angleBetweenProjectiles: 72
-  _attackSpeed: 3
+  _duration: 8
+  _numberOfProjectiles: 10
+  _angleBetweenProjectiles: 18
+  _attackSpeed: 1.5

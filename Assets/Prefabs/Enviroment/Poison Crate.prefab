@@ -144,6 +144,6 @@ MonoBehaviour:
   _destructParticlePrefab: {fileID: 1502061728, guid: 63fd9331e1d275c43908f193c91b11d6,
     type: 3}
   _particleScaleFactor: 3
-  _breakingSound: {fileID: 8300000, guid: 3574622a0f9060e48818c77d00c3b6f3, type: 3}
+  _breakingSound: {fileID: 8300000, guid: a27360365bcf2f544a36489876bf828a, type: 3}
   _poisonEffect: {fileID: 11400000, guid: ffbef4c9ab36de940b953837303a7ba0, type: 2}
   _poisoningRadius: 2

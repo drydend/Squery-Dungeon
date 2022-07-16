@@ -31,6 +31,7 @@ public class WinScrene : UIMenu
 
     public override void Close()
     {
+        OnMenuClosed();
         _screne.SetActive(false);
     }
 
@@ -41,6 +42,8 @@ public class WinScrene : UIMenu
 
     public override void Open()
     {
+        OnMenuOpened();
+
         _screne.SetActive(true);
         
         _screneFade.Fade(0.7f);

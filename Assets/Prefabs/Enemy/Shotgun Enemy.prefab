@@ -330,8 +330,8 @@ MonoBehaviour:
     type: 3}
   _hitParticle: {fileID: 112468737741113653, guid: 422b2195331f866438fd721d6b98fe46,
     type: 3}
-  _hitSound: {fileID: 8300000, guid: d3218f822fd0507468266b9cdb27427c, type: 3}
-  _deathSound: {fileID: 8300000, guid: 760027ec8ca767743a59dcd2a90c7b3e, type: 3}
+  _hitSound: {fileID: 8300000, guid: 10b5bb8fde98fd040a45ab3e155dab7a, type: 3}
+  _deathSound: {fileID: 8300000, guid: d3218f822fd0507468266b9cdb27427c, type: 3}
   _maxAttackDistance: 12
   _minAttackDistance: 10
   _attackEffects: []

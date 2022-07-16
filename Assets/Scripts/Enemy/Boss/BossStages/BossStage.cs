@@ -50,16 +50,7 @@ public class BossStage : ScriptableObject
     public virtual void OnExit()
     {   
         _boss.StopCoroutine(_currentAttackCoroutine);
-        
-        if(_currentAttackPattern == null)
-        {
-            return;
-        }
-        else
-        {
-            _currentAttackPattern.Stop();
-        }
-
+        _currentAttackPattern.Stop();
     }
 
     public virtual void Update()
