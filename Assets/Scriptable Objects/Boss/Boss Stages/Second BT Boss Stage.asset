@@ -15,6 +15,8 @@ MonoBehaviour:
   _attackPatterns:
   - {fileID: 11400000, guid: 98596b5e9fdf7d349b6a87e3b52425b9, type: 2}
   - {fileID: 11400000, guid: 01e88e54e110f694caffb04f95bdffd0, type: 2}
+  - {fileID: 11400000, guid: b1e5a0d8f4ba39c46884ee245504873b, type: 2}
+  - {fileID: 11400000, guid: 8ea703eba738f7d4eae3897b2690c037, type: 2}
   _timeBetweenAttacks: 1.5
   _exitTime: 3
   _percentageHealthThresholdToEnter: 0.5

@@ -9,8 +9,6 @@ public class Room : MonoBehaviour
     [SerializeField]
     protected Sprite _minimapIcon;
     [SerializeField]
-    protected GameObject _gatewayPrefab;
-    [SerializeField]
     protected RoomEntrance _upperEntrance;
     [SerializeField]
     protected RoomEntrance _lowerEntrance;
@@ -47,17 +45,17 @@ public class Room : MonoBehaviour
         _lowerEntrance.Block();
     }
 
-    public void ConnectToRoom(Room room)
+    public void ConnectToRoom(Room room, GameObject passage)
     {
         room._connectedRooms.Add(this);
         _connectedRooms.Add(room);
 
         var directionToRoom = GetDirectionToRoom(room);
 
-        var gatewayPosition = transform.position + (room.transform.position - transform.position) / 2;
-        var gatewayRotation = (room.MapPoistion - MapPoistion).x == 0 ? 90 : 0;
+        var passagePosition = transform.position + (room.transform.position - transform.position) / 2;
+        var passageRotation = (room.MapPoistion - MapPoistion).x == 0 ? 90 : 0;
 
-        Instantiate(_gatewayPrefab, gatewayPosition, Quaternion.Euler(0, 0, gatewayRotation));
+        Instantiate(passage, passagePosition, Quaternion.Euler(0, 0, passageRotation));
         
         _connectionsNumber--;
         if(_connectionsNumber == 0)

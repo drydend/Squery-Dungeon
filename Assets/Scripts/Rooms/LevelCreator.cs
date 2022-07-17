@@ -3,10 +3,12 @@ using UnityEngine;
 
 public class LevelCreator : MonoBehaviour
 {
-    private const float DistanceBetweenRomms = 38;
+    private const float DistanceBetweenRomms = 47;
     [SerializeField]
     private AnimationCurve _difficultyCurve;
 
+    [SerializeField]
+    private List<GameObject> _passages;
     [SerializeField]
     private List<TrialRoomWithEnemies> _trialRoomsWithEnemies;
     [SerializeField]
@@ -15,6 +17,7 @@ public class LevelCreator : MonoBehaviour
     private StartRoom _startRoomPrefab;
     [SerializeField]
     private BossRoom _bossRoomPrefab;
+
 
     [SerializeField]
     private int _startRoomMapPosX = 0;
@@ -122,7 +125,7 @@ public class LevelCreator : MonoBehaviour
         bossRoom.SetRevardHandler(_rewardHandlerOfFinalRoom);
 
         _roomsMap[bossRoom.MapPoistion.x, bossRoom.MapPoistion.y] = bossRoom;
-        bossRoom.ConnectToRoom(furthestRoom);
+        bossRoom.ConnectToRoom(furthestRoom, _passages.GetRandomValue());
 
         return bossRoom;
 
@@ -144,7 +147,7 @@ public class LevelCreator : MonoBehaviour
         newRoom.SetRevardHandler(_powerUpHandler);
 
         _roomsMap[roomMapPos.x, roomMapPos.y] = newRoom;
-        newRoom.ConnectToRoom(_lastCreatedRoom);
+        newRoom.ConnectToRoom(_lastCreatedRoom , _passages.GetRandomValue());
 
         if (newRoom.CanBeConnected)
         {
@@ -175,7 +178,7 @@ public class LevelCreator : MonoBehaviour
         {
             if (RandomUtils.RandomBoolean(_chanceToConnectRooms * 100) && adjacentRoom.CanBeConnected)
             {
-                originRoom.ConnectToRoom(adjacentRoom);
+                originRoom.ConnectToRoom(adjacentRoom, _passages.GetRandomValue());
             }
         }
     }

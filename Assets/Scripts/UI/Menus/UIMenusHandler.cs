@@ -45,7 +45,7 @@ public abstract class UIMenusHandler : MonoBehaviour
     {
         if (_openedMenu.Count > 0)
         {
-            _openedMenu.Peek()?.OnCovered();
+            _openedMenu.Peek().OnCovered();
         }
     }
 }

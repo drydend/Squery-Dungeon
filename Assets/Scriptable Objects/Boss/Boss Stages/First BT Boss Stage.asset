@@ -16,6 +16,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fbb704769dee36144a345ebdf20450e0, type: 2}
   - {fileID: 11400000, guid: 19e4faeff53b90f49937930760e0a747, type: 2}
   - {fileID: 11400000, guid: 289511ce2bb627b459d5330f6b6bed78, type: 2}
+  - {fileID: 11400000, guid: 05e497e305db01e47ac96c791e0d33ae, type: 2}
   _timeBetweenAttacks: 2
   _exitTime: 3
   _percentageHealthThresholdToEnter: 1

@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponPrefab: {fileID: 2430817525714816292, guid: f0cc415026d9446479244cc92f5bab50,
     type: 3}
-  _projectilePrefab: {fileID: 8349999306990363028, guid: fdd0b1ea59317494f9e679c1c1de737c,
+  _projectilePrefab: {fileID: 8349999306990363028, guid: 1137d65a1918c4843aa6d2c66d8431e5,
     type: 3}
   _projectileEffects: []
-  _duration: 8
-  _numberOfProjectiles: 10
-  _angleBetweenProjectiles: 18
-  _attackSpeed: 1.5
+  _duration: 12
+  _numberOfProjectiles: 25
+  _angleBetweenProjectiles: 14.4
+  _attackSpeed: 0.4

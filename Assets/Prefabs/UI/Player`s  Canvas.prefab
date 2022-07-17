@@ -87,6 +87,8 @@ GameObject:
   - component: {fileID: 1459161828073388224}
   - component: {fileID: 1459161828073388225}
   - component: {fileID: 1459161828073388238}
+  - component: {fileID: 1372327353}
+  - component: {fileID: 4481295088498291974}
   m_Layer: 5
   m_Name: Player`s  Canvas
   m_TagString: Untagged
@@ -177,6 +179,37 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!95 &1372327353
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459161828073388239}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b2cee2454efd5d543a3358ce71dbfa7d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4481295088498291974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459161828073388239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 350079554f7018b4b8f909cc63e8c57b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6324655007929132680
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,7 +283,7 @@ PrefabInstance:
     - target: {fileID: 940329120552715650, guid: 7dff8b3b59ef6cd4b9b668175c1e2516,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 35.809998
+      value: 35.810547
       objectReference: {fileID: 0}
     - target: {fileID: 1068082823018303642, guid: 7dff8b3b59ef6cd4b9b668175c1e2516,
         type: 3}
@@ -697,6 +730,16 @@ PrefabInstance:
       propertyPath: _parent
       value: 
       objectReference: {fileID: 8190020032261258876}
+    - target: {fileID: 9094445915646407812, guid: 57a1125a4b876f148985fd96401b3023,
+        type: 3}
+      propertyPath: _roomIconWidth
+      value: 33.333332
+      objectReference: {fileID: 0}
+    - target: {fileID: 9094445915646407812, guid: 57a1125a4b876f148985fd96401b3023,
+        type: 3}
+      propertyPath: _gatewayIconWidth
+      value: 13.333333
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57a1125a4b876f148985fd96401b3023, type: 3}
 --- !u!224 &3726072891660188279 stripped

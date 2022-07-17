@@ -138,7 +138,6 @@ MonoBehaviour:
   _leftEntrance: {fileID: 6818032937656649779}
   _traps: []
   _connectionsNumber: 1
-  _canBeConnected: 1
   _playerStartPosition: {fileID: 4798420896292506623}
 --- !u!1 &1334363976092182227
 GameObject:
