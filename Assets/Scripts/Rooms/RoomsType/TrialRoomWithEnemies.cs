@@ -12,12 +12,22 @@ public class TrialRoomWithEnemies : TrialRoom
     private int _maxNumberOfEnemiesInWave = 6;
     [SerializeField]
     private int _minNumberOfEnemiesInWave = 2;
+    [SerializeField]
+    private AudioClip _closingSound;
+
     private int _currentNumberOfEnemies;
+    
     private EnemySpawner _enemySpawner;
+    private AudioSource _audioSource;
     private List<EnemyWave> _enemyWaves;
 
     public int MinEnemiesInWave => _minNumberOfEnemiesInWave;
     public int MaxEnemiesInWave => _maxNumberOfEnemiesInWave;
+
+    private void Awake()
+    {
+        _audioSource = AudioSourceProvider.Instance.GetSoundsSource();
+    }
 
     public void SetEnemyWaves(List<EnemyWave> enemyWaves)
     {
@@ -32,6 +42,7 @@ public class TrialRoomWithEnemies : TrialRoom
     protected override void StartRoomTrial()
     {
         base.StartRoomTrial();
+        _audioSource.PlayOneShot(_closingSound);
         StartCoroutine(SpawnWaves());
     }
 

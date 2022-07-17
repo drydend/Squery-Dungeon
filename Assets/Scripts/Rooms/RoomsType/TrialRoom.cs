@@ -39,6 +39,7 @@ public class TrialRoom : Room
 
     protected virtual void StartRoomTrial()
     {
+        ActivateTraps();
         _upperEntrance.Close();
         _lowerEntrance.Close();
         _rightEntrance.Close();
@@ -47,6 +48,7 @@ public class TrialRoom : Room
 
     protected virtual void EndRoomTrial()
     {
+        DeactivateTraps();
         _upperEntrance.Open();
         _lowerEntrance.Open();
         _rightEntrance.Open();

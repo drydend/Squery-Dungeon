@@ -288,14 +288,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minimapIcon: {fileID: 215518053199519347, guid: ba04a1366b1e35d47a765feaf51405ab,
     type: 3}
-  _gatewayPrefab: {fileID: 7928314599333885327, guid: a19398371e1517c48a436a0d7b600182,
-    type: 3}
   _upperEntrance: {fileID: 2663059203199659547}
   _lowerEntrance: {fileID: 1393160295699477486}
   _rightEntrance: {fileID: 8728944268400920229}
   _leftEntrance: {fileID: 3995952297886746702}
   _traps: []
-  _canHaveManyConections: 1
+  _connectionsNumber: 4
+  _closingSound: {fileID: 8300000, guid: af64c03d2d1acef4283bc22c350921f3, type: 3}
   _centreOfRoom: {fileID: 7520409665767231272}
   _roomRadius: 15
   _minTimeBeforeSpawn: 0

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class LevelCreator : MonoBehaviour
 {
-    private const float DistanceBetweenRomms = 47;
+    private const float DistanceBetweenRomms = 50;
     [SerializeField]
     private AnimationCurve _difficultyCurve;
 

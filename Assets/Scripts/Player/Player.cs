@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(AudioSource))]
 public class Player : MonoBehaviour
 {
     [SerializeField]
@@ -43,7 +42,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        _audioSource = GetComponent<AudioSource>();
+        _audioSource = AudioSourceProvider.Instance.GetSoundsSource();
         _characterConfig = _startConfig.Clone();
         _characterConfig.Initialize();
         _currentCharacter.Initialize(_characterConfig);

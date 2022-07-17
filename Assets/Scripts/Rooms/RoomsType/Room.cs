@@ -19,12 +19,14 @@ public class Room : MonoBehaviour
     [SerializeField]
     protected List<Trap> _traps;
 
+    protected List<Room> _connectedRooms = new List<Room>();
+    
     [SerializeField]
     [Range(1, 4)]
     private int _connectionsNumber = 4;
+
     private bool _canBeConnected = true;
 
-    protected List<Room> _connectedRooms = new List<Room>();
 
     public virtual event Action OnEntered;
     public virtual event Action OnCompleated;
@@ -36,8 +38,6 @@ public class Room : MonoBehaviour
 
     public void Initialize(Vector2Int mapPosition)
     {
-        OnEntered += ActivateTraps;
-        OnCompleated += DeactivateTraps;
         _mapPosition = mapPosition;
         _upperEntrance.Block();
         _rightEntrance.Block();
@@ -90,7 +90,7 @@ public class Room : MonoBehaviour
         return room.MapPoistion - _mapPosition;
     }
 
-    private void ActivateTraps()
+    protected void ActivateTraps()
     {
         foreach (var trap in _traps)
         {
@@ -98,7 +98,7 @@ public class Room : MonoBehaviour
         }
     }
 
-    private void DeactivateTraps()
+    protected void DeactivateTraps()
     {
         foreach (var trap in _traps)
         {

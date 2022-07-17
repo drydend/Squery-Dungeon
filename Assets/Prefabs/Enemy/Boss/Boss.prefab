@@ -458,7 +458,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 1.82
   m_Speed: 3.5
-  m_Acceleration: 8
+  m_Acceleration: 100
   avoidancePriority: 50
   m_AngularSpeed: 2160
   m_StoppingDistance: 0
@@ -485,7 +485,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a65664b6c1cd340409777ce12d50647a, type: 2}
   - {fileID: 11400000, guid: 93faf4eb8689bf748889a65685067a82, type: 2}
   - {fileID: 11400000, guid: 67ca22c77ab608d42a42ae62ba0afc95, type: 2}
-  _maxHeals: 50
+  _maxHeals: 400
   _movementSpeed: 0
   _rotationSpeed: 720
   _cameraShakeOnDieingDuration: 5

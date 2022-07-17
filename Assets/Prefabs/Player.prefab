@@ -60,7 +60,7 @@ MonoBehaviour:
   _input: {fileID: 6393331585658017685}
   _startConfig: {fileID: 11400000, guid: 4b7e183bcfa588842b129f219e6c94d5, type: 2}
   _currentCharacter: {fileID: 869082210798524051}
-  _powerUPApplyingSound: {fileID: 8300000, guid: 662a8e2149c877441b040ce0544c48c1,
+  _powerUPApplyingSound: {fileID: 8300000, guid: afb0d76c0002ae64e82e2884e5fc28a8,
     type: 3}
 --- !u!1001 &1768267709505456467
 PrefabInstance:
@@ -137,6 +137,16 @@ PrefabInstance:
       propertyPath: _colorAlfaOnInvulnerable.m_Curve.Array.data[0].outWeight
       value: 0.30898026
       objectReference: {fileID: 0}
+    - target: {fileID: 2100022889273968362, guid: 6da42aa6a2d006e4589ef9a9f5a5b88f,
+        type: 3}
+      propertyPath: m_Name
+      value: Wall collider
+      objectReference: {fileID: 0}
+    - target: {fileID: 6989749871075246368, guid: 6da42aa6a2d006e4589ef9a9f5a5b88f,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 640e951b733ba4742976aee7e58aaf0c, type: 2}
     - target: {fileID: 6989749871075246369, guid: 6da42aa6a2d006e4589ef9a9f5a5b88f,
         type: 3}
       propertyPath: m_SortingOrder
@@ -150,12 +160,12 @@ PrefabInstance:
     - target: {fileID: 6989749871075246374, guid: 6da42aa6a2d006e4589ef9a9f5a5b88f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.71
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6989749871075246374, guid: 6da42aa6a2d006e4589ef9a9f5a5b88f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.65
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6989749871075246374, guid: 6da42aa6a2d006e4589ef9a9f5a5b88f,
         type: 3}

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1564909366367381807}
   - component: {fileID: 1627447271929704573}
   m_Layer: 14
-  m_Name: Explosion Crate
+  m_Name: 'Explosion Crate (3) '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,11 +142,11 @@ MonoBehaviour:
   _heals: 1
   _destructParticlePrefab: {fileID: 7135577926925368173, guid: 501c7646b09df1a4aa8f1c18e8bd4276,
     type: 3}
-  _particleScaleFactor: 3
+  _particleScaleFactor: 4
   _breakingSound: {fileID: 8300000, guid: fa128c1ee857594429c84d998518f19f, type: 3}
-  _destructionDelay: 0.2
+  _destructionDelay: 0.4
   _explosionDamage: 1
-  _explosionRadious: 2
+  _explosionRadious: 3
   _explosionPushForce: 40
   _explosionPushDuration: 0.3
   _wallLayer:
