@@ -4,7 +4,13 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Charcter config")]
 public class CharacterConfiguration : ScriptableObject
-{   
+{
+    [Header("Level")]
+    [SerializeField]
+    private uint _maxLevel;
+    [SerializeField]
+    private float _gainedExpMultiplier = 1;
+
     [Header("Energy")]
     [SerializeField]
     private float _maxEnergy = 100f;
@@ -65,6 +71,8 @@ public class CharacterConfiguration : ScriptableObject
     [SerializeField]
     private List<Effect> _projectileEffects;
 
+    public float MaxLevel => _maxLevel;
+
     public float MaxEnergy => _maxEnergy;
     public float EnergyRecovery => _passiveEnergyRecovery;
 
@@ -92,6 +100,8 @@ public class CharacterConfiguration : ScriptableObject
     public RangeWeapon Weapon => _weaponPrefab;
     public Projectile Projectile => _projectilePrefab;
     public List<Effect> ProjectileEffects => _projectileEffects;
+
+    public float GainedExpMultiplier => _gainedExpMultiplier;
 
     public event Action<float> OnProjectileAdditiveSpeedChanged;
     public event Action<float> OnProjectileAdditiveDamageChanged;

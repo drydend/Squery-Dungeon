@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using TMPro;
 
-public class EnergyIndicatorUI : MonoBehaviour
+public class EnergyBarUI : MonoBehaviour
 {
     [SerializeField]
     private Player _player;

@@ -367,7 +367,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 763ab35ffad1ff44f9444e3e91bfcb2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyDifficulty: 2
+  _enemyDifficulty: 3
+  _expForKilling: 3
   _movementSpeed: 0
   _spawnChargingParticle: {fileID: 3985932363235512094, guid: 0f7fdb0d79a27c14ca5a7ff7a74f1294,
     type: 3}

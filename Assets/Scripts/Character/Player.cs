@@ -11,21 +11,31 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Character _currentCharacter;
     private CharacterConfiguration _characterConfig;
-    
+
     [SerializeField]
-    private AudioClip _powerUPApplyingSound;
+    private AudioClip _levelUpSound;
 
     private float _currentEnergy = 0;
+    private int _currentLevel = 0;
+    private int _currentExp = 0;
+    private int _expToNextLevel;
 
     private Timer _attackTimer;
     private Timer _dashTimer;
 
     private AudioSource _audioSource;
 
+    public event Action OnLevelUp;
+    public event Action OnLevelChanged;
+    public event Action OnCurrentExpChanged;
+
     public event Action OnCharacterDied;
     public event Action OnCharacterEndedDashing;
     public event Action OnCharacterHealsChanged;
     public event Action OnCharacterMaxHealsChanged;
+
+    public int CurrentExp => _currentExp;
+    public int ExpToNextLevel => _expToNextLevel;
 
     public float CurrentEnergy => _currentEnergy;
     public float MaxEnergy => _characterConfig.MaxEnergy;
@@ -56,6 +66,7 @@ public class Player : MonoBehaviour
         _characterConfig.OnAttackSpeedChanged += () => _attackTimer.SetSecondsToFinish(_characterConfig.AttackCooldown);
 
         _currentEnergy = MaxEnergy;
+        _expToNextLevel =  GenerateExpToNextLevel();
     }
 
     private void Update()
@@ -73,7 +84,7 @@ public class Player : MonoBehaviour
 
         Move(_input.PlayerMoveDirection);
         _currentCharacter.transform.LookAt2D(_input.CurrentMousePoisition);
-        
+
         if (_input.IsAttackButtonBeingHolded)
         {
             Attack();
@@ -81,11 +92,11 @@ public class Player : MonoBehaviour
     }
 
     private void OnEnable()
-    {   
+    {
         OnCharacterHealsChanged += () => CameraShaker.Instance.ShakeCamera(0.2f, 0.3f);
         _currentCharacter.OnDied += () => OnCharacterDied?.Invoke();
         _currentCharacter.OnEndedDash += () => OnCharacterEndedDashing?.Invoke();
-        _currentCharacter.OnHealsChanged +=() => OnCharacterHealsChanged?.Invoke();
+        _currentCharacter.OnHealsChanged += () => OnCharacterHealsChanged?.Invoke();
         _characterConfig.OnMaxHealsChanged += () => OnCharacterMaxHealsChanged?.Invoke();
         _input.DashButton.performed += Dash;
         _input.AttackButton.performed += Attack;
@@ -99,26 +110,10 @@ public class Player : MonoBehaviour
 
     public void ApplyPowerUP(Upgrade powerUP)
     {
-        _audioSource.PlayOneShot(_powerUPApplyingSound);
         powerUP.ApplyUpgrade(this);
     }
 
     public void RevertPowerUP(Upgrade powerUp) { }
-
-    public void RecieveEnergy(float value)
-    {
-        if(_currentEnergy >= MaxEnergy)
-        {
-            return;
-        }
-
-        if (value < 0)
-        {
-            throw new Exception("Value must be more than zero");
-        }
-
-        _currentEnergy = _currentEnergy + value > MaxEnergy ? MaxEnergy : _currentEnergy + value;
-    }
 
     public void AddEffectToProjectile(Effect effect)
     {
@@ -170,13 +165,68 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void ReceiveExp(int value)
+    {
+        if (value < 0)
+        {
+            throw new Exception("Value must be more than zero");
+        }
+
+        if (_currentLevel == _characterConfig.MaxLevel)
+        {
+            return;
+        }
+
+        _currentExp += Mathf.RoundToInt(value * _characterConfig.GainedExpMultiplier);
+        bool levelChanged = false;
+
+        while (_currentExp >= _expToNextLevel)
+        {
+            _currentExp -= _expToNextLevel;
+            _currentLevel++;
+            
+            _expToNextLevel = GenerateExpToNextLevel();
+            
+            OnLevelChanged?.Invoke();
+            levelChanged = true;
+        }
+
+        if (levelChanged)
+        {
+            OnLevelUp?.Invoke();
+            _audioSource.PlayOneShot(_levelUpSound);
+        }
+
+        OnCurrentExpChanged?.Invoke();
+    }
+
+    public void RecieveEnergy(float value)
+    {
+        if (_currentEnergy >= MaxEnergy)
+        {
+            return;
+        }
+
+        if (value < 0)
+        {
+            throw new Exception("Value must be more than zero");
+        }
+
+        _currentEnergy = _currentEnergy + value > MaxEnergy ? MaxEnergy : _currentEnergy + value;
+    }
+
     private void SpendEnergy(float value)
     {
-        if(value < 0)
+        if (value < 0)
         {
             throw new Exception("Value must be more than zero");
         }
 
         _currentEnergy = _currentEnergy - value > 0 ? _currentEnergy - value : 0;
+    }
+
+    private int GenerateExpToNextLevel()
+    {
+        return 2 * _currentLevel + 7; 
     }
 }

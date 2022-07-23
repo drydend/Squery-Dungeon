@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using TMPro;
 
-public class PlayerHealsUI : MonoBehaviour
+public class PlayerHealsBarUI : MonoBehaviour
 {
     [SerializeField]
     private Player _player;

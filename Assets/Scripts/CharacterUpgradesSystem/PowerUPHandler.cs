@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerUPHandler : MonoBehaviour, IRewardHandler
+public class PowerUPHandler : MonoBehaviour
 {
     [SerializeField]
     private PowerUPCreator _upgradeCreator;
@@ -15,6 +15,8 @@ public class PowerUPHandler : MonoBehaviour, IRewardHandler
 
     private List<CharacterModificator> _currentModificators = new List<CharacterModificator>();
 
+    public bool _playerIsChoosing { get; private set; }
+
     private void Start()
     {
         _upgradeChoiceMenu.OnConfrimedChoice += ConfrimChoice;
@@ -22,7 +24,6 @@ public class PowerUPHandler : MonoBehaviour, IRewardHandler
 
     public void ApplySelectedPowerUp()
     {   
-
         _currentModificators.Remove(_selectedUpgrade.CurrentModificator);
         
         foreach (var item in _currentModificators)
@@ -36,10 +37,14 @@ public class PowerUPHandler : MonoBehaviour, IRewardHandler
 
         _selectedUpgrade = null;
         _upgradeChoiceMenu.OnModificatorChoosen();
+
+        _playerIsChoosing = false;
     }
     
-    public void GiveReward()
+    public void ShowPowerUps()
     {
+        _playerIsChoosing = true;
+
         for (int i = 0; i < 3; i++)
         {
             _currentModificators.Add(_upgradeCreator.GetRandomModificator());

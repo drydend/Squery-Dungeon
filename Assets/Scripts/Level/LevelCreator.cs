@@ -44,7 +44,7 @@ public class LevelCreator : MonoBehaviour
     [SerializeField]
     private EnemyWaveCreator _enemyWaveCreator;
     [SerializeField]
-    private PowerUPHandler _powerUpHandler;
+    private ExpDealer _expDealer;
     [SerializeField]
     private RewardHandlerOfFinalRoom _rewardHandlerOfFinalRoom;
 
@@ -144,7 +144,7 @@ public class LevelCreator : MonoBehaviour
         var enemyWaves = _enemyWaveCreator.GenerateEnemyWaves(roomDifficulty, newRoom.MaxEnemiesInWave, newRoom.MinEnemiesInWave);
         newRoom.SetEnemyWaves(enemyWaves);
         newRoom.SetEnemySpawner(_enemySpawner);
-        newRoom.SetRevardHandler(_powerUpHandler);
+        newRoom.SetRevardHandler(_expDealer);
 
         _roomsMap[roomMapPos.x, roomMapPos.y] = newRoom;
         newRoom.ConnectToRoom(_lastCreatedRoom , _passages.GetRandomValue());

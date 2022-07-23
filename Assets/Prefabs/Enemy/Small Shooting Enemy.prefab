@@ -368,6 +368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyDifficulty: 1
+  _expForKilling: 1
   _movementSpeed: 0
   _spawnChargingParticle: {fileID: 3985932363235512094, guid: 5a5dc0c59e63c3a4785b5b45555d7b20,
     type: 3}

@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable,
     [SerializeField]
     [Range(1, 10)]
     protected int _enemyDifficulty;
+    [SerializeField]
+    protected int _expForKilling;
     [Header("Movement")]
     [SerializeField]
     private float _movementSpeed;
@@ -76,10 +78,14 @@ public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable,
 
     public float MaxAttackDistance => _maxAttackDistance;
     public float MinAttakcDistance => _minAttackDistance;
-    public float DistanceToTarget => Vector2.Distance(_target.transform.position, transform.position);
+
     public Character Target => _target;
+    
+    public int ExpForKilling => _expForKilling;
     public int Difficulty => _enemyDifficulty;
     public float MovementSpeed => _movementSpeed;
+
+    public float DistanceToTarget => Vector2.Distance(_target.transform.position, transform.position);
 
     public Transform Transform => transform;
 
