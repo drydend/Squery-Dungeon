@@ -19,9 +19,14 @@ public class PauseMenuUI : UIMenu
         _closeButton.onClick.AddListener(Close);
     }
 
-    public override void OnCovered()
+    public override void Cover()
     {
         _pauseMenu.SetActive(false);
+    }
+
+    public override void Uncover()
+    {
+        _pauseMenu.SetActive(true);
     }
 
     public override void Open()

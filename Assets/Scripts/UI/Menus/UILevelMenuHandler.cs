@@ -12,15 +12,9 @@ public class UILevelMenuHandler : UIMenusHandler
     {
         base.Initialize();
 
-        _pauseMenuUI.Initialize();
-        _pauseMenuUI.OnOpened += CoverPreviousMenu;
-        _pauseMenuUI.OnOpened += () => _openedMenu.Push(_pauseMenuUI);
-        _pauseMenuUI.OnClosed += ReturnToPreviousMenu;
+        InitializeMenu(_pauseMenuUI);
+        InitializeMenu(_playerStatsUI);
 
-        _playerStatsUI.Initialize();
-        _playerStatsUI.OnOpened += CoverPreviousMenu;
-        _playerStatsUI.OnOpened += () => _openedMenu.Push(_playerStatsUI);
-        _playerStatsUI.OnClosed += ReturnToPreviousMenu;
         _openedMenu.Push(_playerStatsUI);
     }
 

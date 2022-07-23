@@ -37,11 +37,15 @@ public class ConfirmPanel : UIMenu
         gameObject.SetActive(true);
     }
 
-    public override void OnCovered()
+    public override void Cover()
     {
         
     }
 
+    public override void Uncover()
+    {
+
+    }
 
     private void Confirm()
     {

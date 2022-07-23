@@ -7,37 +7,46 @@ public abstract class UIMenusHandler : MonoBehaviour
     protected List<UIMenu> _allMenu;
     protected Stack<UIMenu> _openedMenu;
 
+    protected UIMenu CurrentMenu => _openedMenu.Peek();
+
     protected virtual void Initialize()
     {
         _openedMenu = new Stack<UIMenu>();
 
         foreach (var menu in _allMenu)
         {
-            menu.Initialize();
-            menu.OnOpened += CoverPreviousMenu;
-            menu.OnOpened += () => _openedMenu.Push(menu);
-            menu.OnClosed += ReturnToPreviousMenu;
+            InitializeMenu(menu);
         }
     }
 
     public void ReturnToPreviousMenu()
-    {
+    {   
+        if(!CurrentMenu.CanBeClosed)
+        {
+            return;
+        }
+
         if (_openedMenu.Count == 1)
         {
-            _openedMenu.Pop();
+            CurrentMenu.Close();
         }
         else if (_openedMenu.Count > 1)
         {
-            _openedMenu.Pop();
-            _openedMenu.Pop().Open();
+            CurrentMenu.Close();
+            CurrentMenu.Uncover();
         }
     }
 
     public virtual void EscapeButtonPressed()
     {
-        if (_openedMenu.Peek().CanBeClosed)
+        ReturnToPreviousMenu();
+    }
+
+    protected void UncoverPreviousMenu()
+    {
+        if (_openedMenu.Count > 0)
         {
-            _openedMenu.Peek().Close();
+            CurrentMenu.Uncover();
         }
     }
 
@@ -45,8 +54,17 @@ public abstract class UIMenusHandler : MonoBehaviour
     {
         if (_openedMenu.Count > 0)
         {
-            _openedMenu.Peek().OnCovered();
+            CurrentMenu.Cover();
         }
+    }
+
+    protected void InitializeMenu(UIMenu menu)
+    {
+        menu.Initialize();
+        menu.OnOpened += CoverPreviousMenu;
+        menu.OnOpened += () => _openedMenu.Push(menu);
+        menu.OnClosed += () => _openedMenu.Pop();
+        menu.OnClosed += UncoverPreviousMenu;
     }
 }
 

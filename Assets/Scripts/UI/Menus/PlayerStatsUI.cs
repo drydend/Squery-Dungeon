@@ -11,26 +11,31 @@ public class PlayerStatsUI : UIMenu
 
     public override bool CanBeClosed { get => false; set { } }
 
-    public override void Close()
-    {
-        OnMenuClosed();
-        _animator.SetTrigger(ClosingAnimationTrigget);
-    }
-
     public override void Initialize()
     {
         _animator = GetComponent<Animator>();
     }
 
-    public override void OnCovered()
+    public override void Cover()
     {
         _animator.SetTrigger(ClosingAnimationTrigget);
+    }
+
+    public override void Uncover()
+    {
+        _animator.SetTrigger(OpeningAnimationTrigget);
     }
 
     public override void Open()
     {
         _animator.SetTrigger(OpeningAnimationTrigget);
         OnMenuOpened();
+    }
+   
+    public override void Close()
+    {
+        OnMenuClosed();
+        _animator.SetTrigger(ClosingAnimationTrigget);
     }
 }
 

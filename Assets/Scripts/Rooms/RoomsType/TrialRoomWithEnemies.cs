@@ -18,16 +18,10 @@ public class TrialRoomWithEnemies : TrialRoom
     private int _currentNumberOfEnemies;
     
     private EnemySpawner _enemySpawner;
-    private AudioSource _audioSource;
     private List<EnemyWave> _enemyWaves;
 
     public int MinEnemiesInWave => _minNumberOfEnemiesInWave;
     public int MaxEnemiesInWave => _maxNumberOfEnemiesInWave;
-
-    private void Awake()
-    {
-        _audioSource = AudioSourceProvider.Instance.GetSoundsSource();
-    }
 
     public void SetEnemyWaves(List<EnemyWave> enemyWaves)
     {

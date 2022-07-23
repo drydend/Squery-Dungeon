@@ -9,10 +9,7 @@ public class UIMainMenuHandler : UIMenusHandler
     {
         base.Initialize();
 
-        _mainMenu.Initialize();
-        _mainMenu.OnOpened += CoverPreviousMenu;
-        _mainMenu.OnOpened += () => _openedMenu.Push(_mainMenu);
-        _mainMenu.OnClosed += ReturnToPreviousMenu;
+        InitializeMenu(_mainMenu);
 
         _openedMenu.Push(_mainMenu);
     }

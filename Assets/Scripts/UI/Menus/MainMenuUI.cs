@@ -18,9 +18,14 @@ public class MainMenuUI : UIMenu
         
     }
 
-    public override void OnCovered()
+    public override void Cover()
     {
         _mainMenu.SetActive(false);
+    }
+
+    public override void Uncover()
+    {
+        _mainMenu.SetActive(true);       
     }
 
     public override void Open()

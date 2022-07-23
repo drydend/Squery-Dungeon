@@ -29,15 +29,14 @@ public class WinScrene : UIMenu
         _startAgain.onClick.AddListener(() => _sceneTransition.RestartScene());
     }
 
-    public override void Close()
-    {
-        OnMenuClosed();
-        _screne.SetActive(false);
-    }
-
-    public override void OnCovered()
+    public override void Cover()
     {
         
+    }
+
+    public override void Uncover()
+    {
+
     }
 
     public override void Open()
@@ -52,5 +51,12 @@ public class WinScrene : UIMenu
             particle.Play();
         }
     }
+   
+    public override void Close()
+    {
+        OnMenuClosed();
+        _screne.SetActive(false);
+    }
+
 }
 

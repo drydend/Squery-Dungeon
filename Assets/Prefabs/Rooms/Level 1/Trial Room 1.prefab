@@ -294,13 +294,14 @@ MonoBehaviour:
   _leftEntrance: {fileID: 3995952297886746702}
   _traps: []
   _connectionsNumber: 4
-  _closingSound: {fileID: 8300000, guid: af64c03d2d1acef4283bc22c350921f3, type: 3}
   _centreOfRoom: {fileID: 7520409665767231272}
   _roomRadius: 15
-  _minTimeBeforeSpawn: 0
+  _compleationRoom: {fileID: 8300000, guid: c2caf39f0a515ab40a8f2bdd56b81f3a, type: 3}
+  _minTimeBeforeSpawn: 0.1
   _maxTimeBeforeSpawn: 0.5
   _maxNumberOfEnemiesInWave: 7
   _minNumberOfEnemiesInWave: 4
+  _closingSound: {fileID: 8300000, guid: af64c03d2d1acef4283bc22c350921f3, type: 3}
 --- !u!114 &8354975671761297078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -486,7 +487,7 @@ MonoBehaviour:
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
   m_HideEditorLogs: 0
-  m_NavMeshData: {fileID: 23800000, guid: 26c12180d2201b641adfbddd03a75f5c, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 92bd618ff736c9447a35ee698f5c2e88, type: 2}
 --- !u!114 &1132091152656202550
 MonoBehaviour:
   m_ObjectHideFlags: 0

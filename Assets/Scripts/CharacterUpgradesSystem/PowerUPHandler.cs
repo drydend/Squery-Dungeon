@@ -42,7 +42,7 @@ public class PowerUPHandler : MonoBehaviour, IRewardHandler
     {
         for (int i = 0; i < 3; i++)
         {
-            _currentModificators.Add(_upgradeCreator.GetModificator());
+            _currentModificators.Add(_upgradeCreator.GetRandomModificator());
         }
 
         var powerUpsUI = _upgradeChoiceMenu.Show(_currentModificators);

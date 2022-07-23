@@ -32,7 +32,12 @@ public class DeathScrene : UIMenu
         _exitButton.onClick.AddListener(() => _sceneTransition.SwitchToMainMenu());
     }
 
-    public override void OnCovered()
+    public override void Cover()
+    {
+        
+    }
+
+    public override void Uncover()
     {
         
     }

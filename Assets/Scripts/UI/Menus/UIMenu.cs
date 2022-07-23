@@ -9,7 +9,8 @@ public abstract class UIMenu : MonoBehaviour
     public event Action OnClosed;
 
     public abstract void Initialize();
-    public abstract void OnCovered();
+    public abstract void Cover();
+    public abstract void Uncover();
     public abstract void Open();
     public abstract void Close();
 

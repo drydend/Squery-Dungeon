@@ -10,9 +10,18 @@ public class TrialRoom : Room
     protected Transform _centreOfRoom;
     [SerializeField]
     protected float _roomRadius;
+    [SerializeField]
+    protected AudioClip _compleationRoom;
+    protected AudioSource _audioSource;
 
     protected IRewardHandler _rewardHandler;
     protected RoomState _roomState = RoomState.NotFinished;
+
+    public override void Initialize(Vector2Int mapPosition)
+    {
+        base.Initialize(mapPosition);
+        _audioSource = AudioSourceProvider.Instance.GetSoundsSource();
+    }
 
     public void SetRevardHandler(IRewardHandler rewardHandler)
     {
@@ -54,6 +63,7 @@ public class TrialRoom : Room
         _rightEntrance.Open();
         _leftEntrance.Open();
         OnRoomCompleated();
+        _audioSource.PlayOneShot(_compleationRoom);
         _rewardHandler.GiveReward();
     }
 

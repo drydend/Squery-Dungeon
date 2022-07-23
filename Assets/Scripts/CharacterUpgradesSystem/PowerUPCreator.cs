@@ -48,7 +48,7 @@ public class PowerUPCreator : MonoBehaviour
         _rarityWeight[powerUpRarity] = weight;
     }
 
-    public CharacterModificator GetModificator(PowerUPRarity lowestRarity = PowerUPRarity.Common)
+    public CharacterModificator GetRandomModificator(PowerUPRarity lowestRarity = PowerUPRarity.Common)
     {
         var rarity = GetRandomAvaibleRarity(lowestRarity);
         var currentModificators = _modificators[rarity];

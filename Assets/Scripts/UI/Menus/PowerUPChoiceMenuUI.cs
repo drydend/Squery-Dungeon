@@ -51,7 +51,7 @@ public class PowerUPChoiceMenuUI : UIMenu
         
         int positionRelatedToCentre = -(modificators.Count / 2);
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < modificators.Count; i++)
         {
             var blank = Instantiate(_upgradeBlankPrefab, _choiceMenu.transform);
             var rectTransform = blank.GetComponent<RectTransform>();
@@ -62,7 +62,10 @@ public class PowerUPChoiceMenuUI : UIMenu
             _currentModificatorsBlanks.Add(blank);
         }
 
-        StartCoroutine(AnimateCreation(_currentModificatorsBlanks));
+        foreach (var blank in _currentModificatorsBlanks)
+        {
+            blank.PlayCreationAnimation();
+        }
 
         return _currentModificatorsBlanks;
     }
@@ -80,9 +83,14 @@ public class PowerUPChoiceMenuUI : UIMenu
         Close();
     }
 
-    public override void OnCovered()
+    public override void Cover()
     {
         _choiceMenu.SetActive(false);
+    }
+
+    public override void Uncover()
+    {
+        _choiceMenu.SetActive(true);
     }
 
     public override void Open()
@@ -106,32 +114,5 @@ public class PowerUPChoiceMenuUI : UIMenu
         _modificatorBackLightColor[PowerUPRarity.Rare] = _backLightColorRare;
         _modificatorBackLightColor[PowerUPRarity.Epic] = _backLightColorEpic;
         _modificatorBackLightColor[PowerUPRarity.Legendary] = _backLightColorLegendary;
-    }
-
-    private IEnumerator AnimateCreation(List<PowerUPBlank> powerUPBlanks)
-    {
-        float timeFromStart = 0;
-        var startScale = Vector3.one;
-
-        var rectTransforms = powerUPBlanks.Select(blank => blank.GetComponent<RectTransform>());
-
-        while (timeFromStart < 1)
-        {
-            var currentScale = _upgradeCrationAnimation.Evaluate(timeFromStart);
-            
-            foreach (var rectTransform in rectTransforms)
-            {
-                rectTransform.localScale = new Vector3(currentScale, currentScale, currentScale);
-            }
-
-            timeFromStart += Time.unscaledDeltaTime / _upgradeCreationDuration;
-            yield return null;
-        }
-
-        foreach (var rectTransform in rectTransforms)
-        {
-            rectTransform.localScale = startScale;
-        }
-        
     }
 }

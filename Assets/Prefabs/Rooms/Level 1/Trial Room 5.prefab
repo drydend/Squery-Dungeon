@@ -656,7 +656,8 @@ MonoBehaviour:
   _connectionsNumber: 4
   _centreOfRoom: {fileID: 2667881388385203814}
   _roomRadius: 12
-  _minTimeBeforeSpawn: 0
+  _compleationRoom: {fileID: 8300000, guid: c2caf39f0a515ab40a8f2bdd56b81f3a, type: 3}
+  _minTimeBeforeSpawn: 0.1
   _maxTimeBeforeSpawn: 0.2
   _maxNumberOfEnemiesInWave: 5
   _minNumberOfEnemiesInWave: 1

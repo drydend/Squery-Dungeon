@@ -22,17 +22,20 @@ public class SettingsMenuUI : UIMenu
         _closeButton.onClick.AddListener(Close);
     }
 
-    public override void OnCovered()
+    public override void Cover()
     {
         _settingMenu.SetActive(false);
     }
 
+    public override void Uncover()
+    {
+        _settingMenu.SetActive(true);
+        PlayParticle();
+    }
+
     public override void Close()
     {
-        foreach ( var particle in _particles)
-        {
-            particle.Stop();
-        }
+        StopParticle();
 
         OnMenuClosed();
         _settingMenu.SetActive(false);
@@ -40,12 +43,26 @@ public class SettingsMenuUI : UIMenu
 
     public override void Open()
     {
-        foreach (var particle in _particles)
-        {
-            particle.Play();
-        }
+        PlayParticle();
 
         OnMenuOpened();
         _settingMenu.SetActive(true);
     }
+
+    private void PlayParticle()
+    {
+        foreach (var particle in _particles)
+        {
+            particle.Play();
+        }
+    }
+
+    private void StopParticle()
+    {
+        foreach (var particle in _particles)
+        {
+            particle.Stop();
+        }
+    }
+   
 }

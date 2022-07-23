@@ -36,7 +36,7 @@ public class Room : MonoBehaviour
     public Vector2Int MapPoistion => _mapPosition;
     public bool CanBeConnected => _canBeConnected;
 
-    public void Initialize(Vector2Int mapPosition)
+    public virtual void Initialize(Vector2Int mapPosition)
     {
         _mapPosition = mapPosition;
         _upperEntrance.Block();
