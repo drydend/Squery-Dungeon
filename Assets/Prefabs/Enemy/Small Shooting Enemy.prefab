@@ -375,7 +375,7 @@ MonoBehaviour:
   _spawnExplosionParticle: {fileID: 2624291922052365963, guid: c88d47a6571af3c46951fedc863893e1,
     type: 3}
   _spawnAnimationDuration: 0.3
-  _maxHealsPoints: 10
+  _maxHealsPoints: 12
   _cameraShakeStrenghtOnDeath: 0.1
   _cameraShakeDurationOnDeath: 0.2
   _deathParticle: {fileID: 1309363937813832905, guid: 2b305a111f68976428262025eb990ea4,

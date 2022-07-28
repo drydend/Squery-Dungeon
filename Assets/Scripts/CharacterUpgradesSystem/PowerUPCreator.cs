@@ -15,15 +15,15 @@ public class PowerUPCreator : MonoBehaviour
     private float _legendaryWeight = 5;
 
     [SerializeField]
-    private List<CharacterModificator> _allModificators;
+    private List<Modificator> _allModificators;
     
-    private List<CharacterModificator> _commonModificators = new List<CharacterModificator>();
-    private List<CharacterModificator> _rareModificators = new List<CharacterModificator>();
-    private List<CharacterModificator> _epicModificators = new List<CharacterModificator>();
-    private List<CharacterModificator> _legendaryModificators = new List<CharacterModificator>();
+    private List<Modificator> _commonModificators = new List<Modificator>();
+    private List<Modificator> _rareModificators = new List<Modificator>();
+    private List<Modificator> _epicModificators = new List<Modificator>();
+    private List<Modificator> _legendaryModificators = new List<Modificator>();
 
-    private Dictionary<PowerUPRarity, List<CharacterModificator>> _modificators = 
-        new Dictionary<PowerUPRarity, List<CharacterModificator>>();
+    private Dictionary<PowerUPRarity, List<Modificator>> _modificators = 
+        new Dictionary<PowerUPRarity, List<Modificator>>();
     private Dictionary<PowerUPRarity, float> _rarityWeight = new Dictionary<PowerUPRarity, float>();
 
     private float TotalWeight => _commonWeight + _rareWeight + _epicWeight + _legendaryWeight;
@@ -33,7 +33,7 @@ public class PowerUPCreator : MonoBehaviour
         Initialize();
     }
 
-    public void AddPowerUp(CharacterModificator modificator)
+    public void AddModificatorToPool(Modificator modificator)
     {
         _modificators[modificator.GetRarity()].Add(modificator);
     }
@@ -48,7 +48,7 @@ public class PowerUPCreator : MonoBehaviour
         _rarityWeight[powerUpRarity] = weight;
     }
 
-    public CharacterModificator GetRandomModificator(PowerUPRarity lowestRarity = PowerUPRarity.Common)
+    public Modificator GetRandomModificator(PowerUPRarity lowestRarity = PowerUPRarity.Common)
     {
         var rarity = GetRandomAvaibleRarity(lowestRarity);
         var currentModificators = _modificators[rarity];

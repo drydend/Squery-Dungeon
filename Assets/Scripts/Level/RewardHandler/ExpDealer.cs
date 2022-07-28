@@ -22,7 +22,7 @@ public class ExpDealer : MonoBehaviour, IRewardHandler
 
     private void GiveExpForKillingEnemy(Enemy enemy)
     {
-        enemy.OnDie += () => _player.ReceiveExp(enemy.ExpForKilling);
+        enemy.OnDied += () => _player.ReceiveExp(enemy.ExpForKilling);
     }
 }
 

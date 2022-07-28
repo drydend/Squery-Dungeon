@@ -93,7 +93,7 @@ public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable,
     public IHitable Hitable => this;
     public IMoveable Moveable => this;
 
-    public event Action OnDie;
+    public event Action OnDied;
     public event Action OnSpawned;
 
     public void Spawn()
@@ -225,9 +225,15 @@ public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable,
         clonedEffect.OnEnded += RemoveEffect;
     }
 
-    public void RemoveEffect(Effect effect)
+    public void RemoveEffect(Type type)
     {
-        _appliedEffects.Remove(effect);
+        foreach (var effect in _appliedEffects)
+        {
+            if(effect.GetType() == type)
+            {
+                _appliedEffects.Remove(effect);
+            }
+        }
     }
 
     public bool CanApplyEffect(Effect effect)
@@ -267,7 +273,7 @@ public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable,
         Instantiate(_deathParticle, transform.position, Quaternion.identity);
         CameraShaker.Instance.ShakeCamera(_cameraShakeDurationOnDeath, _cameraShakeStrenghtOnDeath);
         _audioSource.PlayOneShot(_hitSound);
-        OnDie?.Invoke();
+        OnDied?.Invoke();
         Destroy(gameObject);
     }
 
@@ -291,6 +297,11 @@ public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable,
         {
             spriteRenderer.enabled = true;
         }
+    }
+
+    private void RemoveEffect(Effect effect)
+    {
+        _appliedEffects.Remove(effect);
     }
 
     private IEnumerator PushingCoroutine(Vector2 direction, float force, float duration)

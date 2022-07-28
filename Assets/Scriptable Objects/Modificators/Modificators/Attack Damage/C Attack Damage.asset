@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab6bbd021e3467448b5cff414415ec5, type: 3}
   m_Name: C Attack Damage
   m_EditorClassIdentifier: 
-  _powerUPs:
+  _derivedModificators:
+  - {fileID: 11400000, guid: ba6b8ccfac7be9f40b3d072f41b41888, type: 2}
+  _upgrades:
   - {fileID: 11400000, guid: 7ff4b0a9edc8a5d4fa9f263528942fb6, type: 2}
-  - {fileID: 11400000, guid: 7afe05b43c3426b48b9da2f6c63addb6, type: 2}
-  - {fileID: 11400000, guid: 5be3302313d7b6e40ac33841849698d8, type: 2}
+  - {fileID: 11400000, guid: 3829239e53f180846a15f994d34d39a1, type: 2}
+  _icon: {fileID: 5652095121884141519, guid: f6f606cc4e8ff1c41884f208689e5c83, type: 3}
+  _discription: Increases damage and energy cost of your bullets.
+  _rarity: 0

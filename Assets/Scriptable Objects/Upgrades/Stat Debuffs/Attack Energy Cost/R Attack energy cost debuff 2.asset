@@ -12,7 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a56dd12d5a3e6a549989de21f3c7470c, type: 3}
   m_Name: R Attack energy cost debuff 2
   m_EditorClassIdentifier: 
-  _rarity: 0
-  _icon: {fileID: 0}
-  _discription: 'Increases attack energy cost by '
-  _value: 15
+  _value: 3

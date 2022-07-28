@@ -233,6 +233,18 @@ public class Character : MonoBehaviour, IHitable, IPushable, IDamageable, IMovea
         _rigidbody2D.velocity = Vector2.zero;
     }
 
+    public virtual void RemoveEffect(Type type)
+    {
+        foreach (var effect in _appliedEffects)
+        {
+            if (effect.GetType() == type)
+            {
+                _appliedEffects.Remove(effect);
+            }
+        }
+
+    }
+  
     public virtual void RemoveEffect(Effect effect)
     {
         _appliedEffects.Remove(effect);

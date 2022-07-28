@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 083fd35977d05e94ebc67acc257d6c7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyDifficulty: 2
+  _enemyDifficulty: 3
   _expForKilling: 2
   _movementSpeed: 0
   _spawnChargingParticle: {fileID: 3985932363235512094, guid: 5a5dc0c59e63c3a4785b5b45555d7b20,
@@ -217,7 +217,7 @@ MonoBehaviour:
   _spawnExplosionParticle: {fileID: 2624291922052365963, guid: b079d430def6e78449ede773a2a641b2,
     type: 3}
   _spawnAnimationDuration: 1
-  _maxHealsPoints: 5
+  _maxHealsPoints: 12
   _cameraShakeStrenghtOnDeath: 0.1
   _cameraShakeDurationOnDeath: 0.2
   _deathParticle: {fileID: 1309363937813832905, guid: f779a4fde0c4d624d91f5a014ee12f24,

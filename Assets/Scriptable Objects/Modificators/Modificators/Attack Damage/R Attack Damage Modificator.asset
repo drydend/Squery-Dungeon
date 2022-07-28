@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab6bbd021e3467448b5cff414415ec5, type: 3}
   m_Name: R Attack Damage Modificator
   m_EditorClassIdentifier: 
-  _powerUPs:
+  _derivedModificators:
+  - {fileID: 11400000, guid: 0c18f96d67c096d499923510cd638c93, type: 2}
+  _upgrades:
   - {fileID: 11400000, guid: 58cb9bb55117c3a448657d405592113c, type: 2}
-  - {fileID: 11400000, guid: 64c3f96128592f844ac0f574864fe3c8, type: 2}
-  - {fileID: 11400000, guid: 7eb0f4d340d43b64586295d332478a12, type: 2}
+  - {fileID: 11400000, guid: 5137fd84cc12c9648b314125bf5a7716, type: 2}
+  _icon: {fileID: 1784293969023261788, guid: f6f606cc4e8ff1c41884f208689e5c83, type: 3}
+  _discription: Increases damage and energy cost of your bullets.
+  _rarity: 1

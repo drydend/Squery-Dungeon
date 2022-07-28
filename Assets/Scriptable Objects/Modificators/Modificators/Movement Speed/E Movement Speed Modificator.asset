@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab6bbd021e3467448b5cff414415ec5, type: 3}
   m_Name: E Movement Speed Modificator
   m_EditorClassIdentifier: 
-  _powerUPs:
+  _derivedModificators: []
+  _upgrades:
   - {fileID: 11400000, guid: fa930f6deb6ba7d4684d71d0826e0c9d, type: 2}
-  - {fileID: 11400000, guid: 80afbc779afcdbb4189536950bce5758, type: 2}
+  _icon: {fileID: -4540622214514693991, guid: f6f606cc4e8ff1c41884f208689e5c83, type: 3}
+  _discription: Increases your movement speed
+  _rarity: 2

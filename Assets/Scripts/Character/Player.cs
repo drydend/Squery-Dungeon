@@ -108,15 +108,23 @@ public class Player : MonoBehaviour
         _input.AttackButton.performed -= Attack;
     }
 
-    public void ApplyPowerUP(Upgrade powerUP)
+    public void ApplyPowerUP(PlayerUpgrade upgrade)
     {
-        powerUP.ApplyUpgrade(this);
+        upgrade.ApplyUpgrade(this);
     }
 
-    public void RevertPowerUP(Upgrade powerUp) { }
+    public void RevertPowerUP(PlayerUpgrade upgrade) 
+    {
+
+    }
 
     public void AddEffectToProjectile(Effect effect)
     {
+        if (_characterConfig.IsProjectileHaveEffect(effect.GetType()))
+        {
+            _characterConfig.RemoveProjectileEffect(effect.GetType());
+        }
+
         _characterConfig.AddEffectToProjectile(effect);
     }
 

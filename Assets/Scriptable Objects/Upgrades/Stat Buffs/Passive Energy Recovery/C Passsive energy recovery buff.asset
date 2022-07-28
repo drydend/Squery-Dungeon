@@ -12,7 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85933583120758a4a871cf96caed8b41, type: 3}
   m_Name: C Passsive energy recovery buff
   m_EditorClassIdentifier: 
-  _rarity: 0
-  _icon: {fileID: 0}
-  _discription: Increases your passive energy recovery by
-  _value: 4
+  _value: 10

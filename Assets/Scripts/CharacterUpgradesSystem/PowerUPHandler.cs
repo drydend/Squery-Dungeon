@@ -7,13 +7,12 @@ public class PowerUPHandler : MonoBehaviour
     private PowerUPCreator _upgradeCreator;
     [SerializeField]
     private PowerUPChoiceMenuUI _upgradeChoiceMenu;
-
     [SerializeField]
-    private Player _player;
+    private ModificatorApplicator _modificatorApplicator;
 
     private PowerUPBlank _selectedUpgrade;
 
-    private List<CharacterModificator> _currentModificators = new List<CharacterModificator>();
+    private List<Modificator> _currentModificators = new List<Modificator>();
 
     public bool _playerIsChoosing { get; private set; }
 
@@ -28,12 +27,17 @@ public class PowerUPHandler : MonoBehaviour
         
         foreach (var item in _currentModificators)
         {
-            _upgradeCreator.AddPowerUp(item);
+            _upgradeCreator.AddModificatorToPool(item);
+        }
+
+        foreach (var modificator in _selectedUpgrade.CurrentModificator.DerivedModificators)
+        {
+            _upgradeCreator.AddModificatorToPool(modificator);
         }
 
         _currentModificators.Clear();
 
-        _selectedUpgrade.CurrentModificator.ApplyModificator(_player);
+        _modificatorApplicator.ApplyModificator(_selectedUpgrade.CurrentModificator);
 
         _selectedUpgrade = null;
         _upgradeChoiceMenu.OnModificatorChoosen();

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 public interface IEffectable
 {
     public void ApplyEffect(Effect effect);
-    public void RemoveEffect(Effect effect);
+    public void RemoveEffect(Type type);
     public bool CanApplyEffect(Effect effect);
 }
 

@@ -12,7 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7a5441867ccb15458440d711ea8143e, type: 3}
   m_Name: E Attack speed buff
   m_EditorClassIdentifier: 
-  _rarity: 2
-  _icon: {fileID: 0}
-  _discription: 'Increases your attack speed for '
-  _value: 0.2
+  _value: 0.1

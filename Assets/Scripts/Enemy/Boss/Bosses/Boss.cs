@@ -143,6 +143,17 @@ public class Boss : MonoBehaviour, IEntity, IDamageable, IHitable, IEffectable, 
     {
         _appliedEffects.Remove(effect);
     }
+    
+    public virtual void RemoveEffect(Type type)
+    {
+        foreach (var effect in _appliedEffects)
+        {
+            if (effect.GetType() == type)
+            {
+                _appliedEffects.Remove(effect);
+            }
+        }
+    }
 
     public bool CanApplyEffect(Effect effect)
     {

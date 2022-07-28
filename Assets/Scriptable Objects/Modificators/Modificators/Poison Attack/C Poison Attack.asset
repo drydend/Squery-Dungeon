@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aab6bbd021e3467448b5cff414415ec5, type: 3}
+  m_Name: C Poison Attack
+  m_EditorClassIdentifier: 
+  _derivedModificators:
+  - {fileID: 11400000, guid: df6237729162ae74698fb1fc81f4a72d, type: 2}
+  _upgrades:
+  - {fileID: 11400000, guid: 17ba93ff47908b442b80a33480af79d1, type: 2}
+  _icon: {fileID: 2025100527752227724, guid: f6f606cc4e8ff1c41884f208689e5c83, type: 3}
+  _discription: Your bullets poison your enemies
+  _rarity: 0

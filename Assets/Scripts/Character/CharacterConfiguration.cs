@@ -39,7 +39,7 @@ public class CharacterConfiguration : ScriptableObject
     private float _maxHealsPoints;
     [SerializeField]
     private float _invulnerabilityAfterHitDuration = 1f;
-    
+
     [Header("Movement")]
     [SerializeField]
     private float _movementSpeed;
@@ -69,7 +69,7 @@ public class CharacterConfiguration : ScriptableObject
     [SerializeField]
     private BulletCollisionBehaviour _bulletStartCollisionBehaviour;
     [SerializeField]
-    private List<Effect> _projectileEffects;
+    private List<Effect> _projectileEffects = new List<Effect>(0);
 
     public float MaxLevel => _maxLevel;
 
@@ -121,7 +121,31 @@ public class CharacterConfiguration : ScriptableObject
         return clonedConfig;
     }
 
-    public void AddEffectToProjectile(Effect effect) 
+    public bool IsProjectileHaveEffect(Type type)
+    {
+        foreach (var effect in _projectileEffects)
+        {
+            if (effect.GetType() == type)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void RemoveProjectileEffect(Type type)
+    {
+        foreach (var effect in _projectileEffects)
+        {
+            if (effect.GetType() == type)
+            {
+                _projectileEffects.Remove(effect);
+            }
+        }
+    }
+
+    public void AddEffectToProjectile(Effect effect)
     {
         _projectileEffects.Add(effect);
     }
@@ -209,13 +233,13 @@ public class CharacterConfiguration : ScriptableObject
         IncreaseStatValue(ref _attackCooldown, value);
         OnAttackSpeedChanged?.Invoke();
     }
-    
+
     public void IncreaseProjectileDamage(float value)
     {
         IncreaseStatValue(ref _projectileAdditiveDamage, value);
         OnProjectileAdditiveDamageChanged?.Invoke(_projectileAdditiveDamage);
     }
-    
+
     public void DecreaseProjectileDamage(float value)
     {
         DecreaseStatValue(ref _projectileAdditiveDamage, value);
@@ -239,13 +263,13 @@ public class CharacterConfiguration : ScriptableObject
         IncreaseStatValue(ref _projectileSpeedMultiplier, value);
         _weaponPrefab.SetSpeedMulptiplier(_projectileSpeedMultiplier);
     }
-    
+
     public void DecreaseProjectileSpeedMultiplier(float value)
     {
         DecreaseStatValue(ref _projectileSpeedMultiplier, value);
         _weaponPrefab.SetSpeedMulptiplier(_projectileSpeedMultiplier);
     }
-    
+
     public void IncreaseAttackDamageMultiplier(float value)
     {
         DecreaseStatValue(ref _projectileDamageMultiplier, value);
@@ -258,9 +282,9 @@ public class CharacterConfiguration : ScriptableObject
         _weaponPrefab.SetDamageMultiplier(_projectileDamageMultiplier);
     }
 
-    private void IncreaseStatValue(ref float stat ,float value)
+    private void IncreaseStatValue(ref float stat, float value)
     {
-        if(value < 0 )
+        if (value < 0)
         {
             throw new Exception("Value must be more than zero");
         }

@@ -59,7 +59,7 @@ public class TrialRoomWithEnemies : TrialRoom
     {
         _currentNumberOfEnemies++;
         var spawnedEnemy = _enemySpawner.SpawnEnemy(this, enemyPrefab);
-        spawnedEnemy.OnDie += () => _currentNumberOfEnemies--;
+        spawnedEnemy.OnDied += () => _currentNumberOfEnemies--;
     }
 }
 

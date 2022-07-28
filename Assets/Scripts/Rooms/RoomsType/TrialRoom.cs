@@ -17,9 +17,9 @@ public class TrialRoom : Room
     protected IRewardHandler _rewardHandler;
     protected RoomState _roomState = RoomState.NotFinished;
 
-    public override void Initialize(Vector2Int mapPosition)
+    public override void Initialize(Vector2Int mapPosition, int distanceFromStartRoom)
     {
-        base.Initialize(mapPosition);
+        base.Initialize(mapPosition, distanceFromStartRoom);
         _audioSource = AudioSourceProvider.Instance.GetSoundsSource();
     }
 

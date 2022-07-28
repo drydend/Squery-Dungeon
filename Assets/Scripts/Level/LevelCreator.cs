@@ -18,7 +18,6 @@ public class LevelCreator : MonoBehaviour
     [SerializeField]
     private BossRoom _bossRoomPrefab;
 
-
     [SerializeField]
     private int _startRoomMapPosX = 0;
     [SerializeField]
@@ -34,8 +33,11 @@ public class LevelCreator : MonoBehaviour
     private int _maxXPos;
     [SerializeField]
     private int _maxYPos;
+
     private Room[,] _roomsMap;
     private Room _lastCreatedRoom;
+    private int _maxDistanceFromStartRoom;
+    private List<TrialRoomWithEnemies> _createdTrialRoomsWithEnemies = new List<TrialRoomWithEnemies>();
 
     [SerializeField]
     private EnemySpawner _enemySpawner;
@@ -62,7 +64,8 @@ public class LevelCreator : MonoBehaviour
         _lastCreatedRoom = startRoom;
 
         int numberOfGeneratedRooms = 0;
-       
+        int distanceFromStartRoom = 1;
+
         while (numberOfGeneratedRooms < _numberOfRooms)
         {
             var adjacentEmptyPoints = new List<Vector2Int>();
@@ -70,17 +73,25 @@ public class LevelCreator : MonoBehaviour
             if (TryFindAllAdjacentEmptyPoint(_lastCreatedRoom.MapPoistion, adjacentEmptyPoints) 
                 && _lastCreatedRoom.CanBeConnected)
             {
-                var newRoom = CreateTrialRoomWithEnemies(adjacentEmptyPoints, numberOfGeneratedRooms);
+                var newRoom = CreateTrialRoomWithEnemies(adjacentEmptyPoints, numberOfGeneratedRooms, distanceFromStartRoom);
 
                 roomCreationStack.Push(newRoom);
+                
                 numberOfGeneratedRooms++;
                 _lastCreatedRoom = newRoom;
+                _createdTrialRoomsWithEnemies.Add(newRoom);
+
+                distanceFromStartRoom++;
             }
             else
             {
                 _lastCreatedRoom = roomCreationStack.Pop();
+                distanceFromStartRoom--;
             }
         }
+
+        _maxDistanceFromStartRoom = FindMaxDistanceFromStartRoom();
+        SetEnemyWawesInRooms();
 
         CreateBossRoom();
 
@@ -120,7 +131,7 @@ public class LevelCreator : MonoBehaviour
         var roomWordsPosition = RoomMapToWorldsPosititon(bossRoomMapPosition);
 
         var bossRoom = Instantiate(_bossRoomPrefab, roomWordsPosition, _bossRoomPrefab.transform.rotation);
-        bossRoom.Initialize(bossRoomMapPosition);
+        bossRoom.Initialize(bossRoomMapPosition, furthestRoom.DistanceFromStartRoom + 1);
         bossRoom.SetBossSpawner(_bossSpawner);
         bossRoom.SetRevardHandler(_rewardHandlerOfFinalRoom);
 
@@ -131,23 +142,26 @@ public class LevelCreator : MonoBehaviour
 
     }
 
-    private TrialRoomWithEnemies CreateTrialRoomWithEnemies(List<Vector2Int> adjacentEmptyPoints, int roomNumber)
+    private TrialRoomWithEnemies CreateTrialRoomWithEnemies(List<Vector2Int> adjacentEmptyPoints, int roomNumber,
+        int distanceFromStartRoom)
     {
-        int roomDifficulty = (int)_difficultyCurve.Evaluate(roomNumber / _numberOfRooms) * 10;
         var roomMapPos = adjacentEmptyPoints[Random.Range(0, adjacentEmptyPoints.Count)];
         var roomWorldsPos = RoomMapToWorldsPosititon(roomMapPos);
         var roomPrefab = _trialRoomsWithEnemies[Random.Range(0, _trialRoomsWithEnemies.Count)];
 
         var newRoom = Instantiate(roomPrefab, roomWorldsPos, roomPrefab.transform.rotation);
 
-        newRoom.Initialize(roomMapPos);
-        var enemyWaves = _enemyWaveCreator.GenerateEnemyWaves(roomDifficulty, newRoom.MaxEnemiesInWave, newRoom.MinEnemiesInWave);
-        newRoom.SetEnemyWaves(enemyWaves);
+        newRoom.Initialize(roomMapPos, distanceFromStartRoom);
         newRoom.SetEnemySpawner(_enemySpawner);
         newRoom.SetRevardHandler(_expDealer);
 
         _roomsMap[roomMapPos.x, roomMapPos.y] = newRoom;
         newRoom.ConnectToRoom(_lastCreatedRoom , _passages.GetRandomValue());
+       
+        if (_lastCreatedRoom.DistanceFromStartRoom < newRoom.DistanceFromStartRoom - 1)
+        {
+            UpdateRoomDistance(newRoom, _lastCreatedRoom.DistanceFromStartRoom + 1);
+        }
 
         if (newRoom.CanBeConnected)
         {
@@ -166,10 +180,21 @@ public class LevelCreator : MonoBehaviour
 
         var startRoom = Instantiate(_startRoomPrefab, startRoomWorldPos, _startRoomPrefab.transform.rotation);
         StartRoom = startRoom;
-        startRoom.Initialize(new Vector2Int(_startRoomMapPosX, _startRoomMapPosY));
+        startRoom.Initialize(new Vector2Int(_startRoomMapPosX, _startRoomMapPosY), 0);
         _roomsMap[_startRoomMapPosX, _startRoomMapPosY] = startRoom;
 
         return startRoom;
+    }
+
+    private void SetEnemyWawesInRooms()
+    {
+        foreach (var room in _createdTrialRoomsWithEnemies)
+        {
+            Debug.Log(_difficultyCurve.Evaluate((float)room.DistanceFromStartRoom / (float)_maxDistanceFromStartRoom));
+            int roomDifficulty = (int)(_difficultyCurve.Evaluate((float)room.DistanceFromStartRoom / (float)_maxDistanceFromStartRoom) * 10);
+            var wawes = _enemyWaveCreator.GenerateEnemyWaves(roomDifficulty, room.MaxEnemiesInWave, room.MinEnemiesInWave);
+            room.SetEnemyWaves(wawes);
+        }
     }
 
     private void ConnectRooms(Room originRoom, List<Room> adjacentRooms)
@@ -179,8 +204,53 @@ public class LevelCreator : MonoBehaviour
             if (RandomUtils.RandomBoolean(_chanceToConnectRooms * 100) && adjacentRoom.CanBeConnected)
             {
                 originRoom.ConnectToRoom(adjacentRoom, _passages.GetRandomValue());
+
+                if(adjacentRoom.DistanceFromStartRoom > originRoom.DistanceFromStartRoom + 1)
+                {
+                    UpdateRoomDistance(adjacentRoom, originRoom.DistanceFromStartRoom + 1);
+                }
+                else if(originRoom.DistanceFromStartRoom - 1 > adjacentRoom.DistanceFromStartRoom)
+                {
+                    UpdateRoomDistance(originRoom, adjacentRoom.DistanceFromStartRoom + 1);
+                }
             }
         }
+    }
+
+    private void UpdateRoomDistance(Room room, int newDistance)
+    {
+        room.SetDistanceFromStartRoom(newDistance);
+
+        foreach (var connectedRoom in room.ConnectedRooms)
+        {
+            if (connectedRoom.DistanceFromStartRoom > room.DistanceFromStartRoom + 1)
+            {   
+                UpdateRoomDistance(connectedRoom, room.DistanceFromStartRoom + 1);
+            }
+        }
+    }
+    
+    private int FindMaxDistanceFromStartRoom()
+    {
+        int maxDistance = 0;
+
+        for (int x = 0; x < _roomsMap.GetLength(0); x++)
+        {
+            for (int y = 0; y < _roomsMap.GetLength(1); y++)
+            {
+                if(_roomsMap[x,y] == null)
+                {
+                    continue;
+                }
+
+                if(_roomsMap[x,y].DistanceFromStartRoom > maxDistance)
+                {
+                    maxDistance = _roomsMap[x, y].DistanceFromStartRoom;
+                }
+            }
+        }
+
+        return maxDistance;
     }
 
     private bool TryFindAllAdjacentRooms(Vector2Int currentRoomMapPos, List<Room> adjacentRooms)

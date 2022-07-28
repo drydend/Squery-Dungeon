@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab6bbd021e3467448b5cff414415ec5, type: 3}
   m_Name: Explosive Dash
   m_EditorClassIdentifier: 
-  _powerUPs:
+  _derivedModificators: []
+  _upgrades:
   - {fileID: 11400000, guid: 2191e7b78e0e85543a36735e2b65cc39, type: 2}
+  _icon: {fileID: 7139329037636314258, guid: 0a707a97d4a055946b893924ea925f7b, type: 3}
+  _discription: 
+  _rarity: 0

@@ -24,9 +24,11 @@ public class PowerUPBlank : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     [SerializeField]
     private Image _selectedBackLight;
     [SerializeField]
+    private Image _icon;
+    [SerializeField]
     private TMP_Text _discription;
 
-    private CharacterModificator _modificator;
+    private Modificator _modificator;
     private RectTransform _rectTransform;
 
     private bool _isSelected;
@@ -37,13 +39,14 @@ public class PowerUPBlank : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public event Action<PowerUPBlank> OnSelected;
     public event Action<PowerUPBlank> OnDestroyed;
 
-    public CharacterModificator CurrentModificator => _modificator;
+    public Modificator CurrentModificator => _modificator;
 
-    public void Initialize(Color backLightColor, CharacterModificator modificator)
+    public void Initialize(Color backLightColor, Modificator modificator)
     {
         _modificator = modificator;
         _backLight.color = backLightColor;
         _selectedBackLight.color = backLightColor;
+        _icon.sprite = _modificator.Icon;
 
         _backLight.enabled = true;
         _selectedBackLight.enabled = false;
@@ -82,7 +85,7 @@ public class PowerUPBlank : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         }
 
         _backLight.enabled = false;
-        _selectedBackLight.enabled = true;
+        _selectedBackLight.enabled = true; 
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -115,8 +118,10 @@ public class PowerUPBlank : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         }
 
         _rectTransform.localScale = _startScale * _scaleFactorOnSelected;
+        
         _backLight.enabled = false;
         _selectedBackLight.enabled = true;
+        
         _isSelected = true;
         OnSelected?.Invoke(this);
     }

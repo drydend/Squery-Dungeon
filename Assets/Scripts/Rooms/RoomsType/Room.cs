@@ -26,19 +26,22 @@ public class Room : MonoBehaviour
     private int _connectionsNumber = 4;
 
     private bool _canBeConnected = true;
+    private int _distanceFromStartRoom;
 
 
     public virtual event Action OnEntered;
     public virtual event Action OnCompleated;
 
+    public int DistanceFromStartRoom => _distanceFromStartRoom;
     public List<Room> ConnectedRooms => _connectedRooms;
     public Sprite MinimapIcon => _minimapIcon;
     public Vector2Int MapPoistion => _mapPosition;
     public bool CanBeConnected => _canBeConnected;
 
-    public virtual void Initialize(Vector2Int mapPosition)
+    public virtual void Initialize(Vector2Int mapPosition, int distanceFromStartRoom)
     {
         _mapPosition = mapPosition;
+        _distanceFromStartRoom = distanceFromStartRoom;
         _upperEntrance.Block();
         _rightEntrance.Block();
         _leftEntrance.Block();
@@ -114,5 +117,14 @@ public class Room : MonoBehaviour
     protected void OnRoomCompleated()
     {
         OnCompleated?.Invoke();
+    }
+
+    public void SetDistanceFromStartRoom(int value)
+    {
+        if (value < 0)
+        {
+            throw new Exception("Distance can`t be less than zero");
+        }
+        _distanceFromStartRoom = value;
     }
 }

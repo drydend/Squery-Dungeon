@@ -9,7 +9,9 @@ public class EnemyWaveCreator : MonoBehaviour
     [SerializeField]
     private float _enemyNumberMultiplier;
     [SerializeField]
-    private int _enemyDifficultyRange;
+    private int _enemyMinDifficultyRange;
+    [SerializeField]
+    private int _enemyMaxDifficultyRange;
     [SerializeField]
     private int _maxWaves = 4;
     [SerializeField]
@@ -36,8 +38,8 @@ public class EnemyWaveCreator : MonoBehaviour
 
         var waves = new List<EnemyWave>();
         var availableEnemies = _enemiesPrefabs.FindAll(enemyController =>
-            enemyController.Difficulty >= roomDifficulty - _enemyDifficultyRange
-            && enemyController.Difficulty <= roomDifficulty + _enemyDifficultyRange)
+            enemyController.Difficulty >= roomDifficulty - _enemyMinDifficultyRange
+            && enemyController.Difficulty <= roomDifficulty + _enemyMaxDifficultyRange)
             .ToList();
         
         var lerpFactor = roomDifficulty / 10 >= _maxLerpFactor ? _maxLerpFactor : roomDifficulty / 10;
@@ -50,8 +52,10 @@ public class EnemyWaveCreator : MonoBehaviour
             var enemySequence = new List<Enemy>();
 
             int averageEnemiesInWave = (scaledMinEnemiesInWave + scaledMaxEnemiesInWave) / 2;
+            
             var minEnemiesInWaveByDifficulty = (int)Mathf.Lerp(scaledMinEnemiesInWave, averageEnemiesInWave, lerpFactor);
             var maxEnemiesInWaveByDifficulty = (int)Mathf.Lerp(averageEnemiesInWave, scaledMaxEnemiesInWave, lerpFactor);
+
             int numberOfEnemiesInCurrentWave = Random.Range(minEnemiesInWaveByDifficulty, scaledMaxEnemiesInWave);
 
             for (int i = 0; i < numberOfEnemiesInCurrentWave; i++)

@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab6bbd021e3467448b5cff414415ec5, type: 3}
   m_Name: E Attack Damage Modificator 1
   m_EditorClassIdentifier: 
-  _powerUPs:
+  _derivedModificators:
+  - {fileID: 11400000, guid: a249ea6605f37454aadc26ce1d485db0, type: 2}
+  _upgrades:
   - {fileID: 11400000, guid: b4cbb20e198df5e489e6a717922bc064, type: 2}
-  - {fileID: 11400000, guid: 5137fd84cc12c9648b314125bf5a7716, type: 2}
-  - {fileID: 11400000, guid: ffe1fa7c3d5755d49a851527fecd8965, type: 2}
+  - {fileID: 11400000, guid: 64c3f96128592f844ac0f574864fe3c8, type: 2}
+  _icon: {fileID: -1681819421661249093, guid: f6f606cc4e8ff1c41884f208689e5c83, type: 3}
+  _discription: Increases damage and energy cost of your bullets.
+  _rarity: 2

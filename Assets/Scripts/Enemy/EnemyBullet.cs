@@ -161,7 +161,7 @@ public class EnemyBullet : Enemy
         _attackTimer = new Timer(_attackSpeed);
         OnAttackEnd += _attackTimer.ResetTimer;
 
-        OnDie += OnDied;
+        OnDied += OnDie;
 
         _allAvaibleStates = new List<BaseEnemyState>()
         {
@@ -255,7 +255,7 @@ public class EnemyBullet : Enemy
         SwitchState<IdleState>();
     }
 
-    private void OnDied()
+    private void OnDie()
     {
         Destroy(_chargingAttackParticle);
         Destroy(_flightParticle);

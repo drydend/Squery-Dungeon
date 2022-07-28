@@ -7,7 +7,7 @@ public class UIInput : MonoBehaviour
     [SerializeField]
     private UIMenusHandler _uiMenusHandler;
 
-    private void Awake()
+    private void Start()
     {
         _playerInput.EscapeButton.performed += (context) => _uiMenusHandler.EscapeButtonPressed();
     }

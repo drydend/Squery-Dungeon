@@ -12,7 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e8fd91c0c2f62a4187a1efa565e253a, type: 3}
   m_Name: L Projectile damage buff
   m_EditorClassIdentifier: 
-  _rarity: 0
-  _icon: {fileID: 0}
-  _discription: 'Increases your damage by '
-  _value: 5
+  _value: 3

@@ -45,7 +45,7 @@ public class PowerUPChoiceMenuUI : UIMenu
     }
     
 
-    public List<PowerUPBlank> Show(List<CharacterModificator> modificators)
+    public List<PowerUPBlank> Show(List<Modificator> modificators)
     {
         Open();
         
