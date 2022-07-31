@@ -486,13 +486,19 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 93faf4eb8689bf748889a65685067a82, type: 2}
   - {fileID: 11400000, guid: 67ca22c77ab608d42a42ae62ba0afc95, type: 2}
   _maxHeals: 400
-  _movementSpeed: 0
+  _movementSpeed: 3.5
   _rotationSpeed: 720
   _cameraShakeOnDieingDuration: 5
+  _spawningAnimationDuration: 3
   _hitSound: {fileID: 8300000, guid: 10b5bb8fde98fd040a45ab3e155dab7a, type: 3}
   _deathSound: {fileID: 8300000, guid: d3218f822fd0507468266b9cdb27427c, type: 3}
   _deathParticle: {fileID: 112468737741113653, guid: e21bb4dbd92857141bd72c9625805948,
     type: 3}
+  _spawningChargingParticle: {fileID: 3985932363235512094, guid: 1d98c8360861b884ea4c2cb376f118d1,
+    type: 3}
+  _spawningExplosionParticle: {fileID: 4868439663657183576, guid: abc66078bf8b751429e5294e7a0a79bb,
+    type: 3}
+  _timeBetweenStages: 1
   _bossShells:
   - {fileID: 1671120633114505068}
   - {fileID: 1671120634482601741}

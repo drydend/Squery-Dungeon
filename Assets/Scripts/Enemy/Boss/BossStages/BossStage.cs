@@ -10,8 +10,6 @@ public class BossStage : ScriptableObject
     protected List<BossAttackPattern> _attackPatterns;
     [SerializeField]
     protected float _timeBetweenAttacks;
-    [SerializeField]
-    protected float _exitTime;
 
     protected Boss _boss;
     protected List<BossAttackPattern> _avaibleAttackPatterns;
@@ -21,7 +19,6 @@ public class BossStage : ScriptableObject
     [SerializeField] [Range(0,1f)]
     private float _percentageHealthThresholdToEnter;
 
-    public float ExitTime => _exitTime;
     public float HealsThresholdPercentToEnter => _percentageHealthThresholdToEnter;
 
     public virtual void Initialize(Boss boss)

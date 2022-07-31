@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System;
 using UnityEngine.AI;
+using System.Linq;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class Boss : MonoBehaviour, IEntity, IDamageable, IHitable, IEffectable, IMoveable
@@ -23,6 +24,8 @@ public class Boss : MonoBehaviour, IEntity, IDamageable, IHitable, IEffectable, 
     protected float _rotationSpeed;
     [SerializeField]
     protected float _cameraShakeOnDieingDuration;
+    [SerializeField]
+    protected float _spawningAnimationDuration;
 
     [SerializeField]
     protected AudioClip _hitSound;
@@ -37,7 +40,12 @@ public class Boss : MonoBehaviour, IEntity, IDamageable, IHitable, IEffectable, 
 
     [SerializeField]
     private ParticleSystem _deathParticle;
+    [SerializeField]
+    private ParticleSystem _spawningChargingParticle;
+    [SerializeField]
+    private ParticleSystem _spawningExplosionParticle;
 
+    private List<SpriteRenderer> _spriteRenderers = new List<SpriteRenderer>(0);
     private Coroutine _chasingCoroutine;
     private Coroutine _followingCoroutine;
 
@@ -61,6 +69,7 @@ public class Boss : MonoBehaviour, IEntity, IDamageable, IHitable, IEffectable, 
         _heals = _maxHeals;
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _audioSource = AudioSourceProvider.Instance.GetSoundsSource();
+        _spriteRenderers = GetComponentsInChildren<SpriteRenderer>().ToList();
 
         foreach (var stage in _allStages)
         {
@@ -68,11 +77,20 @@ public class Boss : MonoBehaviour, IEntity, IDamageable, IHitable, IEffectable, 
         }
     }
 
-    public void OnSpawned()
+    public void PlaySpawningAnimation()
+    {
+        StartCoroutine(SpawningAnimation());
+    }
+
+    protected virtual void OnSpawned()
     {
         IsInvulnerable = false;
         _isSpawned = true;
-        gameObject.SetActive(true);
+
+        foreach (var renderer in _spriteRenderers)
+        {
+            renderer.enabled = true;
+        }
     }
 
     public void ChaseTarget(float speed)
@@ -95,8 +113,12 @@ public class Boss : MonoBehaviour, IEntity, IDamageable, IHitable, IEffectable, 
 
     public void FollowPlayer()
     {
-        _followingCoroutine = StartCoroutine(SmoothFollowPlayer());
+        if(_followingCoroutine != null)
+        {
+            StopCoroutine(_followingCoroutine);
+        }
 
+        _followingCoroutine = StartCoroutine(SmoothFollowPlayer());
     }
   
     public void StopFollowingPlayer()
@@ -179,6 +201,25 @@ public class Boss : MonoBehaviour, IEntity, IDamageable, IHitable, IEffectable, 
         StartCoroutine(DieingCoroutine());
     }
 
+    private IEnumerator SpawningAnimation()
+    {
+        _isSpawned = false;
+        IsInvulnerable = true;
+        
+        foreach (var renderer in _spriteRenderers)
+        {
+            renderer.enabled = false;
+        }
+
+        var spawningParticle = Instantiate(_spawningChargingParticle, transform.position, Quaternion.identity);
+
+        yield return new WaitForSeconds(_spawningAnimationDuration);
+        Destroy(spawningParticle);
+        Instantiate(_spawningExplosionParticle, transform.position, Quaternion.identity);
+
+        OnSpawned();
+    }
+
     private IEnumerator DieingCoroutine()
     {
         StopFollowingPlayer();
@@ -238,17 +279,20 @@ public class Boss : MonoBehaviour, IEntity, IDamageable, IHitable, IEffectable, 
             throw new Exception("Speed can`t be less than zero");
         }
 
+        _movementSpeed = value;
         _navMeshAgent.speed = value;
     }
 
     public void DecreaseSpeed(float value)
     {
         _navMeshAgent.speed -= value;
+        _movementSpeed -= value;
     }
 
     public void IncreaseSpeed(float value)
     {
         _navMeshAgent.speed += value;
+        _movementSpeed += value;
     }
 }
 

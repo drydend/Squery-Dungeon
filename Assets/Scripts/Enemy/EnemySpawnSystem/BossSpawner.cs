@@ -9,7 +9,7 @@ public class BossSpawner : MonoBehaviour
     {
         var boss = Instantiate(bossRoom.BossOfRoom, bossRoom.BossSpawnPosition.position, Quaternion.identity);
         boss.Initialize(_player.CurrentCharacter);
-        boss.OnSpawned();
+        boss.PlaySpawningAnimation();
         return boss;
     }
 }

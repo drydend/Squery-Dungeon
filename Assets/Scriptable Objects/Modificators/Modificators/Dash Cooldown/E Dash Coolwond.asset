@@ -15,6 +15,6 @@ MonoBehaviour:
   _derivedModificators: []
   _upgrades:
   - {fileID: 11400000, guid: f78a63700c95eef428b8542b934143dc, type: 2}
-  _icon: {fileID: 7992337174098231673, guid: f6f606cc4e8ff1c41884f208689e5c83, type: 3}
+  _icon: {fileID: -708822199140618813, guid: f6f606cc4e8ff1c41884f208689e5c83, type: 3}
   _discription: Decreases cooldown of dash.
   _rarity: 2

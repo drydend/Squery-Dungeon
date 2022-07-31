@@ -6,6 +6,8 @@ using System.Collections;
 public class BigTriangleBoss : Boss
 {
     [SerializeField]
+    private float _timeBetweenStages = 1f;
+    [SerializeField]
     private List<BossShell> _bossShells;
     private BossShell _currentShell;
 
@@ -40,7 +42,6 @@ public class BigTriangleBoss : Boss
 
         _currentStage = _leftStages.OrderByDescending(stage => stage.HealsThresholdPercentToEnter).First();
         _leftStages.Remove(_currentStage);
-        _currentStage.OnEnter();
 
         _bossShells.OrderByDescending(shell => shell.ShellOrder);
         _currentShell = _bossShells.First();
@@ -54,6 +55,12 @@ public class BigTriangleBoss : Boss
 
         OnHealsChanged += OnTakeDamage;
         OnDied += () => _currentShell.DestroyShell();
+    }
+
+    protected override void OnSpawned()
+    {
+        base.OnSpawned();
+        _currentStage.OnEnter();
     }
 
     private void OnTakeDamage()
@@ -72,7 +79,7 @@ public class BigTriangleBoss : Boss
 
         if (_heals / _maxHeals < _leftStages.First().HealsThresholdPercentToEnter)
         {
-            StartCoroutine(SetNextStage(_currentStage.ExitTime));
+            StartCoroutine(SetNextStage(_timeBetweenStages));
 
             if (_bossShells.Count > 0)
             {
@@ -101,19 +108,19 @@ public class BigTriangleBoss : Boss
     {
         _currentStage.OnExit();
 
-        FollowPlayer();
+        StopFollowingPlayer();
         IsInvulnerable = true;
-
-        yield return new WaitForSeconds(delay);
 
         var nextStage = _leftStages.First();
         _leftStages.Remove(nextStage);
-
         _currentStage = nextStage;
+
+        yield return new WaitForSeconds(delay);
+
         _currentStage.OnEnter();
 
         IsInvulnerable = false;
-        StopFollowingPlayer();
+        FollowPlayer();
     }
 }
 
