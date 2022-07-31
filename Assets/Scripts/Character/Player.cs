@@ -64,6 +64,7 @@ public class Player : MonoBehaviour
         _dashTimer.FinishTimer();
 
         _characterConfig.OnAttackSpeedChanged += () => _attackTimer.SetSecondsToFinish(_characterConfig.AttackCooldown);
+        _characterConfig.OnDashCooldownChanged += () => _dashTimer.SetSecondsToFinish(_characterConfig.DashCooldown);
 
         _currentEnergy = MaxEnergy;
         _expToNextLevel =  GenerateExpToNextLevel();
@@ -116,16 +117,6 @@ public class Player : MonoBehaviour
     public void RevertPowerUP(PlayerUpgrade upgrade) 
     {
 
-    }
-
-    public void AddEffectToProjectile(Effect effect)
-    {
-        if (_characterConfig.IsProjectileHaveEffect(effect.GetType()))
-        {
-            _characterConfig.RemoveProjectileEffect(effect.GetType());
-        }
-
-        _characterConfig.AddEffectToProjectile(effect);
     }
 
     public void SetCharacterPosition(Vector2 position)
@@ -235,6 +226,6 @@ public class Player : MonoBehaviour
 
     private int GenerateExpToNextLevel()
     {
-        return 2 * _currentLevel + 7; 
+        return 4 * _currentLevel + 17;
     }
 }

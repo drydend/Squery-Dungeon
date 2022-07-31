@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdc023608715a004a890456550c84091, type: 3}
+  m_Name: L Enemy Poisoning Dying Explosion
+  m_EditorClassIdentifier: 
+  _enemyPosoningExplosion: {fileID: 11400000, guid: 440aeb81ede0ccb45aff4375d7f7a05a,
+    type: 2}

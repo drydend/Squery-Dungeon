@@ -719,7 +719,7 @@ MonoBehaviour:
   _compleationRoom: {fileID: 8300000, guid: c2caf39f0a515ab40a8f2bdd56b81f3a, type: 3}
   _minTimeBeforeSpawn: 0.1
   _maxTimeBeforeSpawn: 0.5
-  _maxNumberOfEnemiesInWave: 4
+  _maxNumberOfEnemiesInWave: 3
   _minNumberOfEnemiesInWave: 1
   _closingSound: {fileID: 8300000, guid: af64c03d2d1acef4283bc22c350921f3, type: 3}
 --- !u!114 &1064955423809625182

@@ -13,7 +13,7 @@ public class RangeWeapon : MonoBehaviour
     private List<Effect> _projectileEffects;
 
     [SerializeField]
-    private float _defaultAngleBettweenProjectiles = 15f;
+    private float _defaultAngleBetweenProjectiles = 15f;
     [SerializeField]
     private int _defaultNumberOfProjectiles = 1;
 
@@ -74,12 +74,17 @@ public class RangeWeapon : MonoBehaviour
 
     public void Attack(Vector3 targetPosition, Projectile projectile)
     {
-        Attack(targetPosition, projectile, null, _defaultNumberOfProjectiles, _defaultAngleBettweenProjectiles);
+        Attack(targetPosition, projectile, null, _defaultNumberOfProjectiles, _defaultAngleBetweenProjectiles);
     }
 
     public void Attack(Vector3 targetPosition, Projectile projectile, Transform target)
     {
-        Attack(targetPosition, projectile, target, _defaultNumberOfProjectiles, _defaultAngleBettweenProjectiles);
+        Attack(targetPosition, projectile, target, _defaultNumberOfProjectiles, _defaultAngleBetweenProjectiles);
+    }
+
+    public void Attack(Vector3 targetPosition, Projectile projectile, int numberOfProjectiles, float angleBeweenProjectiles)
+    {
+        Attack(targetPosition, projectile, null, numberOfProjectiles, angleBeweenProjectiles);
     }
 
     public void Attack(Vector3 targetPosition, Projectile projectilePrefab, Transform target,

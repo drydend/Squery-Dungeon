@@ -8,25 +8,33 @@ public class PlayerLevelController : MonoBehaviour
     private Player _player;
     [SerializeField]
     private PowerUPHandler _powerUPHandler;
-    private int _numberOfReward;
+    private int _numberOfRewards;
+
+    public int NumberOfRewards => _numberOfRewards;
+
+    public event Action OnNumberOfRewardChanged;
 
     private void Awake()
     {
-        _player.OnLevelChanged += () => _numberOfReward++;
-        _player.OnLevelUp += GiveReward;
+        _player.OnLevelChanged += () => 
+        { 
+            _numberOfRewards++;
+            OnNumberOfRewardChanged?.Invoke();
+        };
     }
 
-    private void GiveReward()
+    public void ShowRewards()
     {
         StartCoroutine(GiveRewardCoroutine());
     }
 
     private IEnumerator GiveRewardCoroutine()
     {
-        while(_numberOfReward > 0)
+        while(_numberOfRewards > 0)
         {
             _powerUPHandler.ShowPowerUps();
-            _numberOfReward--;
+            _numberOfRewards--;
+            OnNumberOfRewardChanged?.Invoke();
             yield return new WaitUntil(() => _powerUPHandler._playerIsChoosing == false);
         }
     }

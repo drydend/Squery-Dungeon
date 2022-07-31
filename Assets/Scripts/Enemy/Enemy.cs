@@ -54,7 +54,6 @@ public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable,
     [SerializeField]
     protected LayerMask _raycastLayers;
     protected Character _target;
-    protected NavMeshAgent _navMeshAgent;
 
     protected BaseEnemyState _currentState;
     protected List<BaseEnemyState> _allAvaibleStates;
@@ -64,23 +63,26 @@ public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable,
     protected bool _isSpawned;
     protected bool _isPaused;
 
-    protected AudioSource _audioSource;
+    protected NavMeshAgent _navMeshAgent;
+    protected Animator _animator;
     protected Rigidbody2D _rigidbody2D;
-    protected SpriteRenderer _mainSpriteRenderer;
     protected Collider2D _collider;
+    protected SpriteRenderer _mainSpriteRenderer;
     protected List<SpriteRenderer> _allSpriteRendereres = new List<SpriteRenderer>();
+    protected AudioSource _audioSource;
 
     protected List<Effect> _appliedEffects = new List<Effect>();
 
     [SerializeField]
-    private float _pushingDuration = 0.4f;
+    private List<EnemyDyingBehaviour> _enemyDyingBehaviours = new List<EnemyDyingBehaviour>(0);
     private Coroutine _pushingCoroutine;
 
     public float MaxAttackDistance => _maxAttackDistance;
     public float MinAttakcDistance => _minAttackDistance;
 
     public Character Target => _target;
-    
+
+    public bool IsPathAvaible => _navMeshAgent.CalculatePath(_target.transform.position, new NavMeshPath());
     public int ExpForKilling => _expForKilling;
     public int Difficulty => _enemyDifficulty;
     public float MovementSpeed => _movementSpeed;
@@ -96,6 +98,21 @@ public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable,
     public event Action OnDied;
     public event Action OnSpawned;
 
+    public virtual void Update()
+    {
+        if (!_isSpawned)
+        {
+            return;
+        }
+
+        _currentState.Update();
+
+        for (int i = 0; i < _appliedEffects.Count; i++)
+        {
+            _appliedEffects[i].Update();
+        }
+    }
+
     public void Spawn()
     {
         _isSpawned = false;
@@ -108,6 +125,7 @@ public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable,
         _target = target;
 
         _audioSource = AudioSourceProvider.Instance.GetSoundsSource();
+        _animator = GetComponent<Animator>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _mainSpriteRenderer = GetComponent<SpriteRenderer>();
@@ -115,6 +133,13 @@ public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable,
 
         _allSpriteRendereres = gameObject.GetComponentsInChildren<SpriteRenderer>().ToList();
         _allSpriteRendereres.Add(_mainSpriteRenderer);
+        _navMeshAgent.speed = _movementSpeed;
+
+        for (int i = 0; i < _enemyDyingBehaviours.Count; i++)
+        {
+            _enemyDyingBehaviours[i] = _enemyDyingBehaviours[i].Clone();
+            _enemyDyingBehaviours[i].Initialize(this);
+        }
     }
 
     public virtual void Attack() { }
@@ -217,6 +242,13 @@ public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable,
         }
     }
 
+    public void AddDyingBehaviour(EnemyDyingBehaviour dyingBehaviour)
+    {
+        var clonedDyingBehaviour = dyingBehaviour.Clone();
+        clonedDyingBehaviour.Initialize(this);
+        _enemyDyingBehaviours.Add(clonedDyingBehaviour);
+    }
+
     public void ApplyEffect(Effect effect)
     {
         var clonedEffect = effect.Clone();
@@ -229,11 +261,18 @@ public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable,
     {
         foreach (var effect in _appliedEffects)
         {
-            if(effect.GetType() == type)
+            if (effect.GetType() == type)
             {
                 _appliedEffects.Remove(effect);
             }
         }
+    }
+
+    public bool TryGetEffect<T>(out T effect) where T : Effect
+    {
+        effect = (T)_appliedEffects.Find(appliedEffect => appliedEffect.GetType().Equals(typeof(T)));
+
+        return effect != null;
     }
 
     public bool CanApplyEffect(Effect effect)
@@ -249,6 +288,11 @@ public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable,
         return effect.CanBeAppliedTo(this);
     }
 
+    public void RemoveEffect(Effect effect)
+    {
+        _appliedEffects.Remove(effect);
+    }
+
     public virtual void BecomeInvulnarable()
     {
         _isInvulnerable = true;
@@ -259,10 +303,27 @@ public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable,
         _isInvulnerable = false;
     }
 
-    public void SetMovementSpeed(float value)
+    public void SetMomentSpeed(float value)
     {
+        if (value < 0)
+        {
+            throw new Exception("Speed can`t be less than zero");
+        }
+
         _movementSpeed = value;
         _navMeshAgent.speed = value;
+    }
+
+    public void DecreaseSpeed(float value)
+    {
+        _movementSpeed -= value;
+        _navMeshAgent.speed -= value;
+    }
+
+    public void IncreaseSpeed(float value)
+    {
+        _movementSpeed += value;
+        _navMeshAgent.speed += value;
     }
 
     protected virtual void OnRecieveHit() { }
@@ -297,11 +358,6 @@ public class Enemy : MonoBehaviour, IHitable, IDamageable, IMoveable, IPushable,
         {
             spriteRenderer.enabled = true;
         }
-    }
-
-    private void RemoveEffect(Effect effect)
-    {
-        _appliedEffects.Remove(effect);
     }
 
     private IEnumerator PushingCoroutine(Vector2 direction, float force, float duration)

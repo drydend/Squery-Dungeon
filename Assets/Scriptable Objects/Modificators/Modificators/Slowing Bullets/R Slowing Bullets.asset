@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aab6bbd021e3467448b5cff414415ec5, type: 3}
+  m_Name: R Slowing Bullets
+  m_EditorClassIdentifier: 
+  _derivedModificators:
+  - {fileID: 11400000, guid: f6350466c11e38941a75d441aa91d123, type: 2}
+  _upgrades:
+  - {fileID: 11400000, guid: c9e0ca3425e89514a91ec02b19cb17e0, type: 2}
+  _icon: {fileID: -7078959201743443678, guid: f6f606cc4e8ff1c41884f208689e5c83, type: 3}
+  _discription: Your bullets slow down enemies.
+  _rarity: 1

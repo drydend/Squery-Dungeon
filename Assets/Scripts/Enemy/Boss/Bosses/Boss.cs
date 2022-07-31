@@ -230,5 +230,25 @@ public class Boss : MonoBehaviour, IEntity, IDamageable, IHitable, IEffectable, 
             yield return null;
         }
     }
+
+    public void SetMomentSpeed(float value)
+    {
+        if (value < 0)
+        {
+            throw new Exception("Speed can`t be less than zero");
+        }
+
+        _navMeshAgent.speed = value;
+    }
+
+    public void DecreaseSpeed(float value)
+    {
+        _navMeshAgent.speed -= value;
+    }
+
+    public void IncreaseSpeed(float value)
+    {
+        _navMeshAgent.speed += value;
+    }
 }
 

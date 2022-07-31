@@ -145,7 +145,7 @@ SpriteRenderer:
   m_SortingOrder: 1
   m_Sprite: {fileID: -7537196482120660328, guid: 692fc1b5331ce2a40a43e0ccce358554,
     type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.7877358, b: 0.7877358, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -294,26 +294,9 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.25049987, y: 0.49499997}
-      - {x: 0.21549988, y: 0.475}
-      - {x: 0.09549987, y: 0.405}
-      - {x: 0.025499877, y: 0.36499998}
-      - {x: 0.0004998779, y: 0.35}
-      - {x: -0.06950012, y: 0.31}
-      - {x: -0.41450012, y: 0.11}
-      - {x: -0.5445001, y: 0.035}
-      - {x: -0.5695001, y: 0.015}
-      - {x: -0.5695001, y: -0.02}
-      - {x: -0.5095001, y: -0.055}
-      - {x: -0.43950012, y: -0.095}
-      - {x: -0.12950012, y: -0.275}
-      - {x: -0.05950012, y: -0.315}
-      - {x: 0.025499877, y: -0.35999998}
-      - {x: 0.060499877, y: -0.385}
-      - {x: 0.13049987, y: -0.42499998}
-      - {x: 0.25549987, y: -0.49499997}
-      - {x: 0.28549987, y: -0.49499997}
-      - {x: 0.28549987, y: 0.49499997}
+    - - {x: 0.2745903, y: -0.49895075}
+      - {x: 0.27982077, y: 0.5008641}
+      - {x: -0.5790961, y: 0.0029338002}
 --- !u!95 &9143222095019360549
 Animator:
   serializedVersion: 3
@@ -347,7 +330,7 @@ NavMeshAgent:
   m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 360
-  m_StoppingDistance: 0
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -369,7 +352,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyDifficulty: 1
   _expForKilling: 1
-  _movementSpeed: 0
+  _movementSpeed: 3
   _spawnChargingParticle: {fileID: 3985932363235512094, guid: 5a5dc0c59e63c3a4785b5b45555d7b20,
     type: 3}
   _spawnExplosionParticle: {fileID: 2624291922052365963, guid: c88d47a6571af3c46951fedc863893e1,
@@ -390,7 +373,6 @@ MonoBehaviour:
   _raycastLayers:
     serializedVersion: 2
     m_Bits: 83200
-  _pushingDuration: 0.4
   _projectile: {fileID: 8349999306990363028, guid: 1e1a84db31c4c474c952a7af83d28d77,
     type: 3}
   _weapon: {fileID: 6066173975325511981}

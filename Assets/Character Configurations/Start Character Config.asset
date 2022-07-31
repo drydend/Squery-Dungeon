@@ -28,6 +28,8 @@ MonoBehaviour:
   _movementSpeed: 6
   _attackEnergyCost: 10
   _attackCooldown: 0.8
+  _numberOfProjectile: 1
+  _angleBetweenProjectile: 0
   _projectileAdditiveDamage: 2
   _projectileAdditiveSpeed: 9
   _projectileDamageMultiplier: 1

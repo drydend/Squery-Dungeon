@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _derivedModificators:
   - {fileID: 11400000, guid: df6237729162ae74698fb1fc81f4a72d, type: 2}
+  - {fileID: 11400000, guid: cfaa92d8571103345af7394501936017, type: 2}
   _upgrades:
   - {fileID: 11400000, guid: 17ba93ff47908b442b80a33480af79d1, type: 2}
   _icon: {fileID: 2025100527752227724, guid: f6f606cc4e8ff1c41884f208689e5c83, type: 3}

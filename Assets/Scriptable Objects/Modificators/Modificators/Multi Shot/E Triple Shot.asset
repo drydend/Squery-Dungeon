@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aab6bbd021e3467448b5cff414415ec5, type: 3}
+  m_Name: E Triple Shot
+  m_EditorClassIdentifier: 
+  _derivedModificators: []
+  _upgrades:
+  - {fileID: 11400000, guid: a3a26852fd7b9c6418a1d300f1bb4616, type: 2}
+  _icon: {fileID: 954350181230236538, guid: f6f606cc4e8ff1c41884f208689e5c83, type: 3}
+  _discription: You shoot 3 bullets insted of 1
+  _rarity: 2

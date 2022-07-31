@@ -5,7 +5,11 @@ public class MaxHealsBuff : StatUpgrade
 {
     public override void ApplyUpgrade(Player player)
     {
+        var percentOfHeals = player.CurrentHealsPoints / player.MaxHealsPoints;
+
         player.CharacterConfig.IncreaseMaxHeals(_value);
+
+        player.CurrentCharacter.Heal((int)(player.MaxHealsPoints * percentOfHeals - player.CurrentHealsPoints));
     }
 
     public override void RevertUpgrade(Player player)

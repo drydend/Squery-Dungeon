@@ -294,26 +294,9 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.25049987, y: 0.49499997}
-      - {x: 0.21549988, y: 0.475}
-      - {x: 0.09549987, y: 0.405}
-      - {x: 0.025499877, y: 0.36499998}
-      - {x: 0.0004998779, y: 0.35}
-      - {x: -0.06950012, y: 0.31}
-      - {x: -0.41450012, y: 0.11}
-      - {x: -0.5445001, y: 0.035}
-      - {x: -0.5695001, y: 0.015}
-      - {x: -0.5695001, y: -0.02}
-      - {x: -0.5095001, y: -0.055}
-      - {x: -0.43950012, y: -0.095}
-      - {x: -0.12950012, y: -0.275}
-      - {x: -0.05950012, y: -0.315}
-      - {x: 0.025499877, y: -0.35999998}
-      - {x: 0.060499877, y: -0.385}
-      - {x: 0.13049987, y: -0.42499998}
-      - {x: 0.25549987, y: -0.49499997}
-      - {x: 0.28549987, y: -0.49499997}
-      - {x: 0.28549987, y: 0.49499997}
+    - - {x: 0.28333032, y: 0.5095913}
+      - {x: 0.28480858, y: -0.513561}
+      - {x: -0.5854344, y: 0.0000087609515}
 --- !u!95 &9143222095019360549
 Animator:
   serializedVersion: 3
@@ -343,11 +326,11 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 2
+  m_Speed: 4
   m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 360
-  m_StoppingDistance: 0
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -367,9 +350,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 763ab35ffad1ff44f9444e3e91bfcb2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyDifficulty: 3
+  _enemyDifficulty: 2
   _expForKilling: 3
-  _movementSpeed: 0
+  _movementSpeed: 4
   _spawnChargingParticle: {fileID: 3985932363235512094, guid: 0f7fdb0d79a27c14ca5a7ff7a74f1294,
     type: 3}
   _spawnExplosionParticle: {fileID: 2624291922052365963, guid: 3ac68ebb5e63a094f8d51362781ce942,
@@ -391,7 +374,7 @@ MonoBehaviour:
   _raycastLayers:
     serializedVersion: 2
     m_Bits: 83200
-  _pushingDuration: 0.4
+  _enemyDyingBehaviours: []
   _projectile: {fileID: 8349999306990363028, guid: a5fce07fb59b39b49b7c3960d57b9612,
     type: 3}
   _weapon: {fileID: 6066173975325511981}

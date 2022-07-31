@@ -49,7 +49,6 @@ public class EnemyBullet : Enemy
     private Vector2 _targetLastVisiblePosition;
 
     private Timer _attackTimer;
-    private Animator _animator;
     private bool _isStoped = true;
 
     private bool _isFlying;
@@ -59,26 +58,16 @@ public class EnemyBullet : Enemy
 
     private event Action OnAttackEnd;
 
-    private void Start()
+    public override void Update()
     {
-        _navMeshAgent.updateRotation = false;
-        _navMeshAgent.updateUpAxis = false;
-    }
-
-    private void Update()
-    {
-        _currentState.Update();
-        _attackTimer.UpdateTick(Time.deltaTime);
+        base.Update();
 
         if (!_isSpawned)
         {
             return;
         }
-
-        for (int i = 0; i < _appliedEffects.Count; i++)
-        {
-            _appliedEffects[i].Update();
-        }
+        
+        _attackTimer.UpdateTick(Time.deltaTime);
 
         if (CanSeeTarget())
         {
@@ -105,11 +94,22 @@ public class EnemyBullet : Enemy
                 SwitchState<IdleState>();
             }
         }
-        else
+        else if (IsPathAvaible)
         {
             SwitchState<ChasingState>();
         }
+        else
+        {
+            SwitchState<IdleState>();
+        }
     }
+
+    private void Start()
+    {
+        _navMeshAgent.updateRotation = false;
+        _navMeshAgent.updateUpAxis = false;
+    }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -143,21 +143,10 @@ public class EnemyBullet : Enemy
         OnCollisionEnter2D(collision);
     }
 
-    public override void ApplyForce(Vector2 direction, float force, float duration)
-    {
-        if (_isFlying || !_isStoped)
-        {
-            return;
-        }
-
-        base.ApplyForce(direction, force, duration);
-    }
-
     public override void Initialize(Character target)
     {
         base.Initialize(target);
 
-        _animator = GetComponent<Animator>();
         _attackTimer = new Timer(_attackSpeed);
         OnAttackEnd += _attackTimer.ResetTimer;
 
@@ -176,6 +165,16 @@ public class EnemyBullet : Enemy
 
         _currentState = _allAvaibleStates.FirstOrDefault(state => state is SpawningState);
         _currentState.OnEnter();
+    }
+
+    public override void ApplyForce(Vector2 direction, float force, float duration)
+    {
+        if (_isFlying || !_isStoped)
+        {
+            return;
+        }
+
+        base.ApplyForce(direction, force, duration);
     }
 
     public bool TryFindIntercectionPointWithTarget(out Vector2 interceptionPoint)

@@ -9,7 +9,8 @@ public class ModificatorApplicator : MonoBehaviour
     private EnemySpawner _enemySpawner;
 
     private List<EnemyUpgrade> _enemiesUpgrades = new List<EnemyUpgrade>(0);
-    
+    private List<PlayerEnemyUpgrade> _playerEnemyUpgrades = new List<PlayerEnemyUpgrade>(0);
+
     private void Awake()
     {
         _enemySpawner.OnEnemySpawned += (enemy) =>
@@ -17,6 +18,11 @@ public class ModificatorApplicator : MonoBehaviour
             foreach (var upgrade in _enemiesUpgrades)
             {
                 upgrade.ApplyUpgrade(enemy);
+            }
+
+            foreach (var upgrade in _playerEnemyUpgrades)
+            {
+                upgrade.ApplyUpgrade(_player, enemy);
             }
         };
     }
@@ -33,6 +39,10 @@ public class ModificatorApplicator : MonoBehaviour
             {
                 ApplyEnemyUpgrade((EnemyUpgrade)upgrade);
             }
+            else if (upgrade.GetType().IsSubclassOf(typeof(PlayerEnemyUpgrade)))
+            {
+                ApplyPlayerEnemyUpgrade((PlayerEnemyUpgrade)upgrade);
+            }
         }
     }
 
@@ -41,9 +51,24 @@ public class ModificatorApplicator : MonoBehaviour
         upgrade.ApplyUpgrade(_player);
     }
     
-    public void ApplyEnemyUpgrade(EnemyUpgrade upgrade)
+    private void ApplyEnemyUpgrade(EnemyUpgrade upgrade)
     {
         _enemiesUpgrades.Add(upgrade);
+
+        foreach (var enemy in _enemySpawner.SpawnedEnemies)
+        {
+            upgrade.ApplyUpgrade(enemy);
+        }
+    }
+
+    private void ApplyPlayerEnemyUpgrade(PlayerEnemyUpgrade upgrade)
+    {
+        _playerEnemyUpgrades.Add(upgrade);
+
+        foreach (var enemy in _enemySpawner.SpawnedEnemies)
+        {
+            upgrade.ApplyUpgrade(_player, enemy);
+        }
     }
 }
 

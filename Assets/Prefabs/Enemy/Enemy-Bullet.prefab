@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingOrder: 2
   m_Sprite: {fileID: -1147401495359466748, guid: 692fc1b5331ce2a40a43e0ccce358554,
     type: 3}
-  m_Color: {r: 0.8862745, g: 0.3254717, b: 0.3254717, a: 1}
+  m_Color: {r: 1, g: 0.23921569, b: 0.23921569, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -106,7 +106,7 @@ NavMeshAgent:
   m_Acceleration: 100000000
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -160,24 +160,12 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.38, y: -0.082499996}
-      - {x: 0.38, y: 0.067499995}
-      - {x: 0.34, y: 0.1525}
-      - {x: 0.25, y: 0.2375}
-      - {x: 0.155, y: 0.29749998}
-      - {x: -0.005, y: 0.3825}
-      - {x: -0.044999998, y: 0.39249998}
-      - {x: -0.235, y: 0.39249998}
-      - {x: -0.26999998, y: 0.3775}
-      - {x: -0.325, y: 0.3425}
-      - {x: -0.38, y: 0.21249999}
-      - {x: -0.38, y: -0.2075}
-      - {x: -0.32999998, y: -0.3475}
-      - {x: -0.25, y: -0.39249998}
-      - {x: -0.049999997, y: -0.39249998}
-      - {x: 0.02, y: -0.3775}
-      - {x: 0.255, y: -0.24249999}
-      - {x: 0.36499998, y: -0.1175}
+    - - {x: 0.35434085, y: 0.022754282}
+      - {x: 0.25664848, y: -0.45255452}
+      - {x: -0.19000036, y: -0.30419242}
+      - {x: -0.5208397, y: 0.00021101534}
+      - {x: -0.16514862, y: 0.3179798}
+      - {x: 0.2473037, y: 0.45250618}
 --- !u!95 &4080176563532008088
 Animator:
   serializedVersion: 3
@@ -211,7 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyDifficulty: 3
   _expForKilling: 2
-  _movementSpeed: 0
+  _movementSpeed: 3.5
   _spawnChargingParticle: {fileID: 3985932363235512094, guid: 5a5dc0c59e63c3a4785b5b45555d7b20,
     type: 3}
   _spawnExplosionParticle: {fileID: 2624291922052365963, guid: b079d430def6e78449ede773a2a641b2,
@@ -232,7 +220,6 @@ MonoBehaviour:
   _raycastLayers:
     serializedVersion: 2
     m_Bits: 83200
-  _pushingDuration: 0.4
   _collisionDamage: 1
   _attackSpeed: 4
   _flightSpeed: 18

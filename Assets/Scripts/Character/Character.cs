@@ -95,6 +95,13 @@ public class Character : MonoBehaviour, IHitable, IPushable, IDamageable, IMovea
         _rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
+    public void Heal(int value)
+    {
+        _currentHealsPoints = _currentHealsPoints + value > _config.MaxHealsPoints ?
+            _config.MaxHealsPoints : _currentHealsPoints + value;
+        OnHealsChanged?.Invoke();
+    }
+
     public void Dash(Vector2 direction)
     {
         _currentDashingCoroutine = StartCoroutine(DashCoroutine(direction));
@@ -113,11 +120,16 @@ public class Character : MonoBehaviour, IHitable, IPushable, IDamageable, IMovea
     {
         transform.LookAt2D(targetPosition);
         CameraShaker.Instance.ShakeCamera(0.05f, 0.05f);
-        _weapon.Attack(targetPosition, _config.Projectile);
+        _weapon.Attack(targetPosition, _config.Projectile, _config.NumberOfProjectile, _config.AngleBetweenProjectile);
     }
 
     public void RecieveHit(float damage, GameObject sender)
-    {
+    {   
+        if(UnityEngine.Random.Range(0 ,1) > _config.DodgeChance)
+        {
+            return;
+        }
+
         if (!_isDashing && !_isInvulnerable)
         {
             StartCoroutine(BecomeInvulnerable(_config.InvulnerabilityAfterHitDuration));
@@ -253,5 +265,20 @@ public class Character : MonoBehaviour, IHitable, IPushable, IDamageable, IMovea
     private void Die()
     {
         OnDied?.Invoke();
+    }
+
+    public void SetMomentSpeed(float value)
+    {
+        _config.SetMovementSpeed(value);
+    }
+
+    public void DecreaseSpeed(float value)
+    {
+        _config.DecreaseMovementSpeed(value);
+    }
+
+    public void IncreaseSpeed(float value)
+    {
+        _config.IncreaseMovementSpeed(value);
     }
 }

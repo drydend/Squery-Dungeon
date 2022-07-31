@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d43151a31b72c284d8a4b41d71f867b7, type: 3}
   m_Name: R Poison attack
   m_EditorClassIdentifier: 
-  _poisoningEffect: {fileID: 11400000, guid: 5b379a242bd41304c8b917cb0d250eab, type: 2}
+  _poisoningEffect: {fileID: 11400000, guid: 2cac3de0b9fb2ed41a397f281dc7beb9, type: 2}

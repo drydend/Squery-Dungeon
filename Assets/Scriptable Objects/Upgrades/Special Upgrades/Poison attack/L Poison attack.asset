@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d43151a31b72c284d8a4b41d71f867b7, type: 3}
   m_Name: L Poison attack
   m_EditorClassIdentifier: 
-  _poisoningEffect: {fileID: 11400000, guid: 78625c447e610bb40b352e9e5cd0d747, type: 2}
+  _poisoningEffect: {fileID: 11400000, guid: 5b379a242bd41304c8b917cb0d250eab, type: 2}

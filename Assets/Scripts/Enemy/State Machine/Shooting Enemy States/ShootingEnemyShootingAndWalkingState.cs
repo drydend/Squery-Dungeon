@@ -1,6 +1,6 @@
 ﻿using UnityEngine.AI;
 
-public class ShootingEnemyShootingAndWalkingState : ShootingEnemyShootingState
+public class ShootingEnemyShootingAndWalkingState : ShootingState
 {
     private NavMeshAgent _navMeshAgent;
     public ShootingEnemyShootingAndWalkingState(Enemy controlableEnemy, NavMeshAgent navMeshAgent, Timer timer)

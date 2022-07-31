@@ -3,15 +3,37 @@ using UnityEngine;
 
 public abstract class Effect : ScriptableObject
 {
-    public abstract event Action<Effect> OnEnded;
+    [SerializeField]
+    protected float _effectDuration;
 
-    public abstract void Initialize(IEntity entity);
+    protected Timer _timer;
+    protected IEntity _entity;
+
+    public event Action<Effect> OnEnded;
+
     public abstract bool CanBeAppliedTo(IEntity entity);
-    public abstract void Update();
+    
+    public virtual void Initialize(IEntity entity) 
+    {
+        _entity = entity;
+
+        _timer = new Timer(_effectDuration);
+        _timer.OnFinished += OnEffectEnded;
+    }
+    
+    public virtual void Update()
+    {
+        _timer.UpdateTick(Time.deltaTime);
+    }
 
     public Effect Clone()
     {
         return (Effect)MemberwiseClone();
+    }
+
+    protected virtual void OnEffectEnded()
+    {
+        OnEnded?.Invoke(this);
     }
 }
 

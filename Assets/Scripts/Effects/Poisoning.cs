@@ -5,8 +5,6 @@ using UnityEngine;
 public class Poisoning : Effect
 {
     [SerializeField]
-    private float _effectDuration;
-    [SerializeField]
     private float _damagePerTick;
     [SerializeField]
     private float _numberOfTicks;
@@ -17,14 +15,10 @@ public class Poisoning : Effect
 
     private int _numberOfTickPassed;
     private float _ticksTime;
-    private Timer _timer;
     private IDamageable _damageable;
-    private IEntity _entity;
 
     public float DamagePerTick => _damagePerTick;
     public float NumberOfTicks => _numberOfTicks;
-
-    public override event Action<Effect> OnEnded;
 
     public override bool CanBeAppliedTo(IEntity entity)
     {
@@ -33,7 +27,8 @@ public class Poisoning : Effect
 
     public override void Initialize(IEntity entity)
     {
-        _entity = entity;
+        base.Initialize(entity);
+
         _ticksTime += _effectDuration / _numberOfTicks;
         _damageable = entity.Damageable;
         _timer = new Timer(_effectDuration + _ticksTime);
@@ -60,12 +55,12 @@ public class Poisoning : Effect
             }
         }
 
-        _timer.UpdateTick(Time.deltaTime);
+        base.Update();
     }
 
-    private void OnEffectEnded()
+    protected override void OnEffectEnded()
     {
-        OnEnded?.Invoke(this);
+        base.OnEffectEnded();
     }
 }
 

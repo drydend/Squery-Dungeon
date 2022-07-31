@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aab6bbd021e3467448b5cff414415ec5, type: 3}
+  m_Name: L Enemy Poisoning Dying Explosion
+  m_EditorClassIdentifier: 
+  _derivedModificators: []
+  _upgrades:
+  - {fileID: 11400000, guid: e5bb1b01fef5e63489e1c576ad879484, type: 2}
+  _icon: {fileID: 931861198789281694, guid: f6f606cc4e8ff1c41884f208689e5c83, type: 3}
+  _discription: if an enemy dies while poisoned, the poison spreads to nearby enemies
+  _rarity: 0

@@ -39,6 +39,9 @@ public class CharacterConfiguration : ScriptableObject
     private float _maxHealsPoints;
     [SerializeField]
     private float _invulnerabilityAfterHitDuration = 1f;
+    [SerializeField]
+    [Range(0, 1)]
+    private float _dodgeChance = 0;
 
     [Header("Movement")]
     [SerializeField]
@@ -49,6 +52,10 @@ public class CharacterConfiguration : ScriptableObject
     private float _attackEnergyCost = 20f;
     [SerializeField]
     private float _attackCooldown;
+    [SerializeField]
+    private int _numberOfProjectile = 1;
+    [SerializeField]
+    private float _angleBetweenProjectile = 0;
     [SerializeField]
     private float _projectileAdditiveDamage;
     [SerializeField]
@@ -90,10 +97,13 @@ public class CharacterConfiguration : ScriptableObject
     public float MovementSpeed => _movementSpeed;
 
     public float MaxHealsPoints => _maxHealsPoints;
+    public float DodgeChance => _dodgeChance;
     public float InvulnerabilityAfterHitDuration => _invulnerabilityAfterHitDuration;
 
     public float AttackEnergyCost => _attackEnergyCost;
     public float AttackCooldown => _attackCooldown;
+    public int NumberOfProjectile => _numberOfProjectile;
+    public float AngleBetweenProjectile => _angleBetweenProjectile;
     public float ProjectileDamageMultiplier => _projectileDamageMultiplier;
     public float ProjectileAdditiveDamage => _projectileAdditiveDamage;
     public float ProjectileAdditiveSpeed => _projectileAdditiveSpeed;
@@ -107,6 +117,7 @@ public class CharacterConfiguration : ScriptableObject
     public event Action<float> OnProjectileAdditiveDamageChanged;
     public event Action OnMaxHealsChanged;
     public event Action OnAttackSpeedChanged;
+    public event Action OnDashCooldownChanged;
 
     public void Initialize()
     {
@@ -136,18 +147,48 @@ public class CharacterConfiguration : ScriptableObject
 
     public void RemoveProjectileEffect(Type type)
     {
-        foreach (var effect in _projectileEffects)
+        for (int i = 0; i < _projectileEffects.Count; i++)
         {
-            if (effect.GetType() == type)
+            if (_projectileEffects[i].GetType() == type)
             {
-                _projectileEffects.Remove(effect);
+                _projectileEffects.Remove(_projectileEffects[i]);
             }
         }
     }
 
     public void AddEffectToProjectile(Effect effect)
     {
+        if (IsProjectileHaveEffect(effect.GetType()))
+        {
+            RemoveProjectileEffect(effect.GetType());
+        }
+
         _projectileEffects.Add(effect);
+    }
+
+    public void SetBulletsHitBehaviour(BulletHitBehaviour behaviour)
+    {
+        _projectilePrefab.SetHitBehaviour(behaviour);
+    }
+
+    public void SetAngleBetweenProjectiles(float angle)
+    {
+        if (angle < 0)
+        {
+            throw new Exception("Angle can`t be less than zero");
+        }
+
+        _angleBetweenProjectile = angle;
+    }
+
+    public void SetNumberOfProjectiles(int number)
+    {
+        if (number < 1)
+        {
+            throw new Exception("Number of projectile must be zero");
+        }
+
+        _numberOfProjectile = number;
     }
 
     public void IncreaseMaxHeals(float value)
@@ -160,6 +201,40 @@ public class CharacterConfiguration : ScriptableObject
     {
         DecreaseStatValue(ref _maxHealsPoints, value);
         OnMaxHealsChanged?.Invoke();
+    }
+
+    public void IncreaseDodgeChance(float value)
+    {
+        if (_dodgeChance + value > 1)
+        {
+            _dodgeChance = 1;
+        }
+        else
+        {
+            IncreaseStatValue(ref _dodgeChance, value);
+        }
+    }
+
+    public void DecreaseDodgeChance(float value)
+    {
+        if (_dodgeChance - value < 0)
+        {
+            _dodgeChance = 0;
+        }
+        else
+        {
+            DecreaseStatValue(ref _dodgeChance, value);
+        }
+    }
+
+    public void SetMovementSpeed(float value)
+    {
+        if (value < 0)
+        {
+            throw new Exception("Speed can`t be less than zero");
+        }
+
+        _movementSpeed = value;
     }
 
     public void IncreaseMovementSpeed(float value)
@@ -185,11 +260,13 @@ public class CharacterConfiguration : ScriptableObject
     public void IncreaseDashCooldown(float value)
     {
         IncreaseStatValue(ref _dashCooldown, value);
+        OnDashCooldownChanged?.Invoke();
     }
 
     public void DecreaseDashCooldown(float value)
     {
         DecreaseStatValue(ref _dashCooldown, value);
+        OnDashCooldownChanged?.Invoke();
     }
 
     public void IncreasePassiveEnergyRecovery(float value)

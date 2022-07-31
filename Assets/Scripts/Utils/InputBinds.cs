@@ -153,6 +153,14 @@ public class @InputBinds : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""EButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""5656904c-1291-403b-bc0d-a6bf1e3b3dd9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -164,6 +172,17 @@ public class @InputBinds : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Mouse and keyboard "",
                     ""action"": ""PauseOrUnpause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""37168aa8-6621-407f-8927-2e980df425b9"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Mouse and keyboard "",
+                    ""action"": ""EButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -198,6 +217,7 @@ public class @InputBinds : IInputActionCollection, IDisposable
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_PauseOrUnpause = m_UI.FindAction("PauseOrUnpause", throwIfNotFound: true);
+        m_UI_EButton = m_UI.FindAction("EButton", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -305,11 +325,13 @@ public class @InputBinds : IInputActionCollection, IDisposable
     private readonly InputActionMap m_UI;
     private IUIActions m_UIActionsCallbackInterface;
     private readonly InputAction m_UI_PauseOrUnpause;
+    private readonly InputAction m_UI_EButton;
     public struct UIActions
     {
         private @InputBinds m_Wrapper;
         public UIActions(@InputBinds wrapper) { m_Wrapper = wrapper; }
         public InputAction @PauseOrUnpause => m_Wrapper.m_UI_PauseOrUnpause;
+        public InputAction @EButton => m_Wrapper.m_UI_EButton;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -322,6 +344,9 @@ public class @InputBinds : IInputActionCollection, IDisposable
                 @PauseOrUnpause.started -= m_Wrapper.m_UIActionsCallbackInterface.OnPauseOrUnpause;
                 @PauseOrUnpause.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnPauseOrUnpause;
                 @PauseOrUnpause.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnPauseOrUnpause;
+                @EButton.started -= m_Wrapper.m_UIActionsCallbackInterface.OnEButton;
+                @EButton.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnEButton;
+                @EButton.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnEButton;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -329,6 +354,9 @@ public class @InputBinds : IInputActionCollection, IDisposable
                 @PauseOrUnpause.started += instance.OnPauseOrUnpause;
                 @PauseOrUnpause.performed += instance.OnPauseOrUnpause;
                 @PauseOrUnpause.canceled += instance.OnPauseOrUnpause;
+                @EButton.started += instance.OnEButton;
+                @EButton.performed += instance.OnEButton;
+                @EButton.canceled += instance.OnEButton;
             }
         }
     }
@@ -352,5 +380,6 @@ public class @InputBinds : IInputActionCollection, IDisposable
     public interface IUIActions
     {
         void OnPauseOrUnpause(InputAction.CallbackContext context);
+        void OnEButton(InputAction.CallbackContext context);
     }
 }

@@ -8,7 +8,7 @@ public class PoisonAttack : PlayerUpgrade
 
     public override void ApplyUpgrade(Player player)
     {
-        player.AddEffectToProjectile(_poisoningEffect);
+        player.CharacterConfig.AddEffectToProjectile(_poisoningEffect);
     }
 
     public override void RevertUpgrade(Player player)

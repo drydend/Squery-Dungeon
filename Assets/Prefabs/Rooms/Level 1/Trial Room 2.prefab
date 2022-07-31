@@ -977,7 +977,7 @@ MonoBehaviour:
   _minTimeBeforeSpawn: 0.1
   _maxTimeBeforeSpawn: 0.5
   _maxNumberOfEnemiesInWave: 9
-  _minNumberOfEnemiesInWave: 5
+  _minNumberOfEnemiesInWave: 2
   _closingSound: {fileID: 8300000, guid: af64c03d2d1acef4283bc22c350921f3, type: 3}
 --- !u!1001 &301728497370309666
 PrefabInstance:

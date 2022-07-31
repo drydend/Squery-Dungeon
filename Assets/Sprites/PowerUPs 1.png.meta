@@ -89,6 +89,18 @@ TextureImporter:
   - first:
       213: -5241401633369936953
     second: PowerUPs 1_28
+  - first:
+      213: 9172398419089522307
+    second: PowerUPs 1_29
+  - first:
+      213: -2793220753343528459
+    second: PowerUPs 1_30
+  - first:
+      213: 7992337174098231673
+    second: PowerUPs 1_31
+  - first:
+      213: -708822199140618813
+    second: PowerUPs 1_32
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -806,6 +818,90 @@ TextureImporter:
       bones: []
       spriteID: 7cb25dd0cfcc247b0800000000000000
       internalID: -5241401633369936953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PowerUPs 1_29
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 498
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38e7f24c3c7ea4f70800000000000000
+      internalID: 9172398419089522307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PowerUPs 1_30
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 498
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f1c5b1268c7c39d0800000000000000
+      internalID: -2793220753343528459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PowerUPs 1_31
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 498
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 971464b805c7aee60800000000000000
+      internalID: 7992337174098231673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PowerUPs 1_32
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 498
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cdef4327f1c926f0800000000000000
+      internalID: -708822199140618813
       vertices: []
       indices: 
       edges: []

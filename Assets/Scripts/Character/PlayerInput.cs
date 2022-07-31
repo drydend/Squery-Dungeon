@@ -15,6 +15,7 @@ public class PlayerInput : MonoBehaviour, IPausable
     public InputAction AttackButton => _input.Character.Attack;
     public InputAction DashButton => _input.Character.Dash;
 
+    public InputAction EButton => _input.UI.EButton;
     public InputAction EscapeButton => _input.UI.PauseOrUnpause;
 
     private void Awake()

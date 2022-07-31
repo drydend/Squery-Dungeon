@@ -164,6 +164,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2430817525714816292, guid: 75348fc0ffee9fd43afb8aeb84f7ed6d,
         type: 3}
+      propertyPath: _defaultAngleBetweenProjectiles
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 2430817525714816292, guid: 75348fc0ffee9fd43afb8aeb84f7ed6d,
+        type: 3}
       propertyPath: _defaultAngleBettweenProjectiles
       value: 45
       objectReference: {fileID: 0}

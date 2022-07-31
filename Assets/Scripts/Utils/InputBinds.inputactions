@@ -140,6 +140,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "EButton",
+                    "type": "Button",
+                    "id": "5656904c-1291-403b-bc0d-a6bf1e3b3dd9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -151,6 +159,17 @@
                     "processors": "",
                     "groups": "Mouse and keyboard ",
                     "action": "PauseOrUnpause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "37168aa8-6621-407f-8927-2e980df425b9",
+                    "path": "<Keyboard>/e",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Mouse and keyboard ",
+                    "action": "EButton",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

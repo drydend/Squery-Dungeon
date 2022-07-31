@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 247102203812978506}
   - component: {fileID: 8672615443822312453}
   - component: {fileID: 8349999306990363028}
-  m_Layer: 11
+  m_Layer: 17
   m_Name: Sprikes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +155,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8874163522781536197}
   - component: {fileID: 4357327475026238661}
-  m_Layer: 12
+  m_Layer: 17
   m_Name: Point Light 2D (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,7 +227,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3259281511706671153}
   - component: {fileID: 4770182637667502524}
-  m_Layer: 12
+  m_Layer: 17
   m_Name: Point Light 2D (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

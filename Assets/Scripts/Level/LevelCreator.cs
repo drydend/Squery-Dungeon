@@ -190,7 +190,6 @@ public class LevelCreator : MonoBehaviour
     {
         foreach (var room in _createdTrialRoomsWithEnemies)
         {
-            Debug.Log(_difficultyCurve.Evaluate((float)room.DistanceFromStartRoom / (float)_maxDistanceFromStartRoom));
             int roomDifficulty = (int)(_difficultyCurve.Evaluate((float)room.DistanceFromStartRoom / (float)_maxDistanceFromStartRoom) * 10);
             var wawes = _enemyWaveCreator.GenerateEnemyWaves(roomDifficulty, room.MaxEnemiesInWave, room.MinEnemiesInWave);
             room.SetEnemyWaves(wawes);
