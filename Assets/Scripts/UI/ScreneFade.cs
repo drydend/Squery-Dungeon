@@ -13,6 +13,8 @@ public class ScreneFade : MonoBehaviour
     private float _animationDuration = 1;
     private Image _screne;
 
+    private Coroutine _fadeCoroutine;
+
     public bool IsAnimated { get; private set; }
 
     private void Awake()
@@ -33,12 +35,22 @@ public class ScreneFade : MonoBehaviour
 
     public void Fade(float fadeIntencity = 1f)
     {
-        StartCoroutine(FadeCoroutine(fadeIntencity));
+        if (_fadeCoroutine != null)
+        {
+            StopCoroutine(_fadeCoroutine);
+        }
+
+        _fadeCoroutine =  StartCoroutine(FadeCoroutine(fadeIntencity));
     }
 
     public void Unfade()
     { 
-        StartCoroutine(FadeCoroutine(0));
+        if(_fadeCoroutine != null)
+        {
+            StopCoroutine(_fadeCoroutine);
+        }
+
+        _fadeCoroutine = StartCoroutine(FadeCoroutine(0));
     }
 
     private IEnumerator FadeCoroutine(float fadeIntencity = 1f)

@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: E Slowness effect
   m_EditorClassIdentifier: 
   _effectDuration: 4
+  _particlePrefab: {fileID: 5160799807007015170, guid: 549645ae4a94a39459dd5b0561c394f5,
+    type: 3}
   _slownessValue: 4

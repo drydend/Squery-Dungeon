@@ -4,13 +4,16 @@ public abstract class BulletHitBehaviour : ScriptableObject
 {
     protected Projectile _projectile;
 
-    public virtual BulletHitBehaviour Initialize(Projectile projectile)
+    public virtual void Initialize(Projectile projectile)
     {
-        var hitBehaviour = (BulletHitBehaviour)MemberwiseClone();
-        hitBehaviour._projectile = projectile;
-        return hitBehaviour;
+        _projectile = projectile;
     }
 
-    public abstract void HandleHit(IHitable target);
+    public BulletHitBehaviour Clone()
+    {
+        return (BulletHitBehaviour)MemberwiseClone();
+    }
+
+    public abstract void HandleHit(IEntity target);
 }
 

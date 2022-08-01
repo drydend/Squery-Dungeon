@@ -301,10 +301,11 @@ MonoBehaviour:
   _raycastLayers:
     serializedVersion: 2
     m_Bits: 83200
+  _enemyDyingBehaviours: []
   _projectile: {fileID: 4513312512559798218, guid: bea682f4269ddcd4fa9cc622a38c6ab3,
     type: 3}
   _weapon: {fileID: 5818756042163330228}
-  _attackSpeed: 2
+  _attackSpeed: 1.5
 --- !u!1 &5733941462965108845
 GameObject:
   m_ObjectHideFlags: 0

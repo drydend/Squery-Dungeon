@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a40cb50c7ecb5b14297e32b89827f1bf, type: 3}
   m_Name: R Vampirism
   m_EditorClassIdentifier: 
-  _chanceToHeal: 0.25
+  _chanceToHeal: 0.2
   _healsToHeal: 1

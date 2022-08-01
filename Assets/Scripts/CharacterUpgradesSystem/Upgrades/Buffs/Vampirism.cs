@@ -8,17 +8,24 @@ public class Vampirism : PlayerEnemyUpgrade
     private float _chanceToHeal;
     [SerializeField]
     private int _healsToHeal;
+    private Player _player;
 
     public override void ApplyUpgrade(Player player, Enemy enemy)
     {
-        enemy.OnDied += () => TryHealPlayer(player);
+        _player = player;
+        enemy.OnDied += TryHealPlayer;
     }
 
-    public void TryHealPlayer(Player player)
+    public override void RevertUpgrade(Player player, Enemy enemy)
     {
-        if (Random.Range(0, 1f) > _chanceToHeal)
+        enemy.OnDied -= TryHealPlayer;
+    }
+
+    public void TryHealPlayer()
+    {
+        if (Random.Range(0, 1f) < _chanceToHeal)
         {
-            player.CurrentCharacter.Heal(_healsToHeal);
+            _player.CurrentCharacter.Heal(_healsToHeal);
         }
     }
 

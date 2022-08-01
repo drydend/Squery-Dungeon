@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2578035584653631609, guid: cb35223286da24e42b4b91d876168d81,
+  m_Sprite: {fileID: -1433937563997994022, guid: e7d297cc6b768294e8a88919971bf48c,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 3776366355818456047, guid: cb35223286da24e42b4b91d876168d81,
+  m_Sprite: {fileID: 4628783686968706123, guid: e7d297cc6b768294e8a88919971bf48c,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -218,7 +218,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2854049677417854545, guid: cb35223286da24e42b4b91d876168d81,
+  m_Sprite: {fileID: 4713042029569156330, guid: e7d297cc6b768294e8a88919971bf48c,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -536,8 +536,8 @@ MonoBehaviour:
   m_fontSize: 50
   m_fontSizeBase: 50
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 50
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 0
   m_fontSizeMax: 50
   m_fontStyle: 0
   m_HorizontalAlignment: 2

@@ -8,13 +8,10 @@ public class SceneTransition : MonoBehaviour
 
     [SerializeField]
     private ScreneFade _screneFade;
-    
+
     public void SwitchToScene(string name)
     {
-        if (!_screneFade.IsAnimated)
-        {
-            StartCoroutine(SceneLoadCoroutine(name));
-        }
+        StartCoroutine(SceneLoadCoroutine(name));
     }
 
     public void RestartScene()

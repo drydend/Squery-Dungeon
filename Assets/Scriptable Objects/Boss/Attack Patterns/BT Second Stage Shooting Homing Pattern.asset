@@ -17,7 +17,7 @@ MonoBehaviour:
   _projectilePrefab: {fileID: 5815854692843970680, guid: 42881459964b1384a8e747580c25c794,
     type: 3}
   _projectileEffects: []
-  _duration: 9.5
-  _numberOfProjectiles: 9
-  _angleBetweenProjectiles: 40
-  _attackSpeed: 3
+  _duration: 0.5
+  _numberOfProjectiles: 7
+  _angleBetweenProjectiles: 51.42857
+  _attackSpeed: 0.3

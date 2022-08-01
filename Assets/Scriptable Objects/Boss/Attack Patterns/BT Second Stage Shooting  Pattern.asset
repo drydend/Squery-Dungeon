@@ -20,4 +20,4 @@ MonoBehaviour:
   _duration: 12
   _numberOfProjectiles: 25
   _angleBetweenProjectiles: 14.4
-  _attackSpeed: 0.4
+  _attackSpeed: 0.6

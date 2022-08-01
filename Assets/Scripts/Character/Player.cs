@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
     public event Action OnLevelChanged;
     public event Action OnCurrentExpChanged;
 
+    public event Action OnDontHaveEnoungtEnergy;
+
     public event Action OnCharacterDied;
     public event Action OnCharacterEndedDashing;
     public event Action OnCharacterHealsChanged;
@@ -131,8 +133,14 @@ public class Player : MonoBehaviour
 
     private void Attack()
     {
-        if (_attackTimer.IsFinished && _currentEnergy > _characterConfig.AttackEnergyCost)
-        {
+        if (_attackTimer.IsFinished)
+        {   
+            if(_currentEnergy < _characterConfig.AttackEnergyCost)
+            {
+                OnDontHaveEnoungtEnergy?.Invoke();
+                return;
+            }
+
             _currentCharacter.Attack(_input.CurrentMousePoisition);
             _attackTimer.ResetTimer();
             SpendEnergy(_characterConfig.AttackEnergyCost);
@@ -226,6 +234,6 @@ public class Player : MonoBehaviour
 
     private int GenerateExpToNextLevel()
     {
-        return 4 * _currentLevel + 17;
+        return 3 * _currentLevel + 5;
     }
 }

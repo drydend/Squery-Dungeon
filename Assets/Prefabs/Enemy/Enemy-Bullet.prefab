@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 083fd35977d05e94ebc67acc257d6c7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyDifficulty: 3
+  _enemyDifficulty: 4
   _expForKilling: 2
   _movementSpeed: 3.5
   _spawnChargingParticle: {fileID: 3985932363235512094, guid: 5a5dc0c59e63c3a4785b5b45555d7b20,
@@ -220,8 +220,9 @@ MonoBehaviour:
   _raycastLayers:
     serializedVersion: 2
     m_Bits: 83200
+  _enemyDyingBehaviours: []
   _collisionDamage: 1
-  _attackSpeed: 4
+  _attackSpeed: 3
   _flightSpeed: 18
   _flightParticlePrefab: {fileID: 4567720528983669884, guid: 6b59139b013c197478800b458b6b2dc2,
     type: 3}

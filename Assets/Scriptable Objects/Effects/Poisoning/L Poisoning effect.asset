@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: L Poisoning effect
   m_EditorClassIdentifier: 
   _effectDuration: 3
-  _damagePerTick: 3
-  _numberOfTicks: 5
+  _damagePerTick: 4
+  _numberOfTicks: 4
   _tickParticle: {fileID: 3604582596818916750, guid: d38eccc8c48d77247924e8438a56ebbd,
     type: 3}
   _lastTickParticle: {fileID: 7219516904160300850, guid: 79bd4ea6903f01649ae2d4867aa8d953,

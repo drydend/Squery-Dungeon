@@ -62,9 +62,14 @@ public class Projectile : MonoBehaviour
             }
         }
 
-        if (collider.gameObject.TryGetComponent(out IHitable hitable))
+        if (collider.gameObject.TryGetComponent(out IEntity entity))
         {
-            _hitBehaviour.HandleHit(hitable);
+            _hitBehaviour.HandleHit(entity);
+        }
+        else if(collider.gameObject.TryGetComponent(out IHitable hitable))
+        {
+            hitable.RecieveHit(Damage, gameObject);
+            DestroyProjectile();
         }
         else
         {
@@ -82,8 +87,10 @@ public class Projectile : MonoBehaviour
         _effectsToApply = effectsToApply;
         _rigidbody2D = GetComponent<Rigidbody2D>();
 
-        _hitBehaviour = _hitBehaviour.Initialize(this);
-        _collisionBehaviour = _collisionBehaviour.Initialize(this);
+        _hitBehaviour = _hitBehaviour.Clone();
+        _hitBehaviour.Initialize(this);
+        _collisionBehaviour = _collisionBehaviour.Clone();
+        _collisionBehaviour.Initialize(this);
         Move();
     }
 
@@ -135,8 +142,8 @@ public class Projectile : MonoBehaviour
 
     public void SetCollisionBehaviour(BulletCollisionBehaviour collisionBehaviour)
     {
-        _collisionBehaviour = collisionBehaviour;
-        _collisionBehaviour = _collisionBehaviour.Initialize(this);
+        _collisionBehaviour = collisionBehaviour.Clone();
+        _collisionBehaviour.Initialize(this);
     }
 
     public void SetCollisionParticle(ParticleSystem collisioinParticle)
@@ -146,8 +153,8 @@ public class Projectile : MonoBehaviour
 
     public void SetHitBehaviour(BulletHitBehaviour hitBehaviour)
     {
-        _hitBehaviour = hitBehaviour;
-        _hitBehaviour = _hitBehaviour.Initialize(this);
+        _hitBehaviour = hitBehaviour.Clone();
+        _hitBehaviour.Initialize(this);
     }
 
     public void SetHitParticle(ParticleSystem hitParticle)

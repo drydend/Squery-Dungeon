@@ -11,8 +11,6 @@ public class SettingsMenuUI : UIMenu
     private Button _openButton;
     [SerializeField]
     private Button _closeButton;
-    [SerializeField]
-    private List<ParticleSystem> _particles;
 
     public override bool CanBeClosed { get { return true; } set { } }
 
@@ -30,39 +28,18 @@ public class SettingsMenuUI : UIMenu
     public override void Uncover()
     {
         _settingMenu.SetActive(true);
-        PlayParticle();
     }
 
     public override void Close()
     {
-        StopParticle();
-
         OnMenuClosed();
         _settingMenu.SetActive(false);
     }
 
     public override void Open()
     {
-        PlayParticle();
-
         OnMenuOpened();
         _settingMenu.SetActive(true);
     }
 
-    private void PlayParticle()
-    {
-        foreach (var particle in _particles)
-        {
-            particle.Play();
-        }
-    }
-
-    private void StopParticle()
-    {
-        foreach (var particle in _particles)
-        {
-            particle.Stop();
-        }
-    }
-   
 }

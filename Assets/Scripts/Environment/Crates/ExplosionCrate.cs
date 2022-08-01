@@ -6,7 +6,9 @@ public class ExplosionCrate : Crate
     [SerializeField]
     private float _destructionDelay = 0.2f;
     [SerializeField]
-    private float _explosionDamage = 1;
+    private float _damageToPlayer = 1;
+    [SerializeField]
+    private float _damageToEnemy = 10;
     [SerializeField]
     private float _explosionRadious;
     [SerializeField]
@@ -18,7 +20,7 @@ public class ExplosionCrate : Crate
 
     private Coroutine _destructionCoroutine;
 
-    private float ExplosionCameraShakeStrenght => _explosionDamage / 10;
+    private float ExplosionCameraShakeStrenght => _damageToPlayer / 10;
 
     private new void Awake()
     {
@@ -67,8 +69,19 @@ public class ExplosionCrate : Crate
                 continue;
             }
 
-            collider.GetComponent<IHitable>()?
-                .RecieveHit(_explosionDamage, gameObject);
+            if(collider.gameObject.TryGetComponent(out Character character))
+            {
+                character.RecieveHit(_damageToPlayer, gameObject);
+            }
+            else if(collider.gameObject.TryGetComponent(out Enemy enemy))
+            {
+                enemy.RecieveHit(_damageToEnemy, gameObject);
+            }
+            else if(collider.gameObject.TryGetComponent(out IHitable hitable))
+            {
+                hitable.RecieveHit(_damageToPlayer, gameObject);
+            }
+
             collider.GetComponent<IPushable>()?
                 .ApplyForce(directionToCollider, _explosionPushForce, _explosionPushDuration);
         }

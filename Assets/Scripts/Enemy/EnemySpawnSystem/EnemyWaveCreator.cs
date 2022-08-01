@@ -15,6 +15,8 @@ public class EnemyWaveCreator : MonoBehaviour
     [SerializeField]
     private int _maxWaves = 4;
     [SerializeField]
+    private int _minWawes = 1;
+    [SerializeField]
     private float _maxLerpFactor = 0.7f;
 
     private EnemyWave GenerateEnemyWave(int minEnemyDifficulty, int maxEnemyDifficulty, int maxNumberOfEnemies, int minNumberOfEnemies)
@@ -44,7 +46,7 @@ public class EnemyWaveCreator : MonoBehaviour
         
         var lerpFactor = roomDifficulty / 10 >= _maxLerpFactor ? _maxLerpFactor : roomDifficulty / 10;
 
-        var minWaves = (int)Mathf.Lerp(1, _maxWaves, lerpFactor);
+        var minWaves = (int)Mathf.Lerp(_minWawes, _maxWaves, lerpFactor);
         var numberOfWaves = Random.Range(minWaves, _maxWaves + 1);
 
         for (int waveIndex = 0; waveIndex < numberOfWaves; waveIndex++)

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e5e74d6a4053bb4696bb6f3f5f1ee14, type: 3}
+  m_Name: Bullets Explosion
+  m_EditorClassIdentifier: 
+  _projectileEffects: []
+  _projectile: {fileID: 8349999306990363028, guid: 78b024f09fbd45b42a8e99ef4227dff0,
+    type: 3}
+  _numberOfProjectiles: 6
+  _angleBetweenProjectiles: 60
+  _weaponPrefab: {fileID: 2430817525714816292, guid: cfd9457d7aa48ec468293afe1c78ca61,
+    type: 3}

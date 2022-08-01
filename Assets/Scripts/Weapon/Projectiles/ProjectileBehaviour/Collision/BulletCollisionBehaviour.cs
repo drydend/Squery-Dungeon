@@ -5,11 +5,14 @@ public abstract class BulletCollisionBehaviour : ScriptableObject
 {
     protected Projectile _projectile;
 
-    public BulletCollisionBehaviour Initialize(Projectile projectile)
+    public void Initialize(Projectile projectile)
     {
-        var collisionBehaviour = (BulletCollisionBehaviour)MemberwiseClone();
-        collisionBehaviour._projectile = projectile;
-        return collisionBehaviour;
+        _projectile = projectile;
+    }
+
+    public BulletCollisionBehaviour Clone()
+    {
+        return (BulletCollisionBehaviour)MemberwiseClone();
     }
 
     public abstract void HandleCollision(Collider2D collider);

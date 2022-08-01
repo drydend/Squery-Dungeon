@@ -50,7 +50,7 @@ public class ModificatorApplicator : MonoBehaviour
     {
         upgrade.ApplyUpgrade(_player);
     }
-    
+
     private void ApplyEnemyUpgrade(EnemyUpgrade upgrade)
     {
         _enemiesUpgrades.Add(upgrade);
@@ -63,6 +63,16 @@ public class ModificatorApplicator : MonoBehaviour
 
     private void ApplyPlayerEnemyUpgrade(PlayerEnemyUpgrade upgrade)
     {
+        var currentUpgrade = _playerEnemyUpgrades.Find(upg => upg.GetType() == upgrade.GetType());
+
+        if (currentUpgrade != null)
+        {
+            foreach (var enemy in _enemySpawner.SpawnedEnemies)
+            {
+                currentUpgrade.RevertUpgrade(_player, enemy);
+            }
+        }
+
         _playerEnemyUpgrades.Add(upgrade);
 
         foreach (var enemy in _enemySpawner.SpawnedEnemies)

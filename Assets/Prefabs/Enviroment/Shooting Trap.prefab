@@ -179,6 +179,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9212414607709719241, guid: 6076f835d2dd46047acd81da2282a06f,
         type: 3}
+      propertyPath: _shootSound
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9212414607709719241, guid: 6076f835d2dd46047acd81da2282a06f,
+        type: 3}
       propertyPath: _projectileSpawnPosition
       value: 
       objectReference: {fileID: 4304796239178632935}

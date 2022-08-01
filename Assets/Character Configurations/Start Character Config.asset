@@ -15,9 +15,9 @@ MonoBehaviour:
   _maxLevel: 100
   _gainedExpMultiplier: 1
   _maxEnergy: 100
-  _passiveEnergyRecovery: 9
+  _passiveEnergyRecovery: 11
   _dashCooldown: 1.5
-  _dashDistance: 5
+  _dashDistance: 7
   _dashDuration: 0.2
   _dashEnergyCost: 0
   _dashingPushForce: 14
@@ -31,7 +31,7 @@ MonoBehaviour:
   _attackCooldown: 0.8
   _numberOfProjectile: 1
   _angleBetweenProjectile: 0
-  _projectileAdditiveDamage: 100
+  _projectileAdditiveDamage: 2
   _projectileAdditiveSpeed: 9
   _projectileDamageMultiplier: 1
   _projectileSpeedMultiplier: 1

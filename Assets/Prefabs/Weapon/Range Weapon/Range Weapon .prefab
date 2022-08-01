@@ -47,8 +47,8 @@ MonoBehaviour:
   _projectileSpawnPosition: {fileID: 8446681312890163462}
   _shootingParticle: {fileID: 2202537529900242428, guid: 35e1859a4b5ab7b47b551b6056c720f6,
     type: 3}
-  _shootSound: {fileID: 0}
-  _defaultAngleBettweenProjectiles: 15
+  _shootSound: {fileID: 8300000, guid: 83cb6ff72dcafd849bf4e42a270596cf, type: 3}
+  _defaultAngleBetweenProjectiles: 15
   _defaultNumberOfProjectiles: 1
 --- !u!1 &7186742389324375439
 GameObject:

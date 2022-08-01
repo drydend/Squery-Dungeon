@@ -350,7 +350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 763ab35ffad1ff44f9444e3e91bfcb2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyDifficulty: 4
+  _enemyDifficulty: 8
   _expForKilling: 3
   _movementSpeed: 5
   _spawnChargingParticle: {fileID: 3985932363235512094, guid: a972f0c3a778d824ba267cde89648581,
@@ -378,7 +378,7 @@ MonoBehaviour:
   _projectile: {fileID: 8349999306990363028, guid: 8d3a2e612b68b2f4bb4ad1a5b5e84428,
     type: 3}
   _weapon: {fileID: 6066173975325511981}
-  _attackSpeed: 0.8
+  _attackSpeed: 0.5
 --- !u!1 &4586656368892806384
 GameObject:
   m_ObjectHideFlags: 0
@@ -488,6 +488,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2551171430907470465}
     m_Modifications:
+    - target: {fileID: 2430817525714816292, guid: 58431b7a4dc4ab1408d0b53aec4604fd,
+        type: 3}
+      propertyPath: _defaultNumberOfProjectiles
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2430817525714816293, guid: 58431b7a4dc4ab1408d0b53aec4604fd,
         type: 3}
       propertyPath: m_RootOrder

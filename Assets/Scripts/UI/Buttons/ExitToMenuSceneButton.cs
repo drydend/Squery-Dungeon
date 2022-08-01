@@ -11,6 +11,8 @@ public class ExitToMenuSceneButton : MonoBehaviour
     private ConfirmPanel _confirmPanel;
     [SerializeField]
     private LevelController _levelController;
+    [SerializeField]
+    private SceneInput _sceneInput;
 
     private void Awake()
     {
@@ -25,6 +27,7 @@ public class ExitToMenuSceneButton : MonoBehaviour
     
     private void ExitToMenu()
     {
+        _sceneInput.OffAllInput();
         _levelController.SaveLevel();
         _sceneTransition.SwitchToMainMenu();
     }

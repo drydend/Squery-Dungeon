@@ -9,6 +9,8 @@ public class LevelRestartButton :MonoBehaviour
     private SceneTransition _sceneTransition;
     [SerializeField]
     private ConfirmPanel _confirmPanel;
+    [SerializeField]
+    private SceneInput _sceneInput;
 
     private void Awake()
     {
@@ -23,6 +25,7 @@ public class LevelRestartButton :MonoBehaviour
 
     private void RestartLevel()
     {
+        _sceneInput.OffAllInput();
         _sceneTransition.RestartScene();
     }
 }

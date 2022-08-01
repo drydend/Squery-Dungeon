@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8df20ea382eccf641b4a41527d4c0c65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseSpeed: 10
+  _baseSpeed: 8
   _baseDamage: 1
   _collisionBehaviour: {fileID: 11400000, guid: 1d0a699f8037d6441aab48ab1daf860e,
     type: 2}
