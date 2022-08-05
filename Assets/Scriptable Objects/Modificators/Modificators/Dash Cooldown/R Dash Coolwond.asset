@@ -17,5 +17,5 @@ MonoBehaviour:
   _upgrades:
   - {fileID: 11400000, guid: f29127ab5dd229a49a1c87f842f7b37d, type: 2}
   _icon: {fileID: 7992337174098231673, guid: f6f606cc4e8ff1c41884f208689e5c83, type: 3}
-  _discription: Decreases cooldown of dash.
+  _discription: Reduce dash cooldown.
   _rarity: 1

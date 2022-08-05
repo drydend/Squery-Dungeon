@@ -646,7 +646,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efadc4da88d8f144cb912749f14df29d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minimapIcon: {fileID: 215518053199519347, guid: ba04a1366b1e35d47a765feaf51405ab,
+  _minimapIcon: {fileID: -3617845554074728951, guid: b44c800a79ef70249b67657fd757d2e3,
     type: 3}
   _upperEntrance: {fileID: 2663059203199659547}
   _lowerEntrance: {fileID: 1393160295699477486}
@@ -654,6 +654,7 @@ MonoBehaviour:
   _leftEntrance: {fileID: 3995952297886746702}
   _traps: []
   _connectionsNumber: 4
+  _roomID: 5
   _centreOfRoom: {fileID: 2667881388385203814}
   _roomRadius: 12
   _compleationRoom: {fileID: 8300000, guid: c2caf39f0a515ab40a8f2bdd56b81f3a, type: 3}

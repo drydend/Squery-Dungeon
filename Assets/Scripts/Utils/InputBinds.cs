@@ -35,17 +35,17 @@ public class @InputBinds : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Attack"",
+                    ""name"": ""Dash"",
                     ""type"": ""Button"",
-                    ""id"": ""1027ad0b-3188-44b1-80a6-71c7fe3b5878"",
+                    ""id"": ""e450b07f-08e1-4aa8-9714-15bcc00645c4"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Dash"",
+                    ""name"": ""Attack"",
                     ""type"": ""Button"",
-                    ""id"": ""e450b07f-08e1-4aa8-9714-15bcc00645c4"",
+                    ""id"": ""1027ad0b-3188-44b1-80a6-71c7fe3b5878"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -120,23 +120,23 @@ public class @InputBinds : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""6faa1a12-b206-46c9-9cc0-37f34e0fc43a"",
-                    ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": ""Mouse and keyboard "",
-                    ""action"": ""Dash"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""b6520a14-781f-4ae5-acde-a86351f6246a"",
                     ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Mouse and keyboard "",
                     ""action"": ""Mouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6faa1a12-b206-46c9-9cc0-37f34e0fc43a"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": ""Press(pressPoint=0.2)"",
+                    ""processors"": """",
+                    ""groups"": ""Mouse and keyboard "",
+                    ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -212,8 +212,8 @@ public class @InputBinds : IInputActionCollection, IDisposable
         m_Character = asset.FindActionMap("Character", throwIfNotFound: true);
         m_Character_Move = m_Character.FindAction("Move", throwIfNotFound: true);
         m_Character_Mouse = m_Character.FindAction("Mouse", throwIfNotFound: true);
-        m_Character_Attack = m_Character.FindAction("Attack", throwIfNotFound: true);
         m_Character_Dash = m_Character.FindAction("Dash", throwIfNotFound: true);
+        m_Character_Attack = m_Character.FindAction("Attack", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_PauseOrUnpause = m_UI.FindAction("PauseOrUnpause", throwIfNotFound: true);
@@ -269,16 +269,16 @@ public class @InputBinds : IInputActionCollection, IDisposable
     private ICharacterActions m_CharacterActionsCallbackInterface;
     private readonly InputAction m_Character_Move;
     private readonly InputAction m_Character_Mouse;
-    private readonly InputAction m_Character_Attack;
     private readonly InputAction m_Character_Dash;
+    private readonly InputAction m_Character_Attack;
     public struct CharacterActions
     {
         private @InputBinds m_Wrapper;
         public CharacterActions(@InputBinds wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Character_Move;
         public InputAction @Mouse => m_Wrapper.m_Character_Mouse;
-        public InputAction @Attack => m_Wrapper.m_Character_Attack;
         public InputAction @Dash => m_Wrapper.m_Character_Dash;
+        public InputAction @Attack => m_Wrapper.m_Character_Attack;
         public InputActionMap Get() { return m_Wrapper.m_Character; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -294,12 +294,12 @@ public class @InputBinds : IInputActionCollection, IDisposable
                 @Mouse.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnMouse;
                 @Mouse.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnMouse;
                 @Mouse.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnMouse;
-                @Attack.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAttack;
-                @Attack.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAttack;
-                @Attack.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAttack;
                 @Dash.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnDash;
                 @Dash.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnDash;
                 @Dash.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnDash;
+                @Attack.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAttack;
+                @Attack.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAttack;
+                @Attack.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAttack;
             }
             m_Wrapper.m_CharacterActionsCallbackInterface = instance;
             if (instance != null)
@@ -310,12 +310,12 @@ public class @InputBinds : IInputActionCollection, IDisposable
                 @Mouse.started += instance.OnMouse;
                 @Mouse.performed += instance.OnMouse;
                 @Mouse.canceled += instance.OnMouse;
-                @Attack.started += instance.OnAttack;
-                @Attack.performed += instance.OnAttack;
-                @Attack.canceled += instance.OnAttack;
                 @Dash.started += instance.OnDash;
                 @Dash.performed += instance.OnDash;
                 @Dash.canceled += instance.OnDash;
+                @Attack.started += instance.OnAttack;
+                @Attack.performed += instance.OnAttack;
+                @Attack.canceled += instance.OnAttack;
             }
         }
     }
@@ -374,8 +374,8 @@ public class @InputBinds : IInputActionCollection, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnMouse(InputAction.CallbackContext context);
-        void OnAttack(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

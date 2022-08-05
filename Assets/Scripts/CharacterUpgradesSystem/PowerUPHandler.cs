@@ -13,6 +13,7 @@ public class PowerUPHandler : MonoBehaviour
     private PowerUPBlank _selectedUpgrade;
 
     private List<Modificator> _currentModificators = new List<Modificator>();
+    private int _numberOfRewardsLeft = 0;
 
     public bool _playerIsChoosing { get; private set; }
 
@@ -21,7 +22,7 @@ public class PowerUPHandler : MonoBehaviour
         _upgradeChoiceMenu.OnConfrimedChoice += ConfrimChoice;
     }
 
-    public void ApplySelectedPowerUp()
+    public void ApplySelectedModificator()
     {   
         _currentModificators.Remove(_selectedUpgrade.CurrentModificator);
         
@@ -42,11 +43,17 @@ public class PowerUPHandler : MonoBehaviour
         _selectedUpgrade = null;
         _upgradeChoiceMenu.OnModificatorChoosen();
 
+        if(_numberOfRewardsLeft == 0)
+        {
+            _upgradeChoiceMenu.Close();
+        }
+
         _playerIsChoosing = false;
     }
     
-    public void ShowPowerUps()
+    public void ShowRawardsMenu(int numberOfRewardsLeft = 0)
     {
+        _numberOfRewardsLeft = numberOfRewardsLeft;
         _playerIsChoosing = true;
 
         for (int i = 0; i < 3; i++)
@@ -75,6 +82,6 @@ public class PowerUPHandler : MonoBehaviour
             return;
         }
 
-        ApplySelectedPowerUp();
+        ApplySelectedModificator();
     }
 }

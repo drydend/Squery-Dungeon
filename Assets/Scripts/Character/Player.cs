@@ -101,8 +101,8 @@ public class Player : MonoBehaviour
         _currentCharacter.OnEndedDash += () => OnCharacterEndedDashing?.Invoke();
         _currentCharacter.OnHealsChanged += () => OnCharacterHealsChanged?.Invoke();
         _characterConfig.OnMaxHealsChanged += () => OnCharacterMaxHealsChanged?.Invoke();
-        _input.DashButton.performed += Dash;
-        _input.AttackButton.performed += Attack;
+        _input.DashButton.started += Dash;
+        _input.AttackButton.started += Attack;
     }
 
     private void OnDisable()
@@ -234,6 +234,6 @@ public class Player : MonoBehaviour
 
     private int GenerateExpToNextLevel()
     {
-        return 3 * _currentLevel + 5;
+        return 2 * _currentLevel + 5;
     }
 }

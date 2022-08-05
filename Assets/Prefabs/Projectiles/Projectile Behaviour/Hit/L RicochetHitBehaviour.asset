@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd69b75334a43bd40aed752b0a3bc26f, type: 3}
   m_Name: L RicochetHitBehaviour
   m_EditorClassIdentifier: 
-  _maxRange: 40
-  _ricochetNumber: 2
+  _maxRange: 7
+  _ricochetNumber: 1
   _damageDecreasing: 0.3
   _raycastLayers:
     serializedVersion: 2

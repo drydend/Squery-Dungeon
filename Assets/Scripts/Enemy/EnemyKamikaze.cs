@@ -23,6 +23,11 @@ public class EnemyKamikaze : Enemy
 
         base.Update();
 
+        if (!_isSpawned)
+        {
+            return;
+        }
+
         if (_maxDistanceToDie > DistanceToTarget)
         {
             _isDying = true;

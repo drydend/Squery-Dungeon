@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Room : MonoBehaviour
-{
+{   
     protected Vector2Int _mapPosition;
 
     [SerializeField]
@@ -24,10 +24,11 @@ public class Room : MonoBehaviour
     [SerializeField]
     [Range(1, 4)]
     private int _connectionsNumber = 4;
+    [SerializeField]
+    private int _roomID;
 
     private bool _canBeConnected = true;
     private int _distanceFromStartRoom;
-
 
     public virtual event Action OnEntered;
     public virtual event Action OnCompleated;
@@ -93,6 +94,20 @@ public class Room : MonoBehaviour
         return room.MapPoistion - _mapPosition;
     }
 
+    public void SetDistanceFromStartRoom(int value)
+    {
+        if (value < 0)
+        {
+            throw new Exception("Distance can`t be less than zero");
+        }
+        _distanceFromStartRoom = value;
+    }
+
+    public bool IsRoomEquals(Room otherRoom)
+    {
+        return _roomID == otherRoom._roomID;
+    }
+
     protected void ActivateTraps()
     {
         foreach (var trap in _traps)
@@ -117,14 +132,5 @@ public class Room : MonoBehaviour
     protected void OnRoomCompleated()
     {
         OnCompleated?.Invoke();
-    }
-
-    public void SetDistanceFromStartRoom(int value)
-    {
-        if (value < 0)
-        {
-            throw new Exception("Distance can`t be less than zero");
-        }
-        _distanceFromStartRoom = value;
     }
 }

@@ -12,10 +12,13 @@ public class BossShell : MonoBehaviour
     [SerializeField]
     private ParticleSystem _hitParticle;
     [SerializeField]
+    private AudioClip _destructionSound;
+    [SerializeField]
     private float _hitAnimationDuration = 0.1f;
     [SerializeField]
     private float _cameraShakeOnDestuctDuration = 1;
 
+    private AudioSource _audioSource;
     private SpriteRenderer _spriteRenderer;
     private Color _startColor;
 
@@ -31,8 +34,14 @@ public class BossShell : MonoBehaviour
         _startColor = _spriteRenderer.color;
     }
 
+    private void Start()
+    {
+        _audioSource = AudioSourceProvider.Instance.GetSoundsSource();
+    }
+
     public void DestroyShell()
     {
+        _audioSource.PlayOneShot(_destructionSound);
         CameraShaker.Instance.ShakeCamera(_cameraShakeOnDestuctDuration, 0.2f, false);
         Collider2D.enabled = false;
         Instantiate(_destructionParticle, transform.position, Quaternion.identity);

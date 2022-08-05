@@ -88,6 +88,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 714e1c714a018bf4299112bad5bc9b43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selectedColor: {r: 0.8130378, g: 1, b: 0.7971698, a: 0.5882353}
-  _compleatedColor: {r: 0.4716981, g: 0.4716981, b: 0.4716981, a: 0.57254905}
-  _uncompleatedColor: {r: 1, g: 1, b: 1, a: 0.7647059}
+  _selectedColor: {r: 1, g: 0.9617888, b: 0.740566, a: 0.5882353}
+  _compleatedColor: {r: 0.4716981, g: 0.4716981, b: 0.4716981, a: 0.2784314}
+  _uncompleatedColor: {r: 1, g: 1, b: 1, a: 1}

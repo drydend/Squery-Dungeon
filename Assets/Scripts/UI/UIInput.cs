@@ -8,7 +8,7 @@ public class UIInput : MonoBehaviour
     [SerializeField]
     private UIMenusHandler _uiMenusHandler;
     [SerializeField]
-    private PlayerLevelController _playerLevelController;
+    private PlayerLevelRewarder _playerLevelController;
 
     private void Start()
     {

@@ -274,6 +274,7 @@ MonoBehaviour:
     type: 3}
   _hitParticle: {fileID: 112468737741113653, guid: bf9a7920cdcf7a94ba7cc6c22d8970e2,
     type: 3}
+  _destructionSound: {fileID: 0}
   _hitAnimationDuration: 0.1
   _cameraShakeOnDestuctDuration: 1
 --- !u!1 &1671120633114505065
@@ -288,7 +289,7 @@ GameObject:
   - component: {fileID: 1671120633114505067}
   - component: {fileID: 1671120633114505068}
   - component: {fileID: 4391826368990226760}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Shell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -378,6 +379,7 @@ MonoBehaviour:
     type: 3}
   _hitParticle: {fileID: 112468737741113653, guid: 2aa4533b1c3cca9429eb449be2115962,
     type: 3}
+  _destructionSound: {fileID: 8300000, guid: 662de96e054669a4489ee3942612ce3a, type: 3}
   _hitAnimationDuration: 0.17
   _cameraShakeOnDestuctDuration: 1
 --- !u!60 &4391826368990226760
@@ -485,13 +487,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a65664b6c1cd340409777ce12d50647a, type: 2}
   - {fileID: 11400000, guid: 93faf4eb8689bf748889a65685067a82, type: 2}
   - {fileID: 11400000, guid: 67ca22c77ab608d42a42ae62ba0afc95, type: 2}
-  _maxHeals: 400
+  _maxHeals: 600
   _movementSpeed: 3.5
   _rotationSpeed: 720
   _cameraShakeOnDieingDuration: 5
   _spawningAnimationDuration: 3
   _hitSound: {fileID: 8300000, guid: 10b5bb8fde98fd040a45ab3e155dab7a, type: 3}
-  _deathSound: {fileID: 8300000, guid: d3218f822fd0507468266b9cdb27427c, type: 3}
+  _deathSound: {fileID: 8300000, guid: 5827e410ae6e62442a738e5ab4ac2f0e, type: 3}
   _deathParticle: {fileID: 112468737741113653, guid: e21bb4dbd92857141bd72c9625805948,
     type: 3}
   _spawningChargingParticle: {fileID: 3985932363235512094, guid: 1d98c8360861b884ea4c2cb376f118d1,
@@ -626,6 +628,7 @@ MonoBehaviour:
     type: 3}
   _hitParticle: {fileID: 112468737741113653, guid: 3b9448d85d1ecaa47b3fd74be0e1094a,
     type: 3}
+  _destructionSound: {fileID: 8300000, guid: 662de96e054669a4489ee3942612ce3a, type: 3}
   _hitAnimationDuration: 0.17
   _cameraShakeOnDestuctDuration: 1.5
 --- !u!60 &7445831408640038441

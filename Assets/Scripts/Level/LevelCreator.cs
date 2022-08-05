@@ -27,6 +27,8 @@ public class LevelCreator : MonoBehaviour
     [SerializeField]
     private int _numberOfRooms;
     [SerializeField]
+    private int _minDistanceBetweenIdenticalRooms = 3;
+    [SerializeField]
     [Range(0, 1)]
     private float _chanceToConnectRooms;
     [SerializeField]
@@ -34,6 +36,7 @@ public class LevelCreator : MonoBehaviour
     [SerializeField]
     private int _maxYPos;
 
+    private Queue<TrialRoomWithEnemies> _trialRoomsHolder = new Queue<TrialRoomWithEnemies>();
     private Room[,] _roomsMap;
     private Room _lastCreatedRoom;
     private int _maxDistanceFromStartRoom;
@@ -73,13 +76,23 @@ public class LevelCreator : MonoBehaviour
             if (TryFindAllAdjacentEmptyPoint(_lastCreatedRoom.MapPoistion, adjacentEmptyPoints) 
                 && _lastCreatedRoom.CanBeConnected)
             {
-                var newRoom = CreateTrialRoomWithEnemies(adjacentEmptyPoints, numberOfGeneratedRooms, distanceFromStartRoom);
+                var roomPrefab = _trialRoomsWithEnemies.GetRandomValue();
+
+                var newRoom = CreateTrialRoomWithEnemies(roomPrefab, adjacentEmptyPoints, distanceFromStartRoom);
 
                 roomCreationStack.Push(newRoom);
                 
                 numberOfGeneratedRooms++;
                 _lastCreatedRoom = newRoom;
                 _createdTrialRoomsWithEnemies.Add(newRoom);
+
+                _trialRoomsWithEnemies.Remove(roomPrefab);
+                _trialRoomsHolder.Enqueue(roomPrefab);
+
+                if(_trialRoomsHolder.Count > _minDistanceBetweenIdenticalRooms)
+                {
+                    _trialRoomsWithEnemies.Add(_trialRoomsHolder.Dequeue());
+                }
 
                 distanceFromStartRoom++;
             }
@@ -142,12 +155,11 @@ public class LevelCreator : MonoBehaviour
 
     }
 
-    private TrialRoomWithEnemies CreateTrialRoomWithEnemies(List<Vector2Int> adjacentEmptyPoints, int roomNumber,
-        int distanceFromStartRoom)
+    private TrialRoomWithEnemies CreateTrialRoomWithEnemies(TrialRoomWithEnemies roomPrefab ,
+        List<Vector2Int> adjacentEmptyPoints, int distanceFromStartRoom)
     {
         var roomMapPos = adjacentEmptyPoints[Random.Range(0, adjacentEmptyPoints.Count)];
         var roomWorldsPos = RoomMapToWorldsPosititon(roomMapPos);
-        var roomPrefab = _trialRoomsWithEnemies[Random.Range(0, _trialRoomsWithEnemies.Count)];
 
         var newRoom = Instantiate(roomPrefab, roomWorldsPos, roomPrefab.transform.rotation);
 
@@ -200,7 +212,8 @@ public class LevelCreator : MonoBehaviour
     {
         foreach (var adjacentRoom in adjacentRooms)
         {
-            if (RandomUtils.RandomBoolean(_chanceToConnectRooms * 100) && adjacentRoom.CanBeConnected)
+            if (RandomUtils.RandomBoolean(_chanceToConnectRooms * 100) && adjacentRoom.CanBeConnected 
+                && !originRoom.IsRoomEquals(adjacentRoom))
             {
                 originRoom.ConnectToRoom(adjacentRoom, _passages.GetRandomValue());
 

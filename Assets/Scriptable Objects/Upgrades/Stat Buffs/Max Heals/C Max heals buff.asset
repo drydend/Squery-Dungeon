@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 581cb0a78f383ae4497fdaad3ac22eb9, type: 3}
   m_Name: C Max heals buff
   m_EditorClassIdentifier: 
-  _value: 5
+  _value: 2

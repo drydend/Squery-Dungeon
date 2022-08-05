@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc2050459bc6c7f47bbe61bfd1525b6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minimapIcon: {fileID: 1515622694917723629, guid: 8a181d76203a28c4390bb8febcb10fb5,
+  _minimapIcon: {fileID: 1537133605512746719, guid: b44c800a79ef70249b67657fd757d2e3,
     type: 3}
   _upperEntrance: {fileID: 2663059203199659547}
   _lowerEntrance: {fileID: 1393160295699477486}
@@ -211,8 +211,10 @@ MonoBehaviour:
   _leftEntrance: {fileID: 3995952297886746702}
   _traps: []
   _connectionsNumber: 1
+  _roomID: 666
   _centreOfRoom: {fileID: 4094646506493291026}
   _roomRadius: 14
+  _compleationRoom: {fileID: 0}
   _bossPrefab: {fileID: 1671120634301265010, guid: 0a772800ccf6f3f4f87fb36c8998ebaa,
     type: 3}
   _spawnPosition: {fileID: 6101111684695657079}

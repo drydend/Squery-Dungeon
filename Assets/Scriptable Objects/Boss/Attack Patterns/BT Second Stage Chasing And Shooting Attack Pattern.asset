@@ -18,7 +18,7 @@ MonoBehaviour:
     type: 3}
   _projectileEffects: []
   _duration: 7
-  _numberOfProjectiles: 20
-  _angleBetweenProjectiles: 9
-  _attackSpeed: 0.9
-  _movementSpeed: 6
+  _numberOfProjectiles: 16
+  _angleBetweenProjectiles: 17.777779
+  _attackSpeed: 1.2
+  _movementSpeed: 4

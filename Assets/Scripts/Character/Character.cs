@@ -19,7 +19,6 @@ public class Character : MonoBehaviour, IHitable, IPushable, IDamageable, IMovea
 
     [SerializeField]
     private AnimationCurve _colorAlfaOnInvulnerable;
-    private Coroutine _currentDashingCoroutine;
     private bool _isDashing;
     private bool _isInvulnerable;
     private bool _isPushed;
@@ -28,8 +27,6 @@ public class Character : MonoBehaviour, IHitable, IPushable, IDamageable, IMovea
     private Rigidbody2D _rigidbody2D;
     private AudioSource _audioSource;
 
-    [SerializeField]
-    private AudioSourceProvider _audioSourceProvider;
     [SerializeField]
     private PolygonCollider2D _colliderForEnemy;
 
@@ -104,7 +101,7 @@ public class Character : MonoBehaviour, IHitable, IPushable, IDamageable, IMovea
 
     public void Dash(Vector2 direction)
     {
-        _currentDashingCoroutine = StartCoroutine(DashCoroutine(direction));
+        StartCoroutine(DashCoroutine(direction));
         _audioSource.PlayOneShot(_dashSound);
     }
 

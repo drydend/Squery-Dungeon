@@ -493,6 +493,11 @@ PrefabInstance:
       propertyPath: _defaultNumberOfProjectiles
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2430817525714816292, guid: 58431b7a4dc4ab1408d0b53aec4604fd,
+        type: 3}
+      propertyPath: _defaultAngleBetweenProjectiles
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 2430817525714816293, guid: 58431b7a4dc4ab1408d0b53aec4604fd,
         type: 3}
       propertyPath: m_RootOrder

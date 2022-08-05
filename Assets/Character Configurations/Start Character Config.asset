@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 812e5c933f0d2ee48a341b88524d2621, type: 3}
   m_Name: Start Character Config
   m_EditorClassIdentifier: 
-  _maxLevel: 100
+  _maxLevel: 30
   _gainedExpMultiplier: 1
   _maxEnergy: 100
   _passiveEnergyRecovery: 11
   _dashCooldown: 1.5
-  _dashDistance: 7
+  _dashDistance: 6
   _dashDuration: 0.2
   _dashEnergyCost: 0
   _dashingPushForce: 14
   _defaultPushForce: 8
   _pushingDuration: 0.3
-  _maxHealsPoints: 10
+  _maxHealsPoints: 8
   _invulnerabilityAfterHitDuration: 1
   _dodgeChance: 0
   _movementSpeed: 6

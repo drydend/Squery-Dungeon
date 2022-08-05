@@ -226,11 +226,11 @@ public class Boss : MonoBehaviour, IEntity, IDamageable, IHitable, IEffectable, 
         Instantiate(_deathParticle, transform.position, Quaternion.identity);
         CameraShaker.Instance.ShakeCamera(_cameraShakeOnDieingDuration, 0.2f, false);
 
-        yield return new WaitForSeconds(_deathParticle.main.duration);
         _audioSource.PlayOneShot(_deathSound);
+        yield return new WaitForSeconds(_deathParticle.main.duration);
         OnDied?.Invoke();
         
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
         Destroy(gameObject);
         OnDefeated?.Invoke();
     }

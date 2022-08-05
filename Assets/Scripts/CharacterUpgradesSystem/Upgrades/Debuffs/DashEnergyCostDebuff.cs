@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(menuName = "Character upgrades/Stat debuff/Dash energy cost", fileName = "Dash energy cost debuff")]
+[CreateAssetMenu(menuName = "Character upgrades/Stat debuff/Dash energy cost", fileName = "Dash Energy Cost debuff")]
 public class DashEnergyCostDebuff : StatUpgrade
 {
     public override void ApplyUpgrade(Player player)

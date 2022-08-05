@@ -22,17 +22,17 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Attack",
+                    "name": "Dash",
                     "type": "Button",
-                    "id": "1027ad0b-3188-44b1-80a6-71c7fe3b5878",
+                    "id": "e450b07f-08e1-4aa8-9714-15bcc00645c4",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 },
                 {
-                    "name": "Dash",
+                    "name": "Attack",
                     "type": "Button",
-                    "id": "e450b07f-08e1-4aa8-9714-15bcc00645c4",
+                    "id": "1027ad0b-3188-44b1-80a6-71c7fe3b5878",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -107,23 +107,23 @@
                 },
                 {
                     "name": "",
-                    "id": "6faa1a12-b206-46c9-9cc0-37f34e0fc43a",
-                    "path": "<Keyboard>/leftShift",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "Mouse and keyboard ",
-                    "action": "Dash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "b6520a14-781f-4ae5-acde-a86351f6246a",
                     "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse and keyboard ",
                     "action": "Mouse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6faa1a12-b206-46c9-9cc0-37f34e0fc43a",
+                    "path": "<Keyboard>/space",
+                    "interactions": "Press(pressPoint=0.2)",
+                    "processors": "",
+                    "groups": "Mouse and keyboard ",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

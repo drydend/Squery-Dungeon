@@ -21,4 +21,4 @@ MonoBehaviour:
   _numberOfProjectiles: 3
   _angleBetweenProjectiles: 120
   _attackSpeed: 0.03
-  _rotatingSpeed: 180
+  _rotatingSpeed: 360

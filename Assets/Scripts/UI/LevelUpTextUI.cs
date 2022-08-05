@@ -5,7 +5,7 @@ using TMPro;
 public class LevelUpTextUI : MonoBehaviour
 {
     [SerializeField]
-    private PlayerLevelController _playerLevelController;
+    private PlayerLevelRewarder _playerLevelController;
     [SerializeField]
     private List<TMP_Text> _text;
 

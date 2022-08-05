@@ -31,6 +31,7 @@ public class PowerUPChoiceMenuUI : UIMenu
     [SerializeField]
     private Button _confrimButton;
 
+    private bool _isOpened = false;
     private List<PowerUPBlank> _currentModificatorsBlanks = new List<PowerUPBlank>();
     private Dictionary<PowerUPRarity, Color> _modificatorBackLightColor = new Dictionary<PowerUPRarity, Color>();
 
@@ -47,8 +48,11 @@ public class PowerUPChoiceMenuUI : UIMenu
 
     public List<PowerUPBlank> Show(List<Modificator> modificators)
     {
-        Open();
-        
+        if (!_isOpened)
+        {
+            Open();
+        }
+
         int positionRelatedToCentre = -(modificators.Count / 2);
 
         for (int i = 0; i < modificators.Count; i++)
@@ -80,7 +84,6 @@ public class PowerUPChoiceMenuUI : UIMenu
         }
 
         _currentModificatorsBlanks.Clear();
-        Close();
     }
 
     public override void Cover()
@@ -96,6 +99,7 @@ public class PowerUPChoiceMenuUI : UIMenu
     public override void Open()
     {
         CanBeClosed = false;
+        _isOpened = true;
         OnMenuOpened();
         _choiceMenu.SetActive(true);
         PauseMenager.Instance.Pause();
@@ -103,6 +107,7 @@ public class PowerUPChoiceMenuUI : UIMenu
 
     public override void Close()
     {
+        _isOpened = false;
         OnMenuClosed();
         _choiceMenu.SetActive(false);
         PauseMenager.Instance.Unpause();

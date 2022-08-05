@@ -7,9 +7,9 @@ public class App
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     public static void Initialize()
     {
-        Application.quitting += () => _saveController.SaveGame(); 
         _saveController = new SaveController();
         _saveController.Initialize();
+        Application.quitting += () => _saveController.SaveGame(); 
     }
 
     public static void Quit()
