@@ -1555,6 +1555,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 780806655386413059, guid: b21a884f174728743bd09b146fc9f4cf,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 780806655386413059, guid: b21a884f174728743bd09b146fc9f4cf,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0000017881392
+      objectReference: {fileID: 0}
+    - target: {fileID: 780806655386413059, guid: b21a884f174728743bd09b146fc9f4cf,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1421162979954414972, guid: b21a884f174728743bd09b146fc9f4cf,
         type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.y
@@ -3495,6 +3510,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 585199841568922013, guid: 1fb0eaad1810f8a43b0e0e3d22d6eae8,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0000017881388
+      objectReference: {fileID: 0}
+    - target: {fileID: 585199841568922013, guid: 1fb0eaad1810f8a43b0e0e3d22d6eae8,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5.000001
       objectReference: {fileID: 0}
     - target: {fileID: 1506478416717309796, guid: 1fb0eaad1810f8a43b0e0e3d22d6eae8,
         type: 3}
@@ -5566,6 +5591,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5988528331277515815}
     m_Modifications:
+    - target: {fileID: 585199841568922013, guid: 1fb0eaad1810f8a43b0e0e3d22d6eae8,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0000017881388
+      objectReference: {fileID: 0}
+    - target: {fileID: 585199841568922013, guid: 1fb0eaad1810f8a43b0e0e3d22d6eae8,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.000001
+      objectReference: {fileID: 0}
     - target: {fileID: 2082290556134321632, guid: 1fb0eaad1810f8a43b0e0e3d22d6eae8,
         type: 3}
       propertyPath: m_Size.y

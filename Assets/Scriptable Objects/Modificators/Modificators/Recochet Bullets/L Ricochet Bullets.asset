@@ -16,5 +16,5 @@ MonoBehaviour:
   _upgrades:
   - {fileID: 11400000, guid: 265e8388db4edb34c8ee94c15429efe6, type: 2}
   _icon: {fileID: 5316251528371429544, guid: f6f606cc4e8ff1c41884f208689e5c83, type: 3}
-  _discription: Bullets recochet from enemy to enemy. Damage decreases each recochet.
+  _discription: Bullets ricochet from enemy to enemy. Damage decreases each ricochet.
   _rarity: 3
